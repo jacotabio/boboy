@@ -45,7 +45,7 @@ if(isset($_POST['chat_content'])){
         foreach($m as $_m){
             if($_m['sender_id'] == $_SESSION['brand_id']){?>
                 <li class="right">
-                    <span class="chat-img pull-right">asd
+                    <span class="chat-img pull-right">
                     <img src="img/logo.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" />
                     </span>
                     <div class="chat-body clearfix">

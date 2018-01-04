@@ -260,7 +260,7 @@ if(isset($_POST['order_info'])){
                     <div class="" style="padding:10px 0px 0px 0px;display:inline-block;">
                       <div class="pull-left" style="padding:8px 16px;">
                         <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Date / Time Ordered</label>
-                        <p class="no-gap" style="font-size:13px;font-weight:400;"><?php $date = new DateTime($oci['created_at']);echo $date->format('M j, Y g:i A');?>asd</p>
+                        <p class="no-gap" style="font-size:13px;font-weight:400;"><?php $date = new DateTime($oci['created_at']);echo $date->format('M j, Y g:i A');?></p>
                       </div>
                       <div class="pull-left" style="padding:8px 16px;">
                       <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Order #</label>
