@@ -8,3 +8,7 @@ xampp-backup/sungem-client/
 xampp-backup/surv/
 sng
 .vscode
+
+sng/admin/
+sng/api/
+sng/classes/
