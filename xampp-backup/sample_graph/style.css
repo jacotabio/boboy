@@ -1,0 +1,16 @@
+body{
+	font-family: calibri;
+}
+#container{
+	width: 49%;
+	height: auto;
+	float: left;
+	border: 2px solid #cacaca;
+}
+
+#graph-container{
+	width: 49%;
+	height: 418px;
+	float: left;
+	border: 2px solid #cacaca;
+}

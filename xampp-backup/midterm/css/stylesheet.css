@@ -1,0 +1,295 @@
+html, body{
+    height: 100%;
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	overflow-x: hidden;
+    background-color: #f7f7f7;
+}
+
+#container{
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+#login-body{
+    background-color: black;
+}
+form#login{
+    padding-top: 200px;
+    border: 1px solid black;
+    display: block;
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    height: 300px;
+    color: white;
+}
+#splash-container{
+    margin-top: 15%;
+    width: 100%;
+    height: 0 auto;
+    text-align: center;
+}
+#navi li a.navi-logo{
+    display: block;
+    width: 100px;
+    height: 0 auto;
+}
+h1{
+    font-size: 40px;
+    font-family: century gothic;
+    letter-spacing: 5px;
+    color: #2c2c2c;
+}
+p{
+    color: #2c2c2c;
+}
+.splash-button{
+    width: 10%;
+    text-decoration: none;
+    color: red;
+    font-size: 16px;
+    font-family: Century Gothic;
+    font-weight: bold;
+    background-color: white;
+    padding: 14px;
+    border: 2px solid red;
+    display: inline-block;
+    margin-top: 2%;
+}
+.splash-button:hover{
+    background-color: red;
+    color: white;
+}
+/* MAIN NAVI */
+#navi ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #171717;
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+#navi li {
+	float: right;
+    font-size: 14px;
+}
+
+#navi li a {
+    display: block;
+    color: #f7f7f7;
+    padding: 15px 20px 15px 20px;
+    text-decoration: none;
+}
+#navi li a:hover{
+	background-color: #ff4b4b;
+}
+
+/* MAIN CONTENT */ 
+
+
+/* SUB NAVI */
+#sub-navigation{
+    float: left;
+    width: 20%;
+	background-color: #2c2c2c;
+	margin-bottom: -5000px;
+    padding-bottom: 5000px;
+    overflow: hidden;
+}
+#sub-content{
+    width: 80%;
+    float: left;
+}
+#sub-navigation ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%; /* Full width */
+
+}
+#sub-navigation li a {
+    display: block;
+    color: #eaeaea;
+    padding: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+#sub-navigation li a:hover{
+	background-color: #ff4b4b;
+	color: white;
+}
+
+/* sub sub navigation */
+#subsub-navigation{
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+#subsub-navigation ul{
+    background-color: #f1f1f1;
+	margin: 0;
+    padding: 0;
+    list-style-type: none;
+    padding: 0px;
+    overflow: hidden;
+    width: 100%; /* Full width */
+}
+#subsub-navigation li {
+	float: left;
+    margin: 0;
+    padding: 0;
+}
+#subsub-navigation li a {
+    margin: 0;
+    padding: 0;
+    display: block;
+    color: #494949;
+    padding: 14px;
+    text-decoration: none;
+    
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#subsub-navigation li a:hover{
+    background-color: #ff4b4b;
+    color: white;
+}
+#subsub-content{
+    width: 100%;
+    float: left;
+}
+
+.wrapper{
+    padding: 30px;
+}
+
+.input-text{
+    padding: 5px;
+}
+.input-button{
+    padding: 5px;
+}
+.col5{
+    padding: 5px;
+}
+.col30{
+    padding: 10px;
+}
+label{
+    font-size: 12px;
+}
+#textboxItem{
+    display: none;
+}
+#textboxAmount{
+    display: none;
+}
+
+/* TABLE STYLES */
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.sponsor-list th{
+    background-color: #eaeaea;
+}
+.sponsor-list tr:nth-child(odd){ 
+        background-color: #eaeaea;
+}
+.sponsor-list tr:nth-child(even){ 
+        background-color: white;
+}
+.table-title{
+    padding-bottom: 10px;
+}
+.padding-topbottom10{
+    padding: 10px 0px 10px 0px;
+}
+.border-bottom{
+
+}
+.text-align-right{
+    text-align: right;
+}
+.text-align-left{
+    text-align: left;
+}
+.remove-link{
+    text-decoration: none;
+    color: blue;
+}
+.warning-msg{
+    padding: 50px;
+    text-align: center;     
+    color: red;
+    font-weight: bold;
+}
+.profile-buttons ul{
+    list-style-type: none;
+    float: right;
+    margin: -40px 0px 0px 0px;
+    padding: 0;
+}
+.profile-buttons ul li{
+    display: inline;
+    font-size: 12px; 
+    font-weight: bold;       
+}
+.profile-buttons ul li a{
+    text-decoration: none;
+    background-color: #e8e8e8;
+    border-radius: 2px;
+    padding: 10px;
+    color: #151515;
+}
+.profile-buttons ul li a:hover{
+    background-color: #dbdbdb;
+}
+
+/*****POP UP FOR EDIT AND DELETE*******/
+#overlay_form{
+    position: absolute;
+    border-radius: 5px;
+    padding: 40px;
+    width: 0 auto;
+    background: #e8e8e8;
+    height: auto;
+    z-index: 200;
+    top: 0;
+    margin-left: 15%;
+    margin-top: 10%;
+}
+#overlay_form label{
+    font-size: 12px;
+}
+#close{
+
+}
+.background_overlay { 
+    position: fixed; 
+    left: 0px; 
+    top: 0px; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+    background: black; 
+    opacity: 0.6;
+}
+.popup{
+    float: right;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

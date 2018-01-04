@@ -1,0 +1,1 @@
+SELECT msg_id,messages.convo_id,brand_name,msg,messages.created_at FROM messages,conversations,users WHERE conversations.convo_id = messages.convo_id AND show_notif = 1

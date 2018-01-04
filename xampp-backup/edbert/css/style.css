@@ -1,0 +1,283 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+/* navigation bar */
+#navigation{
+    padding: 0;
+}
+#navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #00897B;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+#navigation li {
+  float: left;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+#navigation li a {
+    display: block;
+    color: white;
+    padding: 19px;
+    font-size: 18px;
+    text-decoration: none;
+}
+#navigation li a:hover{
+  background-color: #076262;
+  transition: 0.3s;
+}
+#navigation li.last{
+    float: right;
+}
+
+/* Main content */
+.main {
+    margin-top: 40px; /* Add a top margin to avoid content overlay */
+}
+.search{
+    width: 300px;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+    border-radius: 2px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;    
+}
+/* sub-content */
+#sub-navigation{
+    overflow: hidden;
+    position: fixed;
+    margin-bottom: -5000px;
+    padding-bottom: 5000px;
+    width: 20%;
+    height: 100%;
+    background-color: #FAFAFA;
+}
+#sub-content-container{
+    float: left;
+    margin-left: 20%;
+    width: 80%;
+    overflow-y: visible;
+}
+#sub-content-container h2{
+    color: #00897B;
+}
+
+#sub-content{
+    padding: 30px;
+}
+#sub-navigation h3{
+    font-size: 14px;
+    margin: 0;
+    padding: 14px;
+    padding-left: 10%;
+    color: #00897B;
+}
+#sub-navigation ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #FAFAFA;
+    width: 100%; /* Full width */
+    font-size: 14px;
+}
+#sub-navigation li a {
+    display: block;
+    padding: 14px;
+    text-decoration: none;
+    padding-left: 10%;
+    color: black;
+}
+#sub-navigation li a:hover{
+  background-color: #e1e1e1;
+  transition: 0.2s;
+}
+/* sub sub navigation */
+#subsub-navigation ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4DB6AC;
+    position: fixed; /* Set the navbar to fixed position */
+    width: 100%; /* Full width */
+}
+#subsub-navigation li {
+    float: left;
+    font-weight: bold;
+    font-size: 14px;
+}
+#subsub-navigation li a {
+    display: block;
+    color: white;
+    padding: 14px;
+    text-decoration: none;
+}
+#subsub-navigation li a:hover{
+    background-color: #80CBC4;
+    transition: 0.2s;
+}
+#subsub-content{
+    padding: 60px;
+    width: 100%;
+}
+#subsub-content-title p{
+    float: right;
+    position: absolute;
+}
+#gapper{
+    height: 45px;
+}
+.center-align{
+    margin: 0 auto;
+    text-align: center;
+}
+.control-buttons{
+    text-decoration: none;
+    color: #00897B;
+    font-family: 
+}
+.note{
+    padding-top: 80px;
+    text-align: center;
+}
+.top3{
+    margin-top: 3%;
+}
+.col30{
+    width: 30%;
+    padding: 8px;
+}
+.col40{
+    width: 40%;
+    padding: 8px;
+}
+.col5{
+    width: 5%;
+    padding: 8px;
+}
+.col10{
+    width: 10%;
+    padding: 8px;
+}
+.col15{
+    width: 15%;
+    padding: 8px;
+}
+.col20{
+    width: 20%;
+    padding: 8px;
+}
+.col25{
+    width: 25%;
+    padding: 8px;
+}
+.input-text{
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #04a0a0;
+    padding: 4px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: #f5f5f5;
+}
+.input-button{
+    text-align: center;
+    margin-top: 10%;
+    float: right;
+    width: 100%;
+    padding: 10px 30px 10px 30px;
+    border: 1px solid #008080;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Roboto', 'Helvetica';
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    background-color: #008080;
+    transition: 0.2s;
+}
+.input-button:hover{
+    border: 1px solid #008080;
+    background-color: white;
+    color: #008080;
+    transition: 0.2s;
+}
+.input-button:focus {
+  outline: none;
+}
+/* table design */
+#table-title{
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+#table-content{
+    font-size: 14px;
+    color: #555555;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table, td, th, tr{
+    border-bottom: 1px solid #d1d1d1;
+    padding: 14px;
+}
+.align-right{
+    text-align: right;
+}
+.align-center{
+    text-align: center;
+}
+/* EDBERT POPUP EDIT BUTTON CSS*/
+#overlay_form{
+    position: absolute;
+    border: 5px solid lightblue;
+    padding: 50px;
+    background: white;
+    width: 20%;
+    height: auto;
+    z-index: 200;
+    top: 0;
+    margin-top: 100px;
+    margin-left: 200px;
+}
+#overlay_form #textField{
+}
+#pop{
+    display: block;
+    border: 1px solid gray;
+    width: 65px;
+    padding: 6px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0 auto;
+    z-index: 100;
+}
+.background_overlay { 
+    position: fixed; 
+    padding: 100px;
+    left: 0px; 
+    top: 0px; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+    background:black; 
+    opacity: 0.5;}
+
+/*END OF EDBERT POP UP COPIED CSS*/

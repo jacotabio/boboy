@@ -1,0 +1,198 @@
+/* The navigation bar */
+body{
+    font-family: 'Roboto', Helvetica, sans-serif;
+}
+#navigation{
+    margin-left: -8px;
+    padding: 0;
+}
+#navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #01579B;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+#navigation li {
+    float: left;
+}
+
+#navigation li a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+/* sub-navigation */
+#sub-navigation{
+    float: left;
+    width: 12%;
+}
+#sub-content{
+    float: left;
+    width: 80%;
+}
+#sub-navigation ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0288D1;
+    
+}
+#sub-navigation li a {
+    display: block;
+    color: white;
+    padding: 14px;
+    text-decoration: none;
+}
+/* Main content */
+.main {
+    margin-top: 40px; /* Add a top margin to avoid content overlay */
+    padding-top: 20px;
+}
+#tab_content{
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+#tab_content a {
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+#tab_content a:hover {
+    display: block;
+    color: #beefed;
+    text-decoration: none;
+}
+.tab_item{
+    width: 120px;
+    height: 120px;
+    margin: 20px;
+    border: 2px solid #000;
+    text-align: center;
+    line-height: 120px;
+    float: left;
+    font-size: 24px;
+}
+
+.stat1{
+    background-color: #06d472;
+}
+.stat2{
+    background-color: #fddb11;
+}
+
+#sub-product{
+    width: 32%;
+    height: 500px;
+    border: 1px solid #000;
+    float: left;
+    margin: 10px;
+}
+#sub-product ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;    
+}
+#sub-product li a {
+    margin: 2px;
+    display: block;
+    color: #0288D1;
+    padding: 14px;
+    text-decoration: none;
+    border: 1px solid #0288D1;
+    width: 40%;
+    float: left;
+}
+#sub-product li a:active {
+    margin: 2px;
+    display: block;
+    color: #0288D1;
+    padding: 14px;
+    text-decoration: none;
+    background-color: #beefed;
+    border: 1px solid #0288D1;
+}
+#sub-status{
+    width: 32%;
+    height: 30px;
+    float: left;
+}
+#sub-order{
+    width: 32%;
+    height: 390px;
+    border: 1px solid #000;
+    float: left;
+    margin: 10px;
+    overflow-y: hidden;
+}
+.prodcart{
+    width: 90%;
+}
+#naviorder{
+    width: 32%;
+    height: 90px;
+    border: 0 solid #000;
+    float: left;
+    margin: 10px;
+}
+#naviorder ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;    
+}
+#naviorder a {
+    display: block;
+    color: #fff;
+    margin: 6px;
+    text-decoration: none;
+    width: 20%;
+    height: 60px;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 60px;
+    font-size: 1em;
+    background-color: #5784cc;
+    float: left;
+}
+.disable a{
+    color: #000;
+}
+#wrapper-cart{
+    width: 100%;
+    height: 360px;
+    overflow-y: scroll;
+}
+.order-label{
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+#loginbox{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+#loginbox input{
+    margin: 10px;
+    font-size: 14px;
+}
+#loginbox input[type=submit]{ 
+    width: 20%;
+    height: 60px;
+    color: #fff;
+    background-color: #5784cc;
+}
+.status-label{
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+}
