@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.1.19-MariaDB - mariadb.org binary distribution
+-- Server version:               10.1.13-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win32
--- HeidiSQL Version:             9.4.0.5125
+-- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `convo_id` (`convo_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.messages: ~15 rows (approximately)
+-- Dumping data for table db_boboy.messages: ~16 rows (approximately)
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`msg_id`, `convo_id`, `msg`, `sender_id`, `created_at`, `show_notif`) VALUES
 	(35, 8, 'hoy', 1, '2018-01-08 14:40:22', 1),
@@ -182,13 +182,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `usr_id` int(8) NOT NULL DEFAULT '0',
   `delivery_address` longtext NOT NULL,
   `contact_number` varchar(50) NOT NULL,
-  `service_fee` float(10,2) NOT NULL DEFAULT '0.00',
+  `custom_fee` float(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`order_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=20000233 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table db_boboy.orders: 1 rows
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`order_id`, `order_total`, `created_at`, `order_status`, `usr_id`, `delivery_address`, `contact_number`, `service_fee`) VALUES
+INSERT INTO `orders` (`order_id`, `order_total`, `created_at`, `order_status`, `usr_id`, `delivery_address`, `contact_number`, `custom_fee`) VALUES
 	(20000232, 30.00, '2018-01-08 14:25:54', 0, 2, 'Ubiquity Global Services, Negros First Cybercentre, Bacolod City', '09437095893', 0.00);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
