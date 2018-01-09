@@ -3,17 +3,18 @@ class Brands{
   public $db;
   
   public function __construct(){
-    $this->db = new mysqli(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    if(mysqli_connect_errno()){
-      echo "Database connection error.";
+    try{
+    $this->db = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_DATABASE, DB_USERNAME, DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
+    }catch(PDOException $e){
+      echo "Connection failed: " . $e->getMessage();
       exit;
     }
   }
 
   public function get_brands(){
-    $sql = "SELECT * FROM brands";
-    $result = mysqli_query($this->db,$sql);
-    while($row = mysqli_fetch_array($result)){
+    $query = $this->db->prepare("SELECT * FROM brands");
+    $query->execute();
+    while($row = $query->fetch(PDO::FETCH_ASSOC)){
       $list[] = $row;
     }
     if(!empty($list)){
@@ -22,8 +23,7 @@ class Brands{
   }
 
   public function change_brand_status($bid,$status,$checker){
-    $db = new PDO("mysql:host=localhost;dbname=db_sleepnotgo", "root", "");
-    $query = $db->prepare("UPDATE brands SET brand_status = ?, update_checker = ? WHERE brand_id = ?");
+    $query = $this->db->prepare("UPDATE brands SET brand_status = ?, update_checker = ? WHERE brand_id = ?");
     $query->bindParam(1,$status);
     $query->bindParam(2,$checker);
     $query->bindParam(3,$bid);
@@ -31,8 +31,7 @@ class Brands{
   }
   
   public function realtime_brand_checker(){
-    $db = new PDO("mysql:host=localhost;dbname=db_sleepnotgo", "root", "");
-    $query = $db->prepare("SELECT * FROM brands WHERE update_checker = 1");
+    $query = $this->db->prepare("SELECT * FROM brands WHERE update_checker = 1");
     $query->execute();
 
     while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -46,8 +45,7 @@ class Brands{
 
 
   public function get_all_brand_status(){
-    $db = new PDO("mysql:host=localhost;dbname=db_sleepnotgo", "root", "");
-    $query = $db->prepare("SELECT * FROM brands");
+    $query = $this->db->prepare("SELECT * FROM brands");
     $query->execute();
 
     while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -61,8 +59,7 @@ class Brands{
 
   
   public function get_brand_status($id){
-    $db = new PDO("mysql:host=localhost;dbname=db_sleepnotgo", "root", "");
-    $query = $db->prepare("SELECT brand_status FROM brands WHERE brand_id = ?");
+    $query = $this->db->prepare("SELECT brand_status FROM brands WHERE brand_id = ?");
     $query->bindParam(1,$id);
     $query->execute();
 
@@ -72,8 +69,9 @@ class Brands{
   }
 
   public function add_brand($value){
-    $sql = "INSERT INTO brands(brand_name) VALUES('$value')";
-    $result = mysqli_query($this->db,$sql) or die(mysql_error() . "Cannot Insert Data");
-    return $this->db->insert_id;
+    $query = $this->db->prepare("INSERT INTO brands(brand_name) VALUES(?)");
+    $query->bindParam(1,$value);
+    $query->execute();
+    return $this->db->lastInsertId();
   }
 }

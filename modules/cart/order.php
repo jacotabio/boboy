@@ -27,7 +27,7 @@ if(isset($_POST['submit_order'])){
     exit;
   }*/
 
-  
+  $jsonArray = array();
 
   function array_map_r( $func, $arr ){
       $newArr = array();
@@ -36,13 +36,9 @@ if(isset($_POST['submit_order'])){
       {
           $newArr[ $key ] = ( is_array( $value ) ? array_map_r( $func, $value ) : ( is_array($func) ? call_user_func_array($func, $value) : $func( $value ) ) );
       }
-
       return $newArr;
   } 
-
-  if($sanitized_data = array_map_r('strip_tags', $_POST)){
-    echo "input_invalid";
-  }else{
+  $sanitized_data = array_map_r('strip_tags', $_POST);
 
     $cinfo = $user->user_contact_info($_SESSION['usr_id']);
 
@@ -66,10 +62,14 @@ if(isset($_POST['submit_order'])){
       }
       $item->insert_order_total($order_id,$item->cart_sum_total($fixed_usr));
       $item->empty_cart($fixed_usr);
-      echo "order_success";
+
+      
+      $jsonArray['code'] = "order_success";
+      $jsonArray['order_id'] = $order_id;
+      echo json_encode($jsonArray);
       exit;
     }else{
-      echo "empty_cart";
+      $jsonArray['code'] = "empty_cart";
+      echo json_encode($jsonArray);
     }
-  }
 }

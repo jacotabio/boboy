@@ -9,7 +9,7 @@ $password = $_POST['password'];
 $email = stripslashes($email);
 $password = stripslashes($password);
 
-$login = $user->check_login($email,$password);
+$login = $user->check_login($email,md5($password));
 if($login){
   echo "login_success";
 }else{

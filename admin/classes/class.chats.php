@@ -11,16 +11,28 @@ class Chats{
     }
   }
 
-  public function get_convo($uid,$bid){
+  public function get_convo($admin,$bid){
     //
     $query = $this->db->prepare("SELECT convo_id AS cid,COUNT(convo_id) AS result FROM conversations WHERE usr_id = ? AND brand_id = ?");
-    $query->bindParam(1,$uid);
+    $query->bindParam(1,$admin);
     $query->bindParam(2,$bid);
     $query->execute();
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     if(!empty($row['cid'])){
       return $row['cid'];
+    }
+  }
+
+  public function get_name($id){
+    //
+    $query = $this->db->prepare("SELECT usr_name FROM users WHERE usr_id = ?");
+    $query->bindParam(1,$id);
+    $query->execute();
+
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    if(!empty($row['usr_name'])){
+      return $row['usr_name'];
     }
   }
   
@@ -102,12 +114,7 @@ class Chats{
     }
   }
 
-  public function send_message($uid,$bid,$msg,$utype){
-    if($utype == 1){
-      $sender = $uid;
-    }else{
-      $sender = $bid;
-    }
+  public function send_message($uid,$bid,$msg){
 
     // Get usr_id of the order
     $query = $this->db->prepare("SELECT convo_id AS cid FROM conversations WHERE usr_id = ? AND brand_id = ?");
@@ -128,17 +135,17 @@ class Chats{
       $send = $this->db->prepare("INSERT INTO messages(convo_id,msg,sender_id,created_at,show_notif) VALUES(?,?,?,NOW(),1)");
       $send->bindParam(1,$convo);
       $send->bindParam(2,$msg);
-      $send->bindParam(3,$sender);
+      $send->bindParam(3,$uid);
       $send->execute();
       return true;
     }else{
       $send = $this->db->prepare("INSERT INTO messages(convo_id,msg,sender_id,created_at,show_notif) VALUES(?,?,?,NOW(),1)");
       $send->bindParam(1,$convo);
       $send->bindParam(2,$msg);
-      $send->bindParam(3,$sender);
+      $send->bindParam(3,$uid);
       $send->execute();
       return true;
     }
   }
-  
+
 }

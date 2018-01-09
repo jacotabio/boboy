@@ -1,23 +1,83 @@
-
+var b_chatid;
+var current;
 $(document).ready(function(){
-  $("#loginform").on("submit",function(e){
-    e.preventDefault();
-    $("#btn-login").prop("disabled",true);
-    $.ajax({
-      url:"../login/ajax.php",
-      method:"POST",
-      data:$(this).serialize(),
-      success:function(data){
-        if(data == "login_success"){
-          window.location = "/admin/";
+    $("body").on("click",".btn-chat", function(e){
+        b_chatid = $(this).val();
+        if($("#chat-modal").modal()){
+            $("#chat-modal-title").html(b_chatid);
+            loadChat(b_chatid);
         }
-        if(data == "login_failed"){
-          alert("Username or password does not exist");
-        }
-        $("#btn-login").prop("disabled",false);
-      }
     });
-  });
+    $("#loginform").on("submit",function(e){
+        e.preventDefault();
+        $("#btn-login").prop("disabled",true);
+        $.ajax({
+            url:"../login/ajax.php",
+            method:"POST",
+            data:$(this).serialize(),
+            success:function(data){
+            if(data == "login_success"){
+                window.location = "/admin/";
+            }
+            if(data == "login_failed"){
+                alert("Username or password does not exist");
+            }
+            $("#btn-login").prop("disabled",false);
+            }
+        });
+    });
+
+    $("#form-chat").on("submit",function(e){
+        e.preventDefault();
+        var msg = $("#chat-input-message").val();
+        if(msg == "" || msg == null){
+    
+        }else{
+          var data = $(this).serializeArray();
+          data.push({name: 'brand_id', value: b_chatid});
+          $("#chat-input-message").val("");
+          $.ajax({
+            url:"modules/chat/send_message.php",
+            method:"POST",
+            data: data,
+            success:function(data){
+                if(data == "message_sent"){
+                    loadChat(b_chatid);
+                }
+                if(data == "message_failed"){
+    
+                }
+            }
+          });
+        }
+    });
+
+    function loadChat(b_chatid){
+        var cac = $("#chat-ajax-content");
+        current_content = cac.html();
+        $.ajax({
+          url: "modules/chat/ajax.php",
+          method: "POST",
+          data:{
+            "chat_content": 1,
+            "brand_id":b_chatid
+          },
+          success: function(data){
+            if(current == null || current == ""){
+              setTimeout(function() {
+                scrollBottomChat();
+              }, 500);
+            }
+            if(current != data) {
+              current = data;
+              cac.html(data);
+              setTimeout(function(){
+                scrollBottomChat();
+              },100);
+            }
+          }
+        });
+    }
 
     var tblpen = $('#table-pending-orders').DataTable( {
         columnDefs: [
@@ -39,7 +99,6 @@ $(document).ready(function(){
             { "data": "price"},
             { "data": "status" }
         ],
-        
         oLanguage:{
             sProcessing: "Loading orders",
             sZeroRecords: "No orders"
@@ -49,6 +108,10 @@ $(document).ready(function(){
     setInterval( function () {
         tblpen.ajax.reload();
     }, 5000 );
+    
+    function scrollBottomChat(){
+        $(".chat-panel-body").animate({ scrollTop: $('.chat-panel-body').prop("scrollHeight")}, 250);
+    };
 
     $('#table-pending-orders').on( 'click', 'tr', function () {
         // Get the rows id value

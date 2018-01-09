@@ -1,0 +1,34 @@
+<div class="modal" id="chat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="">
+      <div class="container-fluid no-gap" style="padding:0;">
+        <div class="row no-gap">
+            <div class="col-md-12 no-gap" style="padding:0;">
+                <div class="panel panel-primary" style="">
+                    <div class="panel-heading">
+                        <span id="chat-modal-title">Chat</span>
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-primary btn-xs" style="background:none;border:none;outline:none;box-shadow:none;margin-left:4px;" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>Close</button>
+                        </div>
+                    </div>
+                    <div class="chat-panel-body" style="background-color:rgba(0,0,0,0.05);">
+                        <div id="chat-ajax-content">
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                      <form id="form-chat">
+                        <div class="input-group">
+                            <input id="chat-input-message" name="chat-input-message" autocomplete="off" type="text" class="form-control input-sm" style="border-radius:0;" placeholder="Type a message..." autofocus/>
+                            <span class="input-group-btn">
+                                <button type="submit" style="border-radius:0;" class="btn btn-themecolor btn-sm" id="btn-send-chat"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Send</button>
+                            </span>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- modal-dialog -->
+</div><!-- modal -->

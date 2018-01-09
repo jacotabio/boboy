@@ -27,7 +27,8 @@ $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="css/chat.css" rel="stylesheet">
+    <link href="../assets/plugins/bootstrap/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="css/colors/megna.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -254,7 +255,10 @@ $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
     <!-- Style switcher -->
     <!-- ============================================================== -->
 	<script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/plugins/jquery/jquery.dataTables.min.js"></script>
+    <?php
+    require_once 'modules/modals/admin_modals.php';
+    ?>
 </body>
 
 </html>

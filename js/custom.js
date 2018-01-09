@@ -749,17 +749,17 @@ $(document).ready(function(){
       url: 'modules/cart/order.php',
       method: 'POST',
       data: sub,
+      dataType: 'json',
       success: function(data){
-        if(data == "input_invalid"){
-          alert("dirty input pls fix it!");
-        }
-        if(data == "order_success"){
+        if(data['code'] == "order_success"){
           $("#custom-delivery-modal").modal('hide');
           $("#cart_success").modal();
+          //data['order_id']
+          $("#order-status-link").attr("href","/?mod=profile&t=orders&o_id="+data['order_id']);
           displayCartTable();
           updateCartCounter();
         }
-        if(data == "empty_cart"){
+        if(data['code'] == "empty_cart"){
           $("#custom-delivery-modal").modal('hide');
           $("#error-modal").modal();
         }
