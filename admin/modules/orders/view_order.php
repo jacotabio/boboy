@@ -1,6 +1,6 @@
 <?php
 include 'classes/class.orders.php';
-$currency = "";
+$currency = "₱ ";
 $order = new Orders();
 $get = $order->order_details($_GET['o']);
 if(!$get){
@@ -67,7 +67,7 @@ if(!$get){
                       <?php
                         foreach($oitem as $oi){
                           if($oib['brand_id'] == $oi['brand_id']){?>
-                            <li class="list-group-item oi-status-<?php echo $oi['oi_status'];?>"><span class=""></span><?php echo $oi['item_name'];?><span class="float-right"><?php echo $currency.$oi['oi_subtotal'];?></span></li>
+                            <li class="list-group-item oi-status-<?php echo $oi['oi_status'];?>"><span class=""></span><?php echo $oi['oi_qty']." x ".$oi['item_name'];?><?php echo $oi['oi_status'];?><span class="float-right"><?php echo $currency.$oi['item_price'];?></span></li>
                           <?php
                           }
                         }?>
@@ -82,12 +82,11 @@ if(!$get){
                   <div class="col-lg-5">
                     <label class="label-title">Order Summary</label>
                     <ul class="list-group" style="display:inline-block;width:100%;">
-                      <li class="list-group-item clearfix">Number of Items<span class="float-right">123</span></li>
-                      <li class="list-group-item list-borderless">Subtotal</li>
-                      <li class="list-group-item list-borderless">Service Fee</li>
-                      <li class="list-group-item">Total</li>
+                      <li class="list-group-item">Number of Items<span id="od-noi" class="float-right">Loading..</span></li>
+                      <li class="list-group-item list-borderless">Subtotal<span id="od-st" class="float-right">Loading..</span></li>
+                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right">Loading..</span></li>
+                      <li class="list-group-item">Total<span id="od-tt" class="float-right">Loading..</span></li>
                     </ul>
-                    
                   </div>
                 </div>
             </div>

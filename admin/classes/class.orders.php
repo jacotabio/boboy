@@ -11,6 +11,14 @@ class Orders{
     }
   }
 
+  public function get_order_summary($id){
+    $query = $this->db->prepare("SELECT order_total,custom_fee,order_total+custom_fee AS total,SUM(oi_qty) AS noi FROM orders,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ?");
+    $query->bindParam(1,$id);
+    $query->execute();
+
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    return $row;
+  }
   public function pending_orders(){
     $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,order_status FROM orders,users WHERE orders.usr_id = users.usr_id");
     $query->execute();
@@ -24,7 +32,7 @@ class Orders{
   }
 
   public function order_details($id){
-    $query = $this->db->prepare("SELECT order_id,order_total,created_at,order_status,usr_name,delivery_address,contact_number,service_fee FROM orders,users WHERE order_id = ? AND orders.usr_id = users.usr_id");
+    $query = $this->db->prepare("SELECT order_id,order_total,created_at,order_status,usr_name,delivery_address,contact_number,custom_fee FROM orders,users WHERE order_id = ? AND orders.usr_id = users.usr_id");
     $query->bindParam(1,$id);
     $query->execute();
 
@@ -37,7 +45,7 @@ class Orders{
   }
 
   public function get_oitems($id){
-    $query = $this->db->prepare("SELECT * FROM oitem,items WHERE order_id = ? AND items.item_id = oitem.item_id ORDER BY brand_id");
+    $query = $this->db->prepare("SELECT *,items.item_price FROM oitem,items WHERE order_id = ? AND items.item_id = oitem.item_id ORDER BY brand_id");
     $query->bindParam(1,$id);
     $query->execute();
 

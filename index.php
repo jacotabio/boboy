@@ -19,7 +19,7 @@ $order = new Orders();
 // Global variables
 $brandname = "Boboy";
 $currency = "₱";
-$servicefee = 100;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

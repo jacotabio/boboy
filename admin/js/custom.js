@@ -1,6 +1,48 @@
 var b_chatid;
+var order_id;
 var current;
+
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+  }
+};
+
 $(document).ready(function(){
+    order_id = getUrlParameter('o');
+    loadOrderSummary(order_id);
+
+    function loadOrderSummary(order_id){
+        var data
+        $.ajax({
+            url: "modules/orders/ajax.php",
+            method: "POST",
+            data:{
+                "order_summary":1,
+                "order_id":order_id
+            },
+            dataType: "json",
+            success:function(data){
+                $("#od-st").html(data["order_total"]);
+                $("#od-sf").html(data["custom_fee"]);
+                $("#od-tt").html(data["total"]);
+                $("#od-noi").html(data["noi"]);
+            }
+            ,error:function(e){
+                //alert("ajax failed");
+            }
+        });
+    }
+
     $("body").on("click",".btn-chat", function(e){
         b_chatid = $(this).val();
         if($("#chat-modal").modal()){
