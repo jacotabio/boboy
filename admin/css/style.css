@@ -44,3 +44,7 @@ button, input, optgroup, select, textarea{
 .oi-status-2{
   color:rgba(0,0,0,0.3);
 }
+.circle:before {
+  content: ' \25CF';
+  font-size: 14px;
+}

@@ -67,7 +67,7 @@ if(!$get){
                       <?php
                         foreach($oitem as $oi){
                           if($oib['brand_id'] == $oi['brand_id']){?>
-                            <li class="list-group-item oi-status-<?php echo $oi['oi_status'];?>"><span class=""></span><?php echo $oi['oi_qty']." x ".$oi['item_name'];?><?php echo $oi['oi_status'];?><span class="float-right"><?php echo $currency.$oi['item_price'];?></span></li>
+                            <li class="list-group-item oi-status-<?php echo $oi['oi_status'];?>"><span class="circle">&nbsp;&nbsp;&nbsp;</span><?php echo $oi['oi_qty']." x ".$oi['item_name'];?><span class="float-right"><?php echo $currency.$oi['item_price'];?></span></li>
                           <?php
                           }
                         }?>
