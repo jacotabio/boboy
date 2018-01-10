@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `subtotal` float(10,2) NOT NULL DEFAULT '0.00',
   `usr_id` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10000342 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10000364 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table db_boboy.cart: 0 rows
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
@@ -69,13 +69,15 @@ CREATE TABLE IF NOT EXISTS `conversations` (
   PRIMARY KEY (`convo_id`),
   KEY `usr_id` (`usr_id`),
   KEY `brand_id` (`brand_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.conversations: ~2 rows (approximately)
+-- Dumping data for table db_boboy.conversations: ~4 rows (approximately)
 /*!40000 ALTER TABLE `conversations` DISABLE KEYS */;
 INSERT INTO `conversations` (`convo_id`, `usr_id`, `brand_id`, `created_at`) VALUES
 	(8, 1, 15, '2018-01-08 14:40:22'),
-	(9, 1, 14, '2018-01-08 14:43:23');
+	(9, 1, 14, '2018-01-08 14:43:23'),
+	(10, 2, 14, '2018-01-10 02:14:42'),
+	(11, 2, 15, '2018-01-10 04:09:39');
 /*!40000 ALTER TABLE `conversations` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.fees
@@ -129,12 +131,12 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `show_notif` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`msg_id`),
   KEY `convo_id` (`convo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.messages: ~16 rows (approximately)
+-- Dumping data for table db_boboy.messages: ~25 rows (approximately)
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`msg_id`, `convo_id`, `msg`, `sender_id`, `created_at`, `show_notif`) VALUES
-	(35, 8, 'hoy', 1, '2018-01-08 14:40:22', 1),
+	(35, 8, 'hoy', 1, '2018-01-08 14:40:22', 0),
 	(36, 9, 'yow', 1, '2018-01-08 14:43:23', 0),
 	(37, 9, 'pst', 1, '2018-01-08 14:43:32', 0),
 	(38, 9, 'may customer ka da', 1, '2018-01-08 14:43:56', 0),
@@ -149,7 +151,19 @@ INSERT INTO `messages` (`msg_id`, `convo_id`, `msg`, `sender_id`, `created_at`, 
 	(47, 9, 'asd', 1, '2018-01-08 14:46:22', 0),
 	(48, 9, 'ass', 1, '2018-01-08 14:46:22', 0),
 	(49, 9, 'ad', 1, '2018-01-08 14:46:22', 0),
-	(50, 9, 'may customer ka da', 1, '2018-01-08 14:46:35', 0);
+	(50, 9, 'may customer ka da', 1, '2018-01-08 14:46:35', 0),
+	(51, 9, 'Hoy', 1, '2018-01-09 06:08:39', 0),
+	(52, 9, 'linti', 1, '2018-01-09 06:08:40', 0),
+	(53, 9, 'hi', 1, '2018-01-09 06:09:09', 0),
+	(54, 9, 'send nudes', 1, '2018-01-09 06:09:18', 0),
+	(55, 9, '&lt;script&gt;alert(&quot;asd&quot;);&lt;/script&gt;', 1, '2018-01-09 06:09:38', 0),
+	(56, 10, 'sir', 2, '2018-01-10 02:14:42', 0),
+	(57, 11, 'wala kami sugar ', 15, '2018-01-10 04:09:39', 0),
+	(58, 11, 'asd', 15, '2018-01-10 04:09:56', 0),
+	(59, 11, 'sensiya gid', 15, '2018-01-10 04:10:07', 0),
+	(60, 10, 'asd', 2, '2018-01-10 05:19:29', 0),
+	(61, 9, 'may customer ka da ay', 1, '2018-01-10 05:22:43', 0),
+	(62, 8, 'alert may customer ka', 1, '2018-01-10 05:22:54', 0);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.oitem
@@ -165,12 +179,15 @@ CREATE TABLE IF NOT EXISTS `oitem` (
   PRIMARY KEY (`oi_id`),
   KEY `item_id` (`item_id`,`order_id`),
   KEY `usr_id` (`usr_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50000279 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=50000301 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.oitem: 1 rows
+-- Dumping data for table db_boboy.oitem: 7 rows
 /*!40000 ALTER TABLE `oitem` DISABLE KEYS */;
 INSERT INTO `oitem` (`oi_id`, `order_id`, `item_id`, `oi_qty`, `oi_subtotal`, `usr_id`, `oi_status`, `oi_delivery`) VALUES
-	(50000278, 20000232, 19, 1, 30.00, 2, 0, 0);
+	(50000300, 20000243, 17, 1, 45.00, 2, 0, 0),
+	(50000299, 20000243, 30, 1, 145.00, 2, 2, 0),
+	(50000298, 20000242, 17, 1, 45.00, 2, 0, 0),
+	(50000297, 20000242, 30, 1, 145.00, 2, 0, 0);
 /*!40000 ALTER TABLE `oitem` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.orders
@@ -184,12 +201,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `contact_number` varchar(50) NOT NULL,
   `custom_fee` float(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20000233 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20000244 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.orders: 1 rows
+-- Dumping data for table db_boboy.orders: 4 rows
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`order_id`, `order_total`, `created_at`, `order_status`, `usr_id`, `delivery_address`, `contact_number`, `custom_fee`) VALUES
-	(20000232, 30.00, '2018-01-08 14:25:54', 0, 2, 'Ubiquity Global Services, Negros First Cybercentre, Bacolod City', '09437095893', 0.00);
+	(20000243, 45.00, '2018-01-10 05:49:40', 0, 2, 'Ubiquity Global Services, Negros First Cybercentre, Bacolod City', '09437095893', 0.00);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.users
