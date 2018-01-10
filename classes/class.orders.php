@@ -56,10 +56,20 @@ class Orders{
     return $query->execute();
   }
 
-  public function decline_cpanel_order($id){
+  public function decline_cpanel_order($id,$oid){
+    $minus = $this->db->prepare("SELECT oi_subtotal FROM oitem WHERE oi_id = ?");
+    $minus->bindParam(1,$id);
+    $minus->execute();
+    $value = $minus->fetch(PDO::FETCH_ASSOC);
+
     $query = $this->db->prepare("UPDATE oitem SET oi_status = 2 WHERE oi_id = ?");
     $query->bindParam(1,$id);
-    return $query->execute();
+    $query->execute();
+
+    $deduct = $this->db->prepare("UPDATE orders SET order_total = order_total - ? WHERE order_id = ?");
+    $deduct->bindParam(1,$value);
+    $deduct->bindParam(2,$oid);
+    return $deduct->execute();
   }
 
   public function remove_oi($id,$oid,$bid){
@@ -194,12 +204,12 @@ class Orders{
   }
 
   public function count_pending_items($oid){
-    $q1 = $this->db->prepare("SELECT COUNT(oi_id) AS total_pending FROM oitem WHERE order_id = ? AND usr_id = ? AND oi_status = 0");
+    $q1 = $this->db->prepare("SELECT COUNT(oi_id) AS total_pending FROM oitem WHERE order_id = ? AND oi_status = 0");
     $q1->bindParam(1,$oid);
     $q1->execute();
 
-    $row1 = $q1->fetch(PDO::FETCH_ASSOC);
-    $total_pending = $row1['total_pending'];
+    $row = $q1->fetch(PDO::FETCH_ASSOC);
+    return $row['total_pending'];
   }
 
   public function cancel_order($oid,$total){
@@ -343,7 +353,7 @@ class Orders{
   }
 
   public function check_ready_votes($oid,$bid){
-    $query = $this->db->prepare("SELECT COUNT(oi_status) AS votes FROM oitem,items WHERE oitem.item_id = items.item_id AND order_id = ? AND oi_delivery = 0");
+    $query = $this->db->prepare("SELECT COUNT(oi_status) AS votes FROM oitem,items WHERE oitem.item_id = items.item_id AND order_id = ? AND oi_status = 1 AND oi_delivery = 0");
     $query->bindParam(1,$oid);
     $query->execute();
 

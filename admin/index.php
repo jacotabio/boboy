@@ -28,6 +28,7 @@ $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/chat.css" rel="stylesheet">
+    <link href="css/step-wizard.css" rel="stylesheet">
     <link href="../assets/plugins/bootstrap/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="css/colors/megna.css" id="theme" rel="stylesheet">

@@ -24,7 +24,7 @@
       </div>
 
       <div class="modal-body">
-        <p class="lead">Since there are no more items remaining, this order will now be deleted.</p>
+        <p class="lead">Order has been declined.</p>
       </div>
 
       <div class="modal-footer">

@@ -50,6 +50,36 @@ if(!$get){
                     <p class="label-text"><?php echo $g['delivery_address'];?></p>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="container-fluid" style="margin-top:30px;margin-bottom:30px;">
+                      <div class="stepwizard">
+                        <div class="stepwizard-row">
+                            <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                <p>Processing</p>
+                            </div>
+                            <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><span class="glyphicon glyphicon-ok"></span></button>
+                                <p>Approved</p>
+                            </div>
+                            <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><span class="glyphicon glyphicon-ok"></span></button>
+                                <p>Collecting</p>
+                            </div>
+                            <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><span class="glyphicon glyphicon-ok"></span></button>
+                                <p>On Delivery</p>
+                            </div>
+                            <div class="stepwizard-step">
+                              <button type="button" class="btn btn-circle"><span class="glyphicon glyphicon-ok"></span></button>
+                                <p>Closed</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div><!-- End status map -->
+                  </div>
+                </div>
                 <div class="row" style="margin-top:16px;">
                   <div class="col-sm-5 offset-lg-1">
                     <?php

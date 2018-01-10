@@ -60,7 +60,16 @@ if(isset($_POST['change_status'])){
 
 if(isset($_POST['oi_remove'])){
   if($sesh == true){
-  echo $order->remove_oi($_POST['oi_id'],$_POST['order_id'],$_SESSION['brand_id']);
+    echo $order->remove_oi($_POST['oi_id'],$_POST['order_id'],$_SESSION['brand_id']);
+
+    $total_items = $order->count_total_items($_POST['order_id']);
+    $total_declined = $order->count_total_declined($_POST['order_id']);
+    $total_pending = $order->count_pending_items($_POST['order_id']);
+    $foo = $total_items - $total_declined;
+
+    if($total_pending == 0 && $foo > 0){
+      $order->order_pending_complete($_POST['order_id']);
+    }
   }
 }
 
@@ -179,21 +188,19 @@ if(isset($_POST['decline_order'])){
     $list = $order->shop_oitems_id($_POST['order_id'],$_SESSION['brand_id']);
     if($list){
       foreach($list as $arr){
-        $order->decline_cpanel_order($arr['oi_id']);   
+        $order->decline_cpanel_order($arr['oi_id'],$_POST['order_id']);   
       }
 
       $total_items = $order->count_total_items($_POST['order_id']);
       $total_declined = $order->count_total_declined($_POST['order_id']);
       $total_pending = $order->count_pending_items($_POST['order_id']);
+      $foo = $total_items - $total_declined;
 
-      if($total_pending == 0){
+      if($total_pending == 0 && $foo > 0){
         $order->order_pending_complete($_POST['order_id']);
-      }
-
-      if($total_items == $total_declined){
+      }else if($total_items == $total_declined){
         $order->decline_order_status($_POST['order_id']);
       }
-
     }
   }
 }
@@ -404,6 +411,9 @@ if(isset($_POST['order_info'])){
                       </table>
                       <?php 
                       $subtotal = $order->get_order_subtotal($_POST['order_id'],$_SESSION['brand_id']);
+                      if(empty($subtotal)){
+                        $subtotal = "0.00";
+                      }
                       ?>
                       <div class="container-fluid pull-right" style="">
                           <div class="" style="display:inline-block;padding:16px 10px 16px 10px;">

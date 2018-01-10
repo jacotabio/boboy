@@ -99,7 +99,6 @@ body{
 
 }
 .navbar-fixed-top .active a { 
-  background-color: $brand-primary !important;
   color: white !important;
 }
 .compress{

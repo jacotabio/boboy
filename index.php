@@ -32,7 +32,7 @@ $currency = "₱";
     <meta name="author" content="John Carlo H. Octabio">
     <link rel="icon" href="favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="custom.scss" rel="stylesheet" type="text/css">
+    <link href="custom.css" rel="stylesheet" type="text/css">
     <link href="css/step-wizard.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">

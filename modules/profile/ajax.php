@@ -146,11 +146,11 @@ if(isset($_POST['order_info'])){
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-3 col-sm-2 col-lg-2" style="margin-top:16px;">
+        <div class="col-xs-12 col-sm-2 col-lg-2" style="margin-top:16px;">
           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Order #</label>
           <p class="no-gap" style="font-size: 13px;"><?php echo $oinfo['order_id'];?></p>
         </div>
-        <div class="col-xs-9 col-sm-3 col-lg-3" style="margin-top:16px;">
+        <div class="col-xs-12 col-sm-3 col-lg-3" style="margin-top:16px;">
           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Date / Time Ordered</label>
           <p class="no-gap" style="font-size: 13px;"><?php $date = new DateTime($oinfo['created_at']); echo $date->format("M j, Y g:mA");?></p>
         </div>
@@ -254,10 +254,10 @@ if(isset($_POST['order_info'])){
           <label style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Order Summary</label>
           <div class="approved-list">
             <ul class="list-group">
-              <li class="list-group-item order-item-list">Number of Items<span class="pull-right"><?php echo $order->count_total_items($_POST['order_id']);?></span></li>
-              <li class="list-group-item order-item-list borderless">Subtotal<span class="pull-right"><?php echo $currency.$oinfo['order_total'];?></span></li>
-              <li class="list-group-item order-item-list borderless">Service Fee<span class="pull-right"><?php echo $currency.$servicefee;?></span></li>
-              <li class="list-group-item order-item-list" style="font-weight:600;">Total<span class="pull-right"><?php $total = $oinfo['order_total']+$servicefee; echo $currency.number_format((float)$total, 2, '.', '');?></span></li>
+              <li class="list-group-item order-item-list"><span class="pull-left">Number of Items</span><span class="pull-right"><?php echo $order->count_total_items($_POST['order_id']);?></span></li>
+              <li class="list-group-item order-item-list borderless"><span class="pull-left">Subtotal</span><span class="pull-right"><?php echo $currency.$oinfo['order_total'];?></span></li>
+              <li class="list-group-item order-item-list borderless"><span class="pull-left">Service Fee</span><span class="pull-right"><?php echo $currency.$servicefee;?></span></li>
+              <li class="list-group-item order-item-list" style="font-weight:600;"><span class="pull-left">Total</span><span class="pull-right"><?php $total = $oinfo['order_total']+$servicefee; echo $currency.number_format((float)$total, 2, '.', '');?></span></li>
             </ul>
           </div>
         </div>      
