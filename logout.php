@@ -6,4 +6,3 @@
 	unset($_SESSION['usr_auth']);
 	unset($_SESSION['brand_id']);
 	header('location: /');
-	exit;

@@ -47,7 +47,7 @@ if(isset($_POST['chat_content'])){
             if($_m['sender_id'] == $_SESSION['admin_id']){?>
                 <li class="right">
                     <span class="chat-img pull-right">
-                    <img src="../img/logo.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" />
+                    <img src="../img/logo.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" data-animation="false"/>
                     </span>
                     <div class="chat-body clearfix">
                         <div style="margin-top:5px;">

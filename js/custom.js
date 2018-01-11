@@ -330,12 +330,11 @@ $(document).ready(function(){
         "order_id":order_id
       },
       success:function(data){
-        setTimeout(function(){
-          if(data == "order_cancelled"){
+        if(data == "order_cancelled"){
             window.location = "/?mod=profile&t=orders";
-          }
+        }
+        setTimeout(function(){  
           if(data == "cancel_too_late"){
-            
             $("#cancel-late-modal").modal();
           }
         },500)
@@ -881,6 +880,8 @@ $(document).ready(function(){
       }
     });
   });
+
+  /*
   //-- Logout Ajax --//
   $('#btn-logout').click(function(){
     $.ajax({
@@ -890,7 +891,7 @@ $(document).ready(function(){
         location.reload();
       }
     });
-  });
+  });*/
   //-- End Logout Ajax --//
   //-- Login Ajax --//
   $("#login-form").on("submit", function(e){
@@ -1088,7 +1089,7 @@ $(document).ready(function(){
               };
               setTimeout(function(){
                 notifikasi.close();
-              }, 5000);
+              }, 1000);
             };
           }else{
   

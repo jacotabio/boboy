@@ -64,7 +64,7 @@
       </div>
 
       <div class="modal-body">
-        <p class="lead">Your order has been successfully submitted and is now being processed. We will notify you for further details. Thank you for choosing SleepNotGo as your coffee delivery service.</p></br>
+        <p class="lead">Your order has been successfully submitted and is now being processed. We will notify you for further details. Thank you for choosing <?php echo $brandname;?> as your coffee delivery service.</p></br>
         <span>To track the progress of your order, click </span><a id="order-status-link" href="#">View Status</a>
       </div>
 

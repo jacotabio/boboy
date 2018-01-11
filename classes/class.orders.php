@@ -213,14 +213,15 @@ class Orders{
   }
 
   public function cancel_order($oid,$total){
-    $q1 = $this->db->prepare("SELECT COUNT(oi_id) AS total_pending FROM oitem WHERE order_id = ? AND oi_status = 0");
-    $q1->bindParam(1,$oid);
-    $q1->execute();
-
-    $row1 = $q1->fetch(PDO::FETCH_ASSOC);
-    $total_pending = $row1['total_pending'];
-
-    if($total == $total_pending){
+    $q = $this->db->prepare("SELECT COUNT(oi_id) AS total_approved FROM oitem WHERE order_id = ? AND oi_status = 1");
+    $q->bindParam(1,$oid);
+    $q->execute();
+    $row = $q->fetch(PDO::FETCH_ASSOC);
+    $approved = $row['total_approved'];
+    
+    if($approved > 0){
+      return "cancel_too_late";
+    }else{
       $q2 = $this->db->prepare("DELETE FROM oitem WHERE order_id = ?");
       $q2->bindParam(1,$oid);
       $q2->execute();
@@ -228,10 +229,7 @@ class Orders{
       $q3 = $this->db->prepare("DELETE FROM orders WHERE order_id = ? AND order_status = 0");
       $q3->bindParam(1,$oid);
       $q3->execute();
-
       return "order_cancelled";
-    }else{
-      return "cancel_too_late";
     }
   }
 

@@ -41,7 +41,7 @@ if(!$user->get_session()){
                 }
                 break;
               default:
-                require_once 'modules/profile/dashboard.php';
+                require_once 'modules/profile/orders.php';
                 break;
             }
           ?>

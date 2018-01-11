@@ -1,6 +1,7 @@
 var b_chatid;
 var order_id;
 var current;
+var order;
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -19,23 +20,28 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 $(document).ready(function(){
     order_id = getUrlParameter('o');
-    loadOrderSummary(order_id);
-
-    function loadOrderSummary(order_id){
-        var data
+    function loadOrderItems(order_id){
+        var holder = $("#vieworder-ajax-parent");
         $.ajax({
             url: "modules/orders/ajax.php",
             method: "POST",
             data:{
-                "order_summary":1,
+                "order_items":1,
                 "order_id":order_id
             },
-            dataType: "json",
+            dataType: "html",
             success:function(data){
+                if(order != data){
+                    order = data;
+                    holder.html(order);
+                }
+                //holder.html(data);
+                /*
                 $("#od-st").html(data["order_total"]);
                 $("#od-sf").html(data["custom_fee"]);
                 $("#od-tt").html(data["total"]);
                 $("#od-noi").html(data["noi"]);
+                */
             }
             ,error:function(e){
                 //alert("ajax failed");
@@ -96,7 +102,6 @@ $(document).ready(function(){
 
     function loadChat(b_chatid){
         var cac = $("#chat-ajax-content");
-        current_content = cac.html();
         $.ajax({
           url: "modules/chat/ajax.php",
           method: "POST",
@@ -166,6 +171,14 @@ $(document).ready(function(){
         window.location = "/admin/?p=orders&o="+id;
         //alert( 'Clicked row id '+id );
       });
+
+    
+    
+    // Realtime Dynamic Refresh
+    (function realtimeCheck() {
+        loadOrderItems(order_id);
+       setTimeout(realtimeCheck, 5000);
+    }());
 });
 
 /*

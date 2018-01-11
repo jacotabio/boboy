@@ -34,7 +34,7 @@ if(isset($_POST['realtime_shop_popup'])){
 }
 
 if(isset($_POST['display_active_shops'])){?>
-  <div class="hidden-xs hidden-sm hidden-md roboto">
+  <div class="hidden-xs hidden-sm roboto">
   <span style="font-weight: 500;font-size:13px;color:rgba(0,0,0,0.65);">Active Shops</span>
     <ul class="list-group"> 
   <?php
@@ -77,7 +77,7 @@ if(isset($_POST['display_shop'])){?>
           foreach($items as $i) {
             $img = $i['item_img'];
           ?>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 shop-margin">
+          <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 shop-margin">
             <div class="item-holder">
               <?php
               if(isset($_POST['brand_id']) && $_POST['brand_id'] != ""){?>
@@ -88,7 +88,7 @@ if(isset($_POST['display_shop'])){?>
                 <?php
                 }
                 ?>
-                  <div class="item-image img-responsive" style="background-image: url('<?php echo "img/upload/".$img;?>');">
+                  <div class="item-image img-responsive" style="max-height:200px;background-image: url('<?php echo "img/upload/".$img;?>');">
                   </div>
                   <div class="item-brand">
                     <?php echo $item->get_item_brand($i['brand_id']);?>

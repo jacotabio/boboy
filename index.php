@@ -111,7 +111,7 @@ $currency = "₱";
                   <?php
                   }
                   ?>
-                  <li><a id="btn-logout"  href="#">Logout</a></li>
+                  <li><a id="btn-logout"  href="/logout.php">Logout</a></li>
                 </ul>
               </li>
             <?php
