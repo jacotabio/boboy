@@ -26,7 +26,7 @@ $(document).ready(function(){
             url: "modules/orders/ajax.php",
             method: "POST",
             data:{
-                "order_items":1,
+                "order_view":1,
                 "order_id":order_id
             },
             dataType: "html",
@@ -56,6 +56,11 @@ $(document).ready(function(){
             loadChat(b_chatid);
         }
     });
+
+    $("body").on("click","#tmodal-order-del", function(e){
+        $("#modal-order-del").modal();
+    });
+
     $("#loginform").on("submit",function(e){
         e.preventDefault();
         $("#btn-login").prop("disabled",true);
@@ -127,8 +132,9 @@ $(document).ready(function(){
     }
 
     var tblpen = $('#table-pending-orders').DataTable( {
+        aaSorting: [[1, 'desc']],
         columnDefs: [
-        {
+        {   
             "className": ["dt-right"],
             "targets": [3,4]
         }],

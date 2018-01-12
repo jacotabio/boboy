@@ -7,6 +7,7 @@ if(!isset($_SESSION['admin_login'])){
 }
 
 $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
+$brandname = "Boboy";
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@ $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <title>Boboy | Admin</title>
+    <title><?php echo $brandname;?> | Admin</title>
     <!-- Bootstrap Core CSS -->
     <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->

@@ -12,7 +12,17 @@ class Orders{
   }
 
   public function pending_orders(){
-    $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,order_status FROM orders,users WHERE orders.usr_id = users.usr_id");
+    $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,
+                                  CASE
+                                    WHEN order_status = 0 THEN 'Processing'
+                                    WHEN order_status = 1 THEN 'Approved'
+                                    WHEN order_status = 2 THEN 'Collecting'
+                                    WHEN order_status = 3 THEN 'On Delivery'
+                                    WHEN order_status = 4 THEN 'Closed'
+                                    WHEN order_status = 5 THEN 'Declined'
+                                  END AS order_status
+                                FROM orders,users 
+                                WHERE orders.usr_id = users.usr_id ORDER BY orders.created_at DESC");
     $query->execute();
 
     while($row = $query->fetch(PDO::FETCH_ASSOC)){

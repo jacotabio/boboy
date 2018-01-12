@@ -741,6 +741,7 @@ $(document).ready(function(){
   });
 
   $("#form-delivery-address").on("submit",function(e){
+    $("#btn-order-confirm").prop("disabled",true);
     e.preventDefault();
     var sub = $(this).serializeArray();
     sub.push({name: 'submit_order', value: 1});
@@ -752,6 +753,7 @@ $(document).ready(function(){
       success: function(data){
         if(data['code'] == "order_success"){
           $("#custom-delivery-modal").modal('hide');
+          $("#btn-order-confirm").prop("disabled",false);
           $("#cart_success").modal();
           //data['order_id']
           $("#order-status-link").attr("href","/?mod=profile&t=orders&o_id="+data['order_id']);
@@ -779,6 +781,7 @@ $(document).ready(function(){
   $('body').on("click", "#default-add", function(e){
     $("#chkbox-default").prop("checked",true);
     $("#chkbox-custom").prop("checked",false);
+    $("#chkbox-custom").prop("required",false);
   });
 
   $('body').on("click", "#chkbox-custom", function(e){
@@ -789,9 +792,11 @@ $(document).ready(function(){
   $('body').on("click", "#textarea-custom-address", function(e){
     $("#chkbox-default").prop("checked",false);
     $("#chkbox-custom").prop("checked",true);
+    $("#chkbox-custom").prop("required",true);
   });
 
   $('body').on("click", "#btn-order", function(e){
+    $("#btn-order-confirm").prop("disabled",true);
     $("#custom-delivery-modal").modal();
     if(($("#custom-delivery-modal").data('bs.modal') || {}).isShown){
       $.ajax({
@@ -801,7 +806,10 @@ $(document).ready(function(){
           "show_address":1
         },
         success:function(data){
-          $("#ajax-delivery-address").html(data);
+          setTimeout(function(){
+            $("#ajax-delivery-address").html(data);
+            $("#btn-order-confirm").prop("disabled",false);
+          },5000);
         }
       });
     }
@@ -1089,7 +1097,7 @@ $(document).ready(function(){
               };
               setTimeout(function(){
                 notifikasi.close();
-              }, 1000);
+              }, 2500);
             };
           }else{
   

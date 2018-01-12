@@ -5,7 +5,7 @@ include '../../classes/class.orders.php';
 $order = new Orders();
 $currency = "P";
 
-if(isset($_POST['order_items'])){
+if(isset($_POST['order_view'])){
 	$get = $order->order_details($_POST['order_id']);
 	if(!$get){
 	  echo "invalid_order";
@@ -18,24 +18,28 @@ if(isset($_POST['order_items'])){
 	        <div class="card">
 	            <div class="card-block">
 	            	<div class="row">
-	            		<div class="col-lg-1"><a class="btn btn-default" href="/admin/?p=orders"><i class="fa fa-arrow-left"></i>&nbsp;Back</a></div>
-	            		<div class="col-lg-10"><h4 style="font-size:18px;margin-top:5px;" class="card-title pull-left">Order #<?php echo $g['order_id'];?></h4></div>
-	            		<div class="col-lg-1"><div style="display:inline-block; width:100%;">
-	                  <div class="pull-right">
-	                    <div class="btn-group">
-	                      <i class="fa fa-ellipsis-v button" style="font-size:20px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                      </i>
-	                      <div class="dropdown-menu dropdown-menu-right">
-	                        <button class="dropdown-item pointer" type="button">Add Item</button>
-	                        <button class="dropdown-item pointer" type="button">Edit Details</button>
-	                        <button class="dropdown-item pointer" type="button">Delete Order</button>
-	                      </div>
-	                    </div>
-	                  </div>
-	                </div></div>
-	            		
+	            		<div class="col-lg-1">
+	            			<a class="btn btn-default" href="/admin/?p=orders"><i class="fa fa-arrow-left"></i>&nbsp;Back</a>
+	            		</div>
+	            		<div class="col-lg-10">
+	            			<h4 style="font-size:18px;margin-top:5px;" class="card-title pull-left">Order #<?php echo $g['order_id'];?></h4>
+	            		</div>
+	            		<div class="col-lg-1">
+	            			<div style="display:inline-block; width:100%;">
+			                  <div class="pull-right">
+			                    <div class="btn-group">
+			                      <i class="fa fa-ellipsis-v button" style="font-size:20px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                      </i>
+			                      <div class="dropdown-menu dropdown-menu-right">
+			                        <button class="dropdown-item pointer" type="button">Add Item</button>
+			                        <button class="dropdown-item pointer" type="button">Edit Details</button>
+			                        <button id="tmodal-order-del" class="dropdown-item pointer" type="button">Delete Order</button>
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			            </div>     		
 	            	</div>
-	                
 	                <div class="row" style="margin-top:30px;">
 	                  <div class="col-lg-2 offset-lg-1">
 	                    <span class="label-title">Placed order on</span>
@@ -64,26 +68,39 @@ if(isset($_POST['order_items'])){
 	                    <div class="container-fluid" style="margin-top:30px;margin-bottom:30px;">
 	                      <div class="stepwizard">
 	                        <div class="stepwizard-row">
+	                        	<?php 
+	                            $os = $g['order_status'];
+	                            if($os != 5){
+	                            ?>
 	                            <div class="stepwizard-step">
-	                              <button type="button" class="btn btn-circle"><span class=""><i class="fa fa-check" aria-hidden="true"></i></span></button>
+	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 0)?'btn-success':'';?>"><?php if($os >= 0){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
 	                                <p>Processing</p>
 	                            </div>
 	                            <div class="stepwizard-step">
-	                              <button type="button" class="btn btn-circle"></button>
+	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 1)?'btn-success':'';?>"><?php if($os >= 1){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
 	                                <p>Approved</p>
 	                            </div>
 	                            <div class="stepwizard-step">
-	                              <button type="button" class="btn btn-circle"></button>
+	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 2)?'btn-success':'';?>"><?php if($os >= 2){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
 	                                <p>Collecting</p>
 	                            </div>
 	                            <div class="stepwizard-step">
-	                              <button type="button" class="btn btn-circle"></button>
+	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 3)?'btn-success':'';?>"><?php if($os >= 3){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
 	                                <p>On Delivery</p>
 	                            </div>
 	                            <div class="stepwizard-step">
-	                              <button type="button" class="btn btn-circle"></button>
+	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 4)?'btn-success':'';?>"><?php if($os >= 4){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
 	                                <p>Closed</p>
 	                            </div>
+	                            <?php
+								}else{?>
+								<div class="stepwizard-step">
+	                              <button type="button" class="btn btn-circle step-circle btn-danger"><?php if($os >= 4){?><span class=""><i class="fa fa-times" aria-hidden="true"></i></span><?php }?></button>
+	                                <p>Declined</p>
+	                            </div>
+								<?php
+								}
+	                            ?>
 	                        </div>
 	                      </div>
 	                    </div><!-- End status map -->

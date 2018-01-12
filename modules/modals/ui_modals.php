@@ -289,7 +289,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dialog" data-dismiss="modal">Cancel</button>
-          <button type="submit" value="" class="btn btn-dialog">Order</button>
+          <button type="submit" id="btn-order-confirm" value="" class="btn btn-dialog">Order</button>
         </div>
       </form>
     </div><!-- modal-content -->

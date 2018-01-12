@@ -84,7 +84,11 @@ $currency = "₱";
                     <span id="status-indicator" class="green">&#9679;</span>
                   <?php
                   }else{?>
-                    <span id="status-indicator" class="orange">&#9679;</span><?php }?>&nbsp;<?php if($_SESSION['usr_auth'] == 2){echo $_SESSION['usr_name'];
+                    <span id="status-indicator" class="orange">&#9679;</span>
+                  <?php 
+                  }
+                  if($_SESSION['usr_auth'] == 2){
+                    echo $_SESSION['usr_name'];
                   }
                 }else{?>
                   <span class="glyphicon glyphicon-user"></span>
@@ -201,17 +205,19 @@ $currency = "₱";
           case 'cpanel':
             if($_SESSION['usr_auth'] == 2){
               require_once 'modules/cpanel/index.php';
+              break;
             }else{
               header('location: /');
-              exit;
+              break;
             }
             break;
           case 'cart':
             if($_SESSION['usr_auth'] == 1){
               require_once 'modules/cart/index.php';
+              break;
             }else{
               header('location: /');
-              exit;
+              break;
             }
             break;
           default:
