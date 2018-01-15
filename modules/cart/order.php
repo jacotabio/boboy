@@ -7,38 +7,44 @@ $item = new Items();
 $user = new Users();
 
 if(isset($_POST['submit_order'])){
-  
-  function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
-
-  /*
-  if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-    echo "name_invalid"; 
-    exit;
-  }
-
-  $email = test_input($_POST["email"]);
-  if (!preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/",$email)) {
-    echo "email_invalid"; 
-    exit;
-  }*/
-
   $jsonArray = array();
+  $chk_address = true;
+  $chk_contact = true;
 
-  function array_map_r( $func, $arr ){
-      $newArr = array();
+  if($_POST['radio-address'] == 2 && $_POST['textarea-custom'] == null || $_POST['radio-address'] == 2 && $_POST['textarea-custom'] == ""){
+    $chk_address = false;
+  }
+  if($_POST['radio-contact'] == 2 && $_POST['custom-number'] == null || $_POST['radio-contact'] == 2 && $_POST['custom-number'] == ""){
+    $chk_contact = false;
+  }
+  
+  if(!$chk_address && !$chk_contact){
+    $jsonArray['code'] = "empty_both";
+    echo json_encode($jsonArray);
+  }else if(!$chk_address){
+    $jsonArray['code'] = "empty_address";
+    echo json_encode($jsonArray);
+  }else if(!$chk_contact){
+    $jsonArray['code'] = "empty_contact";
+    echo json_encode($jsonArray);
+  }else{
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
 
-      foreach( $arr as $key => $value )
-      {
-          $newArr[ $key ] = ( is_array( $value ) ? array_map_r( $func, $value ) : ( is_array($func) ? call_user_func_array($func, $value) : $func( $value ) ) );
-      }
-      return $newArr;
-  } 
-  $sanitized_data = array_map_r('strip_tags', $_POST);
+    function array_map_r( $func, $arr ){
+        $newArr = array();
+
+        foreach( $arr as $key => $value )
+        {
+            $newArr[ $key ] = ( is_array( $value ) ? array_map_r( $func, $value ) : ( is_array($func) ? call_user_func_array($func, $value) : $func( $value ) ) );
+        }
+        return $newArr;
+    } 
+    $sanitized_data = array_map_r('strip_tags', $_POST);
 
     $cinfo = $user->user_contact_info($_SESSION['usr_id']);
 
@@ -72,4 +78,6 @@ if(isset($_POST['submit_order'])){
       $jsonArray['code'] = "empty_cart";
       echo json_encode($jsonArray);
     }
+
+  }
 }

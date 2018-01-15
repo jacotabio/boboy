@@ -1,14 +1,8 @@
 <?php
 include '../../library/config.php';
 include '../../classes/class.items.php';
-include '../../classes/class.users.php';
-include '../../classes/class.brands.php';
-include '../../classes/class.auth.php';
 
 $item = new Items();
-$user = new Users();
-$brand = new Brands();
-$auth = new Auth();
 
 $item_id = $_POST['edit-item-id'];
 

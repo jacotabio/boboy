@@ -377,7 +377,7 @@ if(isset($_POST['order_info'])){
                                         <h4 class="title">
                                           <?php echo $_i['item_name'];?>
                                         </h4>
-                                        <p class="summary" style="max-width:350px;"><?php echo $_i['item_description'];?></p>
+                                        <p class="summary hidden-xs" style="max-width:350px;"><?php echo $_i['item_description'];?></p>
                                       </div>
                                     </div>
                                   </div>
@@ -417,7 +417,7 @@ if(isset($_POST['order_info'])){
                       ?>
                       <div class="container-fluid pull-right" style="">
                           <div class="" style="display:inline-block;padding:16px 10px 16px 10px;">
-                            <label style="t:0;color:rgba(0,0,0,0.8);font-size:13px;font-weight:500;">Subtotal</label></br>
+                            <label style="t:0;color:rgba(0,0,0,0.8);font-size:13px;font-weight:500;">aSubtotal</label></br>
                             <span class=""><?php echo $currency.$subtotal;?></span>
                           </div>  
                       </div>

@@ -30,7 +30,7 @@ if(isset($_SESSION['admin_login']) && $_SESSION['admin_login']==true){
         <form id="loginform" method="POST" class="form-horizontal" role="form">
           <div style="margin-bottom: 25px" class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username" autocomplete="off" required>                                        
+              <input id="login-username" type="text" class="form-control" name="username" value="" autofocus="on" placeholder="Username" autocomplete="off" required>                                        
           </div>         
           <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>

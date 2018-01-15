@@ -329,8 +329,7 @@ class Items{
       $query->bindParam(4,$price);
       $query->bindParam(5,$status);
       $query->execute();
-      return $db->lastInsertId();
-      $db = null;
+      return $this->db->lastInsertId();
     }
 
     public function search_items($search){

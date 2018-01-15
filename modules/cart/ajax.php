@@ -29,8 +29,11 @@ if(isset($_POST['show_address'])){
     </div>
     <div id="custom-add" class="radio no-gap" style="width:100%;">
       <label class="no-gap" style="width:100%;color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;"><input type="radio" id="chkbox-custom" value="2" name="radio-address">Custom Address</br>
-        <div class="container-fluid no-gap">
-          <textarea type="text" id="textarea-custom-address" rows="5" name="textarea-custom" style="resize: none;" class="form-control text-address" autocomplete="off"></textarea>
+        <div class="container-fluid">
+          <div id="custom-address-holder" class="form-group">
+          <textarea type="text" id="textarea-custom-address" rows="5" name="textarea-custom" style="resize: none;" class="form-control text-address has-error" autocomplete="off"></textarea>
+          <label id="address-label" class="control-label no-gap">This is a required field</label>
+          </div>
         </div>
       </label>
     </div>
@@ -45,12 +48,14 @@ if(isset($_POST['show_address'])){
     </div>
     <div id="custom-contact" class="radio no-gap" style="width:100%;">
       <label class="no-gap" style="width:100%;color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;"><input type="radio" id="chkbox-contact-custom" value="2" name="radio-contact">Custom Contact # (Make sure your number is valid)</br>
-        <div class="container-fluid no-gap">
-          <input type="number" id="text-custom-number" maxlength="11" name="custom-number" autocomplete="off" class="form-control text-address"/>
+        <div class="container-fluid">
+          <div id="custom-number-holder" class="form-group">
+            <input type="number" id="text-custom-number" pattern="[0-9]{9}" maxlength="11" name="custom-number" autocomplete="off" class="form-control text-address"/>
+            <label id="contact-label" class="control-label no-gap">This is a required field</label>
+          </div>
         </div>
       </label>
     </div>
-    
 </div>
 <?php
 }

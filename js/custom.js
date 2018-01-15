@@ -478,6 +478,7 @@ $(document).ready(function(){
   });
 
   $('body').on("click","#order-ready", function(e){
+    $(this).hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -492,6 +493,7 @@ $(document).ready(function(){
   });
 
   $('body').on("click","#order-claimed", function(e){
+    $(this).hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -506,6 +508,8 @@ $(document).ready(function(){
   });
 
   $('body').on("click","#accept-order", function(e){
+    $(this).hide();
+    $("#decline-order").hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -519,6 +523,8 @@ $(document).ready(function(){
     });
   });
   $('body').on("click","#decline-order", function(e){
+    $(this).hide();
+    $("#accept-order").hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -684,7 +690,9 @@ $(document).ready(function(){
   $('#add-item-form').on("submit", function(e){
     e.preventDefault();
     $('#loading-modal').modal({backdrop: 'static', keyboard: false});
+
     $("#btn-add-item").prop("disabled", true);
+
     var formData = new FormData(this);
 
     $.ajax({
@@ -697,10 +705,14 @@ $(document).ready(function(){
       success: function(data){
         setTimeout(function(){
           if(data == "insert_success"){
+            $('#loading-modal').modal('hide');
             $("#btn-add-item").prop("disabled", false);
             $("#insert-complete-modal").modal();
           }
         },0);
+      },
+      error: function(asd){
+        alert("ajax failed");
       }
     });
   });
@@ -751,9 +763,29 @@ $(document).ready(function(){
       data: sub,
       dataType: 'json',
       success: function(data){
+        if(data['code'] == "empty_both"){
+          $("#address-label").show();
+          $("#custom-address-holder").addClass("has-error");
+          $("#contact-label").show();
+          $("#custom-number-holder").addClass("has-error");
+        }
+        if(data['code'] == "empty_address"){
+          $("#address-label").show();
+          $("#custom-address-holder").addClass("has-error");
+
+          $("#contact-label").hide();
+          $("#custom-number-holder").removeClass("has-error");
+          //$("#textarea-custom-address").
+        }
+        if(data['code'] == "empty_contact"){
+          $("#contact-label").show();
+          $("#custom-number-holder").addClass("has-error");
+
+          $("#address-label").hide();
+          $("#custom-address-holder").removeClass("has-error");
+        }
         if(data['code'] == "order_success"){
           $("#custom-delivery-modal").modal('hide');
-          $("#btn-order-confirm").prop("disabled",false);
           $("#cart_success").modal();
           //data['order_id']
           $("#order-status-link").attr("href","/?mod=profile&t=orders&o_id="+data['order_id']);
@@ -764,6 +796,7 @@ $(document).ready(function(){
           $("#custom-delivery-modal").modal('hide');
           $("#error-modal").modal();
         }
+        $("#btn-order-confirm").prop("disabled",false);
       }
     });
   });
@@ -809,7 +842,10 @@ $(document).ready(function(){
           setTimeout(function(){
             $("#ajax-delivery-address").html(data);
             $("#btn-order-confirm").prop("disabled",false);
-          },5000);
+            $("#address-label").hide();
+            $("#contact-label").hide();
+          },0);
+
         }
       });
     }

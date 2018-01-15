@@ -272,7 +272,7 @@ if(isset($_POST['order_info'])){
     </div>
     <div class="content-footer">
       <div class="container-fluid">
-        <label style="width:100%;color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Quick Chat</label>
+        <label style="width:100%;color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Message Shops</label>
         <div class="row no-gap">
           <table>
           <?php
