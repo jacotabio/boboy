@@ -48,6 +48,9 @@ $(document).ready(function(){
             }
         });
     }
+    $("body").on("click","#btn-confirm-cancel-order", function(e){
+        //alert("HAHA");
+    });
 
     $("body").on("click",".btn-chat", function(e){
         b_chatid = $(this).val();

@@ -1,7 +1,7 @@
 
 
 <!-- Modal -->
-<div id="modal-login" class="modal fade" role="dialog" aria-labelledby="myModalLabel">
+<div id="modal-login" class="modal" role="dialog" aria-labelledby="myModalLabel">
 <div class="">
   <div class="modal-dialog" role="document">
 

@@ -31,7 +31,7 @@ if(!$user->get_session()){
           <?php
             switch($t){
               case 'account':
-                require_once 'modules/cpanel/account.php';
+                require_once 'modules/profile/account.php';
                 break;
               case 'orders':
                 if(isset($_GET['o_id'])){

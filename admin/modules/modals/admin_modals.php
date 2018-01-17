@@ -33,7 +33,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="modal-order-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="modal-order-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -46,7 +46,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-themecolor" id="btn-confirm-cancel-order" data-dismiss="modal">Continue</button>
+        <button type="button" class="btn btn-themecolor" id="btn-confirm-cancel-order" data-dismiss="modal">Delete</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->

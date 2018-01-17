@@ -417,7 +417,7 @@ if(isset($_POST['order_info'])){
                       ?>
                       <div class="container-fluid pull-right" style="">
                           <div class="" style="display:inline-block;padding:16px 10px 16px 10px;">
-                            <label style="t:0;color:rgba(0,0,0,0.8);font-size:13px;font-weight:500;">aSubtotal</label></br>
+                            <label style="t:0;color:rgba(0,0,0,0.8);font-size:13px;font-weight:500;">Subtotal</label></br>
                             <span class=""><?php echo $currency.$subtotal;?></span>
                           </div>  
                       </div>
@@ -451,6 +451,9 @@ if(isset($_POST['order_info'])){
                     <?php
                     }
                     ?>
+                    <div id="order-loading" style="display:inline-block;margin-right:30px;">
+                    <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30></circle></svg>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="brand-registered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="brand-registered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -16,7 +16,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="order-removed-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="order-removed-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -34,7 +34,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="cancel-order-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="cancel-order-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -53,7 +53,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="user-registered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="user-registered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -71,7 +71,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="cancel-late-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="cancel-late-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -90,7 +90,7 @@
 </div><!-- modal -->
 
 
-<div class="modal fade" id="item-unavailable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="item-unavailable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -108,7 +108,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="oi-remove-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="oi-remove-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -127,7 +127,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="loading-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -143,7 +143,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="update-complete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="update-complete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -161,7 +161,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="insert-complete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="insert-complete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -179,7 +179,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="delete-item-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="delete-item-confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -198,7 +198,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -217,7 +217,7 @@
 </div><!-- modal -->
 
 
-<div class="modal fade" id="chat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="chat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="">
       <div class="container-fluid no-gap">
@@ -272,7 +272,7 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="custom-delivery-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" id="custom-delivery-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form id="form-delivery-address" class="form-horizontal" method="POST"  name="loginform">

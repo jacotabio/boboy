@@ -244,15 +244,13 @@ $(document).ready(function(){
                 window.location = "/?mod=cpanel&t=orders";
               }else{
                 $("#orderinfo-ajax-content").html(data);
+                $("#order-loading").hide();
               }
             },0);
           }
         });
       }
     }
-  }
-  if(getUrlParameter('mod')){
-
   }
 
   $("#form-brand-chat").on("submit",function(e){
@@ -479,6 +477,7 @@ $(document).ready(function(){
 
   $('body').on("click","#order-ready", function(e){
     $(this).hide();
+    $("#order-loading").show();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -494,6 +493,7 @@ $(document).ready(function(){
 
   $('body').on("click","#order-claimed", function(e){
     $(this).hide();
+    $("#order-loading").show();
     $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -509,6 +509,7 @@ $(document).ready(function(){
 
   $('body').on("click","#accept-order", function(e){
     $(this).hide();
+    $("#order-loading").show();
     $("#decline-order").hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",
@@ -524,6 +525,7 @@ $(document).ready(function(){
   });
   $('body').on("click","#decline-order", function(e){
     $(this).hide();
+    $("#order-loading").show();
     $("#accept-order").hide();
     $.ajax({
       url: "modules/cpanel/ajax.php",

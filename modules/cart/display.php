@@ -8,39 +8,42 @@ if(isset($_POST['display_cart'])){
   $cart = $item->get_cart($_SESSION['usr_id']);
   if($cart){
 ?>
-<table class="table table-borderless" style="margin-top: 24px;">
-  
-  <tr class="text-light">
-    <th class="text-center">QTY</th>
-    <th>ITEM</th>
-    <th class="text-right">PRICE</th>
-    <th></th>
+<table class="table" style="margin:0px;">
+  <tr class="cart-header" style="">
+    <th class="text-right tbl-left" style="width:10%;"><span class="cart-remove-all glyphicon glyphicon-remove" onclick="remove_cart_show(<?php echo $c['cart_id'];?>)"></span></th>
+    <th class="text-left">Item Name</th>
+    <th class="text-right">Quantity</th>
+    <th class="text-right tbl-right">Price</th>
   </tr>
   <?php 
     foreach($cart as $c){
   ?>
   <tr>
-    <td class="text-center"><?php echo $c['item_qty'];?></td>
-    <td><?php echo $item->get_item_name($c['item_id']);?></td>
-    <td class="text-right cart-price">&#8369;<?php echo $c['subtotal'];?></td>
-    <td class="text-right"><a class="btn glyphicon glyphicon-remove" onclick="remove_cart_show(<?php echo $c['cart_id'];?>)"></button></td>
+    <td class="text-right tbl-left" style="width:10%;"><span class="cart-remove-btn glyphicon glyphicon-remove" onclick="remove_cart_show(<?php echo $c['cart_id'];?>)"></span></td>
+    <td class="cart-name text-left"><?php echo $item->get_item_name($c['item_id']);?></td>
+    <td class="cart-qty text-right"><?php echo $c['item_qty'];?></td>
+    <td class="text-right cart-price tbl-right"><?php echo $c['subtotal'];?></td>
   </tr>
   <?php
     }
   ?>
+  <tr style="border-bottom:1px solid red;">
+    <td class="cart-qty text-right"></td>
+    <td style="padding-top:16px;padding-bottom:16px;" class="cart-subtotal text-left">Subtotal</td>
+    <td class="text-right"></td>
+    <td style="padding-top:16px;padding-bottom: 16px;" class="text-right cart-total tbl-right">PHP <?php echo $item->cart_sum_total($_SESSION['usr_id']);?></td>
+  </tr>
+  <tr>
+    <td class="cart-qty text-right"></td>
+    <td style="padding-top:16px;padding-bottom:16px;" class="cart-subtotal text-left"></td>
+    <td class="text-right"></td>
+    <td style="padding-top:16px;padding-bottom: 16px;" class="text-right cart-total tbl-right">
+      <div class="modal-footer no-gap">
+        <button type="button" class="btn btn-dialog no-gap" style="height:auto;font-size:14px;" id="btn-order" data-dismiss="modal">Continue&nbsp;<span class="glyphicon glyphicon-chevron-right"></span></button>
+      </div>
+    </td>
+  </tr>
 </table>
-<div class="row">
-  <div class="col-md-8">
-    <div class="container-fluid">
-      <span class="cart-total-label">Total:</span><span class="cart-total">&#8369;<?php echo $item->cart_sum_total($_SESSION['usr_id']);?></span>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="container-fluid">
-      <button id="btn-order" class="btn btn-primary">ORDER</button>
-    </div>
-  </div>
-</div>
 <?php
   }else{?>
     <div class="container-fluid">
