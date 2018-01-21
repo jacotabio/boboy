@@ -1,4 +1,4 @@
- // Custom JavaScript //
+// Custom JavaScript //
  var counter = 0;
  var counter_holder = 0;
  var user_id;
@@ -9,7 +9,7 @@
  var chat_pov;
  var pageLoad = 0;
  var executed = false;
-
+$("#material-load").hide();
 Array.prototype.diff = function(a) {
   return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
@@ -635,6 +635,108 @@ $(document).ready(function(){
     }
   });
 
+  // AJAX UPDATE ACCOUNT PASSWORD
+  $("#form-account-password").on("submit",function(e){
+    e.preventDefault();
+    var data = $(this).serializeArray();
+    if(data[1].value != data[2].value){
+      $("#new-password-input").addClass("has-error");
+      $("#co-password-input").addClass("has-error");
+      $("#password-not-match").show();
+    }else{
+      $("#btn-update-password").prop("disabled",true);
+      $(".material-load-password").show();
+      $("#new-password-input").removeClass("has-error");
+      $("#co-password-input").removeClass("has-error");
+      $("#password-not-match").hide();
+      data.push({name: 'update_password', value: 1});
+      $.ajax({
+        url: "modules/profile/ajax.php",
+        method: "POST",
+        data: data,
+        dataType: "html",
+        success:function(d){
+          //alert(d);
+          setTimeout(function(){
+            if(d == "password_incorrect"){
+              $("#old-password-input").addClass("has-error");
+              $("#old-password-incorrect").show();
+            }else{
+              $("#old-password-input").removeClass("has-error");
+              $("#old-password-incorrect").hide();
+            }
+            if(d == "update_success"){
+              //alert("Password updated");
+              $("[name='old-password']").val("");
+              $("[name='new-password']").val("");
+              $("[name='co-password']").val("");
+              $("#password-update-success").show();
+              setTimeout(function(){
+                $("#password-update-success").hide();
+              },3000);
+            }
+            if(d == "update_failed"){
+              alert("Failed to update");
+            }
+            if(d == "new_invalid"){
+              $("#new-password-invalid").show();
+              $("#new-password-input").addClass("has-error");
+              $("#co-password-input").addClass("has-error");
+            }else{
+              $("#new-password-invalid").hide();
+              $("#new-password-input").removeClass("has-error");
+              $("#co-password-input").removeClass("has-error");
+            }
+            $(".material-load-password").hide();
+            $("#btn-update-password").prop("disabled",false);
+          },0);
+          
+        }
+      });
+    }
+  });
+
+  // AJAX UPDATE ACCOUNT DETAILS
+  $("#form-account-details").on("submit",function(e){
+    $("#btn-update-account").prop("disabled",true);
+    $(".material-load-details").show();
+    e.preventDefault();
+    var data = $(this).serializeArray();
+    data.push({name: 'update_account', value: 1});
+    $.ajax({
+      url: "modules/profile/ajax.php",
+      method: "POST",
+      data: data,
+      dataType: "json",
+      //dataType: "html",
+      success:function(d){
+        setTimeout(function(){
+          if(d['code'] == "success"){
+            $("#account-update-success").show();
+            setTimeout(function(){
+              $("#account-update-success").hide();
+            },3000);
+          }
+          for (var key in d) {
+            if (d.hasOwnProperty(key)) {
+              if(d[key] == 0){
+                $("#"+key).addClass("has-error");
+                $("#"+key+"-error").show();
+              }else{
+                $("#"+key).removeClass("has-error");
+                $("#"+key+"-error").hide();
+              }
+            }
+          }
+          $(".material-load-details").hide();
+          $("#btn-update-account").prop("disabled",false);
+        },0);
+        
+      }
+    });
+  });
+
+
   $("#shop-search-item").on("submit",function(e){
     e.preventDefault();
     var search_value = $("#shop-search-value").val();
@@ -1025,73 +1127,6 @@ $(document).ready(function(){
     return ret; 
   }
   //-- End Register Ajax --//
-  function chatListener(){  
-    
-    $.ajax({
-      type: 'POST',
-      url : 'modules/chat/realtime.php',
-      data: {
-        "load_new_chat":1
-      },
-      //dataType: 'html',
-      dataType: 'json',
-      success: function(data){
-        //console.log(data);
-        var aik = [{'sender':'sbux',"msg":"hi","timestamp":"123"}];
-
-        var dif = [{'sender':'sbux',"msg":"hi","timestamp":"123"},{'sender':'sbux',"msg":"musta?","timestamp":"123"},{'sender':'sbux',"msg":"wala coffee","timestamp":"123"}];
-        
-        console.log(filter(aik,dif));
-        //console.log(filter(chat_current, data));
-
-
-        //alert(jsonEqual(dat, cur));
-        //alert(JSON.stringify(cur.diff(dat)));
-        if(!executed){
-          chat_current = data;
-          executed = true;
-          //alert(JSON.stringify(compareJSON(a,b)));
-          //alert(JSON.stringify(data[0]));
-        }else{
-          if(chat_current != data){
-            var JSONdata = JSON.parse(JSON.stringify(data));
-            var JSONcurrent = JSON.parse(JSON.stringify(chat_current));
-            //alert("may bag-o yow");
-            //alert(JSON.stringify(compareJSON(JSONcurrent,JSONdata)));
-
-            //alert(data);
-            //string_data = JSON.stringify(data);
-            //string_current = JSON.stringify(chat_current);
-            //alert(JSON.stringify(compareJSON(chat_current, data)));
-            //alert(string_data);
-            //alert(chat_current.diff( data ));
-            //var diff = $(chat_current).not(data).get();
-            //alert(diff);
-            //chat_current = data.slice(0);
-            //alert(data);
-            //chat_current = new_data;
-            //chatNotify();
-          }else{
-            //alert("same");
-          }
-        }
-        
-        /*
-        $.each(data, function(index, obj){
-          alert("success");
-          var from = "Starbucks";
-          var chatmsg = "yow";
-          chatNotify(from,chatmsg);
-          //jQuery("#divp4").append('<p><b>Array Index: '+ (index+1) + '</p>');
-          //jQuery("#divp4").append('<p><b>Image SRC  : </b>' + obj.src +'</p>');
-          //jQuery("#divp4").append('<p><b>PHP LOG    : </b>' + obj.log +'</p>');
-          //jQuery("#divp4").append('<p><b>Warnings   : </b>' + obj.warn +'</p>');
-          //jQuery("#divp4").append('<p><b>Errors     : </b>' + data.error +'</p>');
-        });*/
-
-      }
-    });
-  }
 
   function checknotif() {
     
@@ -1137,13 +1172,7 @@ $(document).ready(function(){
                 notifikasi.close();
               }, 2500);
             };
-          }else{
-  
           }
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-  
         }
       });	
   

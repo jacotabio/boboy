@@ -1,126 +1,108 @@
 <?php
-
+$acc = $user->account_details($_SESSION['usr_id']);
+if($acc){
+    foreach($acc as $_a);
 ?>
-<div class="container-fluid">
+<div class="container-fluid no-gap">
 	<div class="col-md-12 profile-dashboard">
         <div class="row">
-            <div class="col-md-7 dashboard-form calender">
-                <form class="form-horizontal">
-                    <div class="bg-white pinside40 mb30">
+            <h4 class="" style="margin:0;padding-left:16px;padding-top:16px;padding-bottom:16px;">Account</h4>
+            <div id="account-update-success" style="display:none;" class="alert alert-success">
+                <strong>Success!</strong> Your profile information has been updated
+            </div>
+            <div id="password-update-success" style="display:none;" class="alert alert-success">
+                <strong>Success!</strong> Your password has been updated
+            </div>
+            <div class="col-md-6 dashboard-form">
+                <form id="form-account-details" method="POST" class="form-horizontal">
+                    <div class="bg-white">
                         <!-- Form Name -->
-                        <div class="add_listing_info">
-                <span class="profile-title">Basic Informations</span>	
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <div class="photo-upload"><img src="images/profile-dashbaord.png" alt=""></div>
-                            </div>
-                            <div class="col-md-8 upload-file">
-                                <div class="form-group">
-                    <input type="file">
-                </div> 
-                            </div>
-                        </div>
-                        </div>
                         <!-- Text input-->
-                        <div class="add_listing_info">
-                <span class="profile-title">Personal Information</span>		
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">First Name<span class="required">*</span></label>
+                        <span class="profile-title">Personal Information</span>		
+                        <div id="name-input" class="form-group">
+                            <label class="col-md-4 control-label">Full Name</label>
                             <div class="col-md-8">
-                                <input id="name" name="name" type="text" placeholder="Vendor Name" class="form-control input-md" required="">
+                                <input name="fullname" type="text" value="<?php echo $_a['usr_name'];?>" placeholder="Full Name" class="form-control input-md" required>
+                                <label id="name-input-error" style="display:none;" class="control-label">No special characters allowed</label>
                             </div>
                         </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Last Website </label>
+                        <span class="profile-title">Account Information</span> 
+                        <div id="email-input" class="form-group">
+                            <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-8">
-                                <input id="name" name="name" type="text" placeholder="Vendor Website" class="form-control input-md" required="">
+                                <input name="email" type="email" value="<?php echo $_a['usr_email'];?>" placeholder="example@email.com" class="form-control input-md" required>
+                                <label id="email-input-error" style="display:none;" class="control-label">Email invalid</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Email<span class="required">*</span></label>
+                        <div id="phone-input" class="form-group">
+                            <label class="col-md-4 control-label">Phone #</label>
                             <div class="col-md-8">
-                                <input id="name" name="name" type="text" placeholder="Email" class="form-control input-md" required="">
+                                <input name="phone" type="number" value="<?php echo $_a['usr_contact'];?>" placeholder="e.g (0915-XXX-XXXX)" class="form-control input-md" required>
+                                <label id="phone-input-error" style="display:none;" class="control-label">Enter 11-digit phone number only</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Phone<span class="required">*</span></label>
+                        <div id="address-input" class="form-group">
+                            <label class="col-md-4 control-label">Default Address</label>
                             <div class="col-md-8">
-                                <input id="name" name="name" type="text" placeholder="Phone" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                       
-                        <h2 class="form-title">Socail Media Profile</h2>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="facebook">Facebook URL</label>
-                            <div class="col-md-8">
-                                <input id="facebook" name="facebook" type="text" placeholder="Facebook URl" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="twitter">Twitter URL</label>
-                            <div class="col-md-8">
-                                <input id="twitter" name="twitter" type="text" placeholder="Twitter Url" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="linkedin">Linkedin URL</label>
-                            <div class="col-md-8">
-                                <input id="linkedin" name="linkedin" type="text" placeholder="Linkedin Url" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="pinterest">Pinterest URL</label>
-                            <div class="col-md-8">
-                                <input id="pinterest" name="pinterest" type="text" placeholder="Pinterest Url" class="form-control input-md" required="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="instagram">instagram URL</label>
-                            <div class="col-md-8">
-                                <input id="instagram" name="instagram" type="text" placeholder="Instagram Url" class="form-control input-md" required="">
+                                <textarea style="resize:none;" rows="5" name="address" type="text" placeholder="Default Address" class="form-control input-md" required=""><?php echo $_a['usr_address'];?></textarea>
+                                <label id="address-input-error" style="display:none;" class="control-label">Address consists of invalid characters</label>
                             </div>
                         </div>
                         <!-- Button -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="submit"></label>
+                            <label class="col-md-4 control-label"></label>
                             <div class="col-md-4">
-                                <button id="submit" name="submit" class="btn btn-primary">Update Profile</button>
+                                <button id="btn-update-account" type="submit" name="submit" class="btn btn-primary btn-sm">Update Profile</button>
+                            </div>
+                            <div class="material-load-details" class="" style="display:none;margin-right:30px;">
+                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30></circle></svg>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-md-5 dashboard-form">
-                <form class="form-horizontal">
-                    <div class="bg-white pinside30">
+            <div class="col-md-6 dashboard-form">
+                <form id="form-account-password" method="POST" class="form-horizontal">
+                    <div class="bg-white">
                         <!-- Form Name -->
-                        <h2 class="form-title">Change Password</h2>
                         <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="oldpassword">Old Password</label>
+                        <div class="add_listing_info">
+                <span class="profile-title">Change Password</span>     
+                        <div id="old-password-input" class="form-group">
+                            <label class="col-md-4 control-label">Old</label>
                             <div class="col-md-8">
-                                <input id="oldpassword" name="oldpassword" type="text" placeholder="Old Password" class="form-control input-md" required="">
+                                <input name="old-password" type="password" value="" placeholder="Old Password" class="form-control input-md" required="">
+                                <label id="old-password-incorrect" style="display:none;" class="control-label">Password is incorrect</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="newpassword">New Password</label>
+                        </div>
+                        <div id="new-password-input" class="form-group">
+                            <label class="col-md-4 control-label">New</label>
                             <div class="col-md-8">
-                                <input id="newpassword" name="newpassword" type="text" placeholder="New Password" class="form-control input-md" required="">
+                                <input name="new-password" type="password" placeholder="New password" class="form-control input-md" required="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="ConfirmPassword">Confirm Password</label>
+                        <div id="co-password-input" class="form-group">
+                            <label class="col-md-4 control-label">Confirm</label>
                             <div class="col-md-8">
-                                <input id="ConfirmPassword" name="ConfirmPassword" type="text" placeholder="Confirm Password" class="form-control input-md" required="">
+                                <input name="co-password" type="password" placeholder="Confirm Password" class="form-control input-md" required="">
+                                <span class="help-block">
+                                    <label id="password-not-match" style="display:none;" class="control-label">Passwords do not match</label>
+                                    <label id="new-password-invalid" style="display:none;" class="control-label">Your new password is invalid</label>
+                                </span>
                             </div>
+                            
                         </div>
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="submit"></label>
                             <div class="col-md-4">
-                                <button id="submit" name="submit" class="btn btn-action">Save Password</button>
+                                <button id="btn-update-password" type="submit" name="submit" class="btn btn-primary btn-sm">Change Password</button>
                             </div>
+                            <div class="material-load-password" class="" style="display:none;margin-right:30px;">
+                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30></circle></svg>
+                            </div>
+                            
                         </div>
                     </div>
                 </form>
@@ -128,3 +110,6 @@
         </div>
     </div>
 </div>
+<?php
+}
+?>

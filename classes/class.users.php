@@ -11,6 +11,49 @@ class Users{
     }
   }
 
+    public function account_details($id){
+      $sth = $this->db->prepare("SELECT * FROM users WHERE usr_id = ?");
+      $sth->bindParam(1,$id);
+      $sth->execute();
+
+      while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+        $list[] = $row;
+      }
+      if(!empty($list)){
+        return $list;
+      }else{
+        return false;
+      }
+      
+    }
+
+    public function update_password($val,$uid){
+      $sth = $this->db->prepare("UPDATE users SET usr_password = ? WHERE usr_id = ?");
+      $sth->bindParam(1,$val);
+      $sth->bindParam(2,$uid);
+      return $sth->execute();
+    }
+    public function check_password($val,$uid){
+      $sth = $this->db->prepare("SELECT usr_password FROM users WHERE usr_id = ?");
+      $sth->bindParam(1,$uid);
+      $sth->execute();
+      $oldpass = $sth->fetch(PDO::FETCH_ASSOC);
+      if($val == $oldpass['usr_password']){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    public function account_update($name,$email,$phone,$address,$id){
+      $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
+      $sth->bindParam("name",$name);
+      $sth->bindParam("email",$email);
+      $sth->bindParam("phone",$phone);
+      $sth->bindParam("address",$address);
+      $sth->bindParam("id",$id);
+      return $sth->execute();
+    }
+
     public function get_session(){
       if(isset($_SESSION['usr_login']) && $_SESSION['usr_login'] == true){
         return true;
