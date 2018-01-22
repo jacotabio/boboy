@@ -7,7 +7,7 @@ if($acc){
 	<div class="col-md-12 profile-dashboard">
         <div class="row">
             <h4 class="" style="margin:0;padding-left:16px;padding-top:16px;padding-bottom:16px;">Account</h4>
-            <div id="account-update-success" style="display:none;" class="alert alert-success">
+            <div id="account-update-success" style="display:inline-block;" class="alert notify-success">
                 <strong>Success!</strong> Your profile information has been updated
             </div>
             <div id="password-update-success" style="display:none;" class="alert alert-success">
@@ -55,7 +55,10 @@ if($acc){
                                 <button id="btn-update-account" type="submit" name="submit" class="btn btn-primary btn-sm">Update Profile</button>
                             </div>
                             <div class="material-load-details" class="" style="display:none;margin-right:30px;">
-                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30></circle></svg>
+                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                    <circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30>
+                                    </circle>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -99,10 +102,12 @@ if($acc){
                             <div class="col-md-4">
                                 <button id="btn-update-password" type="submit" name="submit" class="btn btn-primary btn-sm">Change Password</button>
                             </div>
-                            <div class="material-load-password" class="" style="display:none;margin-right:30px;">
-                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30></circle></svg>
+                            <div class="material-load-password" class="" style="display:none;margin-left:16px;margin-right:30px;">
+                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                    <circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30>
+                                    </circle>
+                                </svg>
                             </div>
-                            
                         </div>
                     </div>
                 </form>

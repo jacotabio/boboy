@@ -673,7 +673,7 @@ $(document).ready(function(){
               $("#password-update-success").show();
               setTimeout(function(){
                 $("#password-update-success").hide();
-              },3000);
+              },5000);
             }
             if(d == "update_failed"){
               alert("Failed to update");

@@ -1312,3 +1312,9 @@ form {
   font-weight:400;
   color:rgba(0,0,0,0.85);
 }
+.notify-success{
+  background-color:#45ad5d;
+  width:100%;
+  color: rgba(255,255,255,1);
+  font-size:13px;
+}

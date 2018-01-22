@@ -3,8 +3,32 @@
 		<div class="table-responsive roboto" style="border:none;">
       <div class="container-fluid no-gap">
         <div class="row no-gap">
-          <div class="col-lg-12 no-gap">
-            <h4 class="" style="margin:0;padding-left:12px;padding-top:16px;">Pending Orders</h4>
+          <div class="col-lg-2 no-gap">
+            <h4 class="" style="padding-left:12px;">Orders</h4>
+          </div>
+          <div class="col-lg-6">
+            <div class="pull-right">
+              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
+              <div>
+                <p class="pull-right">6</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="pull-right">
+              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
+              <div>
+                <p class="pull-right">6</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <div class="pull-right">
+              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
+              <div>
+                <p class="pull-right">6</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
