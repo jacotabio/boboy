@@ -3,31 +3,25 @@
 		<div class="table-responsive roboto" style="border:none;">
       <div class="container-fluid no-gap">
         <div class="row no-gap">
-          <div class="col-lg-2 no-gap">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6 no-gap">
             <h4 class="" style="padding-left:12px;">Orders</h4>
           </div>
-          <div class="col-lg-6">
-            <div class="pull-right">
-              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
-              <div>
-                <p class="pull-right">6</p>
-              </div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
+            <label class="orders-bar" style="font-size:11px;font-weight:500;">Pending</label>
+            <div>
+              <p class="pull-right"><span id="t-order-pending"></span></p>
             </div>
           </div>
-          <div class="col-lg-2">
-            <div class="pull-right">
-              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
-              <div>
-                <p class="pull-right">6</p>
-              </div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
+            <label class="orders-bar" style="font-size:11px;font-weight:500;">Ongoing</label>
+            <div>
+              <p class="pull-right"><span id="t-order-ongoing"></span></p>
             </div>
           </div>
-          <div class="col-lg-2">
-            <div class="pull-right">
-              <label style="font-size:11px;font-weight:500;">Pending Orders</label>
-              <div>
-                <p class="pull-right">6</p>
-              </div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
+            <label class="orders-bar" style="font-size:11px;font-weight:500;">Total</label>
+            <div>
+              <p class="pull-right"><span id="t-order-total"></span></p>
             </div>
           </div>
         </div>

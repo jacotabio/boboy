@@ -73,6 +73,11 @@ if(isset($_POST['oi_remove'])){
   }
 }
 
+if(isset($_POST['order_dash'])){
+  //echo $_SESSION['brand_id'];
+  $order->order_dashboard($_SESSION['brand_id']);
+}
+
 if(isset($_POST['cpanel_status'])){
 ?>
 <input type="checkbox" id="id-name--1" name="set-name" class="switch-input" checked>

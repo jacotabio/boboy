@@ -13,7 +13,21 @@ $("#material-load").hide();
 Array.prototype.diff = function(a) {
   return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
-
+  
+  function orderDashboard(){
+    $.ajax({
+      url: "modules/cpanel/ajax.php",
+      method: "POST",
+      data: {
+        "order_dash":1
+      },
+      //dataType: "json",
+      dataType: "html",
+      success:function(data){
+        alert(data);
+      }
+    });
+  }
  function showShopStatus(){
   var bid = $("#shop-cpanel-id").attr("value");
   $.ajax({
@@ -182,6 +196,7 @@ $(document).ready(function(){
   displayCartTable();
   if(order_id==null){
     displayOrders();
+    orderDashboard();
   }
   displayUserOrders();
   orderInfo();

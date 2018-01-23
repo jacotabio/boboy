@@ -11,6 +11,9 @@ class Orders{
     }
   }
 
+  public function order_dashboard($id){
+    $sth = $this->db->prepare("");
+  }
   public function pending_brand_orders($bid){
     $query = $this->db->prepare("SELECT *,orders.created_at AS date_ordered FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id GROUP BY orders.order_id ORDER BY orders.created_at DESC");
     $query->bindParam(1,$bid);
