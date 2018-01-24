@@ -114,12 +114,23 @@ if(isset($_POST['update_account'])){
     echo json_encode($arr);
   }else{
     // validation success
-    if($user->account_update($fullname,$email,$phone,$address,$_SESSION['usr_id'])){
-      $arr['code'] = "success";
-      echo json_encode($arr);
-    }else{
-      $arr['code'] = "failed";
-      echo json_encode($arr);
+    if($_SESSION['usr_auth'] == 1){
+      if($user->account_update($fullname,$email,$phone,$address,$_SESSION['usr_id'])){
+        $arr['code'] = "success";
+        echo json_encode($arr);
+      }else{
+        $arr['code'] = "failed";
+        echo json_encode($arr);
+      }
+    }else if($_SESSION['usr_auth'] == 2){
+      if($user->brand_update($fullname,$email,$phone,$address,$_SESSION['usr_id'],$_SESSION['brand_id'])){
+        
+        $arr['code'] = "success";
+        echo json_encode($arr);
+      }else{
+        $arr['code'] = "failed";
+        echo json_encode($arr);
+      }
     }
   }
 }

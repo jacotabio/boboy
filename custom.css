@@ -1168,7 +1168,7 @@ li.borderless {
   }
 
   .label-delivery-Ready{
-    background-color: #2fce51;
+    background-color: #2ac4fc;
   }
   .label-delivery-Pending{
     background-color: #ffa600;
@@ -1313,9 +1313,9 @@ form {
   color:rgba(0,0,0,0.85);
 }
 .notify-success{
-  background-color:#45ad5d;
+  background-color:#83db9a;
   width:100%;
-  color: rgba(255,255,255,1);
+  color: #0f4f20;
   font-size:13px;
 }
 .orders-bar{

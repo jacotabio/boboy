@@ -6,7 +6,7 @@ if($acc){
 <div class="container-fluid no-gap">
 	<div class="col-md-12 profile-dashboard">
         <div class="row">
-            <h4 class="" style="margin:0;padding-left:16px;padding-top:16px;padding-bottom:16px;">Account</h4>
+            <h4 class="" style="margin:0;padding-left:16px;padding-top:16px;padding-bottom:16px;">Account Settings</h4>
             <div id="account-update-success" style="display:inline-block;" class="alert notify-success">
                 <strong>Success!</strong> Your profile information has been updated
             </div>

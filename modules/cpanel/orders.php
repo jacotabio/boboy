@@ -9,19 +9,19 @@
           <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
             <label class="orders-bar" style="font-size:11px;font-weight:500;">Pending</label>
             <div>
-              <p class="pull-right"><span id="t-order-pending"></span></p>
+              <p class="pull-right"><span id="t-order-pending">-</span></p>
             </div>
           </div>
           <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
             <label class="orders-bar" style="font-size:11px;font-weight:500;">Ongoing</label>
             <div>
-              <p class="pull-right"><span id="t-order-ongoing"></span></p>
+              <p class="pull-right"><span id="t-order-ongoing">-</span></p>
             </div>
           </div>
           <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" style="background:;">
             <label class="orders-bar" style="font-size:11px;font-weight:500;">Total</label>
             <div>
-              <p class="pull-right"><span id="t-order-total"></span></p>
+              <p class="pull-right"><span id="t-order-total">-</span></p>
             </div>
           </div>
         </div>

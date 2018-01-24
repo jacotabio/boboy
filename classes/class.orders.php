@@ -11,8 +11,18 @@ class Orders{
     }
   }
 
-  public function order_dashboard($id){
-    $sth = $this->db->prepare("");
+  public function order_dashboard($bid){
+    $sth = $this->db->prepare("SELECT (SELECT COUNT(order_status) FROM orders,oitem,items WHERE items.item_id = oitem.item_id AND orders.order_id = oitem.order_id AND items.brand_id = ? AND order_status = 0) AS t_pending,(SELECT COUNT(order_status) FROM orders,oitem,items WHERE items.item_id = oitem.item_id AND orders.order_id = oitem.order_id AND items.brand_id = ? AND order_status < 3) AS t_ongoing,(SELECT COUNT(order_status) FROM orders,oitem,items WHERE items.item_id = oitem.item_id AND orders.order_id = oitem.order_id AND items.brand_id = ?) AS t_total");
+    $sth->bindParam(1,$bid);
+    $sth->bindParam(2,$bid);
+    $sth->bindParam(3,$bid);
+    $sth->execute();
+
+    while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+      $list[] = $row;
+    }
+    return $list;
+    //return $pending = $row['t_pending'];
   }
   public function pending_brand_orders($bid){
     $query = $this->db->prepare("SELECT *,orders.created_at AS date_ordered FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id GROUP BY orders.order_id ORDER BY orders.created_at DESC");

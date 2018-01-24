@@ -21,10 +21,14 @@ Array.prototype.diff = function(a) {
       data: {
         "order_dash":1
       },
-      //dataType: "json",
-      dataType: "html",
-      success:function(data){
-        alert(data);
+      dataType: "json",
+      //dataType: "html",
+      success:function(d){
+        $("#t-order-pending").html(d['pending']);
+        $("#t-order-ongoing").html(d['ongoing']);
+        $("#t-order-total").html(d['total']);
+        //alert(JSON.stringify(d));
+        //alert(d['t_pending']);
       }
     });
   }
@@ -196,7 +200,6 @@ $(document).ready(function(){
   displayCartTable();
   if(order_id==null){
     displayOrders();
-    orderDashboard();
   }
   displayUserOrders();
   orderInfo();
@@ -729,8 +732,9 @@ $(document).ready(function(){
           if(d['code'] == "success"){
             $("#account-update-success").show();
             setTimeout(function(){
-              $("#account-update-success").hide();
-            },3000);
+              location.reload();
+              //$("#account-update-success").hide();
+            },5000);
           }
           for (var key in d) {
             if (d.hasOwnProperty(key)) {
@@ -747,6 +751,8 @@ $(document).ready(function(){
           $("#btn-update-account").prop("disabled",false);
         },0);
         
+      },error:function(e){
+        console.log(e);
       }
     });
   });
@@ -1218,6 +1224,7 @@ $(document).ready(function(){
       if(getUrlParameter('t') == "orders" && getUrlParameter('mod') == "cpanel"){
         if(getUrlParameter('o_id') == null){
           displayOrders();
+          orderDashboard();
         }
       }
       if(getUrlParameter('mod') == "profile" && getUrlParameter('t') == "orders"){

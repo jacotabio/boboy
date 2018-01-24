@@ -75,7 +75,13 @@ if(isset($_POST['oi_remove'])){
 
 if(isset($_POST['order_dash'])){
   //echo $_SESSION['brand_id'];
-  $order->order_dashboard($_SESSION['brand_id']);
+  $arr = $order->order_dashboard($_SESSION['brand_id']);
+  foreach($arr as $a);
+  $array = array();
+  $array['pending'] = $a['t_pending'];
+  $array['ongoing'] = $a['t_ongoing'];
+  $array['total'] = $a['t_total'];
+  echo json_encode($array);
 }
 
 if(isset($_POST['cpanel_status'])){

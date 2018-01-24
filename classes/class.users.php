@@ -45,6 +45,7 @@ class Users{
       }
     }
     public function account_update($name,$email,$phone,$address,$id){
+      
       $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
       $sth->bindParam("name",$name);
       $sth->bindParam("email",$email);
@@ -52,6 +53,22 @@ class Users{
       $sth->bindParam("address",$address);
       $sth->bindParam("id",$id);
       return $sth->execute();
+    }
+
+    public function brand_update($name,$email,$phone,$address,$id,$bid){
+      $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
+      $sth->bindParam("name",$name);
+      $sth->bindParam("email",$email);
+      $sth->bindParam("phone",$phone);
+      $sth->bindParam("address",$address);
+      $sth->bindParam("id",$id);
+      $sth->execute();
+
+      $sth3 = $this->db->prepare("UPDATE brands SET brand_name = ? WHERE brand_id = ?");
+      $sth3->bindParam(1,$name);
+      $sth3->bindParam(2,$bid);
+      $_SESSION['usr_name'] = $name;
+      return $sth3->execute();
     }
 
     public function get_session(){
