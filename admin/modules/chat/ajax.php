@@ -2,8 +2,10 @@
 include '../../library/config.php';
 include '../../classes/class.brands.php';
 include '../../classes/class.chats.php';
+include '../../classes/class.users.php';
 
 $chat = new Chats();
+$user = new Users();
 $brand = new Brands();
 
 function time_elapsed_string($datetime, $full = false) {
@@ -33,6 +35,10 @@ function time_elapsed_string($datetime, $full = false) {
 
   if (!$full) $string = array_slice($string, 0, 1);
   return $string ? implode(', ', $string) . ' ago' : 'Just now';
+}
+
+if(isset($_POST['convert_bid'])){
+  echo $user->get_brandname($_POST['convert_bid']);
 }
 
 if(isset($_POST['chat_content'])){ 

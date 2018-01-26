@@ -7,10 +7,10 @@ if($acc){
 	<div class="col-md-12 profile-dashboard">
         <div class="row">
             <h4 class="" style="margin:0;padding-left:16px;padding-top:16px;padding-bottom:16px;">Account Settings</h4>
-            <div id="account-update-success" style="display:inline-block;" class="alert notify-success">
-                <strong>Success!</strong> Your profile information has been updated
+            <div id="account-update-success" style="display:none;" class="alert notify-success">
+                <strong>Success!</strong> This page will reload after 5 seconds to complete the process.
             </div>
-            <div id="password-update-success" style="display:none;" class="alert alert-success">
+            <div id="password-update-success" style="display:none;" class="alert notify-success">
                 <strong>Success!</strong> Your password has been updated
             </div>
             <div class="col-md-6 dashboard-form">

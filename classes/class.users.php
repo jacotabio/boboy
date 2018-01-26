@@ -52,6 +52,7 @@ class Users{
       $sth->bindParam("phone",$phone);
       $sth->bindParam("address",$address);
       $sth->bindParam("id",$id);
+      $_SESSION['usr_name'] = $name;
       return $sth->execute();
     }
 

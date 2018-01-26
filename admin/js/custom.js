@@ -55,7 +55,16 @@ $(document).ready(function(){
     $("body").on("click",".btn-chat", function(e){
         b_chatid = $(this).val();
         if($("#chat-modal").modal()){
-            $("#chat-modal-title").html(b_chatid);
+            $.ajax({
+                url: "modules/chat/ajax.php",
+                method: "POST",
+                data: {
+                    "convert_bid":b_chatid
+                },
+                success:function(data){
+                    $("#chat-modal-title").html(data);
+                }
+            });
             loadChat(b_chatid);
         }
     });

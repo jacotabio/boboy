@@ -40,7 +40,7 @@ if(isset($_POST['display_active_shops'])){?>
   <?php
   $b = $brand->get_all_brand_status();
   foreach($b as $_b){?>
-      <a href="<?php echo $_b['brand_id']?>" class="list-group-item borderles" style="font-size:13px;font-weight:500;"><span class="indicator<?php echo $_b['brand_status'];?>">&#9679;</span>&nbsp;&nbsp;<?php echo $_b['brand_name'];?></a>
+      <li class="list-group-item borderless" style="font-size:13px;font-weight:500;"><span class="indicator<?php echo $_b['brand_status'];?>">&#9679;</span>&nbsp;&nbsp;<?php echo $_b['brand_name'];?></li>
   <?php  
   }
   ?>

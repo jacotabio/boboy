@@ -20,6 +20,14 @@ class Users{
       }
   }
 
+  public function get_brandname($id){
+    $query = $this->db->prepare("SELECT brand_name FROM brands WHERE brand_id = ?");
+    $query->bindParam(1,$id);
+    $query->execute();
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    return $row['brand_name'];
+  }
+
   public function check_login($username,$password){
     $password = md5($password);
 
