@@ -6,17 +6,7 @@ include '../../classes/class.brands.php';
 $brand = new Brands();
 $user = new Users();
 
-$name = test_input($_POST["name"]);
-if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-  echo "name_invalid"; 
-  exit;
-}
-
-$email = test_input($_POST["email"]);
-if (!preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/",$email)) {
-  echo "email_invalid"; 
-  exit;
-}
+//print_r($_POST);
 
 function test_input($data) {
   $data = trim($data);
@@ -35,34 +25,92 @@ function array_map_r( $func, $arr )
     }
 
     return $newArr;
-} 
-$sanitized_data =array_map_r('strip_tags', $_POST);
+}
+//$sanitized_data =array_map_r('strip_tags', $_POST);
+
+// CREATE ARRAY FOR VALIDATION PURPOSES
 
 
-if($_POST['password_confirm']!=$_POST['password']){
-  echo "non_match_password";
-  exit;
+$arr = array();
+
+$name = test_input($_POST['name']);
+$email = test_input($_POST['email']);
+$password = test_input($_POST['password']);
+$copassword = test_input($_POST['co-password']);
+$address = test_input($_POST['address']);
+$phone = test_input($_POST['contact']);
+
+if($password != $copassword){
+  $arr['pwd-match'] = 0;
 }else{
-  $chk_email = $user->chk_email_exists($_POST['email']);
-  if($chk_email == 1){
-    echo "email_exists";
-    exit;
-  }else{
-    if($usr_id = $user->register_credentials($sanitized_data['name'],$sanitized_data['email'],md5($sanitized_data['password']),$sanitized_data['auth-type'],0)){
-      if($sanitized_data['auth-type'] == 2){
-        $brand_id = $brand->add_brand($sanitized_data['name']);
-        if($user->place_brand_id($brand_id,$usr_id)){
-          echo "brand_registered";
-        }
-      }else{
-        echo "user_registered";
-      }
-      exit;
-    }else{
-      echo "register_failed";
-      exit;
-    }
+  $arr['pwd-match'] = 1;
+}
+if (!preg_match("/^[a-zA-Z '-.]*$/",$name) || $name == "" || $name == null) {
+  $arr['name-reg'] = 0;
+}else{
+  $arr['name-reg'] = 1;
+}
+if(!preg_match('/^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$/', $email) || $email == "" || $email == null) {
+  $arr['email-reg'] = 0;
+}else{
+  $arr['email-reg'] = 1;
+}
+if(!preg_match("/^[a-zA-Z0-9]{6,}$/",$password) || $password == "" || $password == null){
+  $arr['pwd-reg'] = 0;
+}else{
+  $arr['pwd-reg'] = 1;
+}
+if(!preg_match("/^[a-zA-Z 0-9.,()#]*$/",$address) || $address == "" || $address == null){
+  $arr['address-reg'] = 0;
+}else{
+  $arr['address-reg'] = 1;
+}
+if(!preg_match("/^[0-9]{11,11}$/", $phone) || $phone == "" || $phone == null){
+  $arr['phone-reg'] = 0;
+}else{
+  $arr['phone-reg'] = 1;
+}
+
+$i = 0;
+foreach($arr as $_a){
+  if($_a == 0){
+    $i++;
   }
 }
+if($i != 0){
+  $arr['code'] = "failed";
+  echo json_encode($arr);
+}else{
+  $arr['code'] = "validated";
+  $chk_email = $user->chk_email_exists($_POST['email']);
+  if($chk_email == 1){
+    $arr['email-reg'] = 0;
+    $arr['email-exists'] = 0;
+  }else{
+    if($usr_id = $user->register_credentials($name,$email,md5($password),$address,$phone)){
+      $arr['code'] = "user_registered";
+    }else{
+      $arr['code'] = "register_failed";
+    }
+  }
+  echo json_encode($arr);
+}
+
+/* FOR BRAND REGISTRATION CODE
+if($usr_id = $user->register_credentials($name,$email,md5($password),$address,$phone)){
+  if($sanitized_data['auth-type'] == 2){
+    $brand_id = $brand->add_brand($sanitized_data['name']);
+    if($user->place_brand_id($brand_id,$usr_id)){
+      echo "brand_registered";
+    }
+  }else{
+    echo "user_registered";
+  }
+  exit;
+}else{
+  echo "register_failed";
+  exit;
+}
+*/
 
 ?>

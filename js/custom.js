@@ -1091,16 +1091,65 @@ $(document).ready(function(){
   //-- Register Ajax Function --//
   $("#register-form").on("submit", function(e){
     e.preventDefault();
-    $('#submit-register').prop('disabled', true);
+    $("#email-reg").addClass("has-error");
+    //$('#submit-register').prop('disabled', true);
     var e_pwd = document.getElementById("pwd-reg");
     var e_cpwd = document.getElementById("cpwd-reg");
 
-    var e_email = document.getElementById("email-reg");
+    var e_email = $("#email-reg");
     $.ajax({
       url: 'modules/register/ajax.php',
       type: 'POST',
       data: $(this).serialize(),
+      dataType: "json",
       success: function (d) {
+        if(d['code'] == "user_registered"){
+          $("#user-registered").modal();
+        }else{
+          $("#email-reg").removeClass("has-error");
+          $("#email-reg-exists").hide();
+          for (var key in d) {
+            if (d.hasOwnProperty(key)) {
+              if(key == "pwd-match"){
+                if(d[key] == 0){
+                  $("#pwd1-reg").addClass("has-error");
+                  $("#copwd-reg").addClass("has-error");
+                  $("#pwd-match").show();
+                }else{
+                  $("#pwd1-reg").removeClass("has-error");
+                  $("#copwd-reg").removeClass("has-error");
+                  $("#pwd-match").hide();
+                }
+              }else if(key == "pwd-reg"){
+                if(d[key] == 0){
+                  $("#pwd1-reg").addClass("has-error");
+                  $("#copwd-reg").addClass("has-error");
+                  $("#pwd-reg-error").show();
+                }else{
+                  $("#pwd1-reg").removeClass("has-error");
+                  $("#copwd-reg").removeClass("has-error");
+                  $("#pwd-reg-error").hide();
+                }
+              }else if(key == "email_exists" && d[key] == 0){
+                $("#email-reg-error").hide();
+                $("#email-reg").addClass("has-error");
+              }else{
+                //$("#email-reg").removeClass("has-error");
+                //$("#email-reg-error").hide();
+                if(d[key] == 0){
+                  $("#"+key).addClass("has-error");
+                  $("#"+key+"-error").show();
+                }else{
+                  $("#"+key).removeClass("has-error");
+                  $("#"+key+"-error").hide();
+                }
+              }
+            }
+          }
+        }
+        
+        alert(JSON.stringify(d));
+        /*
         setTimeout(function(){
           if(d == "non_match_password"){
             e_pwd.classList.add("has-error");
@@ -1119,6 +1168,7 @@ $(document).ready(function(){
           }
           $('#submit-register').prop('disabled', false);
         },0);
+        */
       }
     });
   });
@@ -1162,9 +1212,10 @@ $(document).ready(function(){
       {
         url : "modules/chat/realtime.php",
         type: "POST",
+        dataType: "json",
         success: function(data, textStatus, jqXHR){
           
-          var data = jQuery.parseJSON(data);
+          //var data = jQuery.parseJSON(data);
           if(data.result == true){
             var data_notif = data.notif;
             
