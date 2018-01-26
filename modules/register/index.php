@@ -11,7 +11,7 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="name" class="form-control" name="name" value="" required autofocus>
-                                <label id="name-reg-error" style="display:none;" class="control-label">No special characters allowed</label>
+                                <label id="name-reg-error" style="display:none;" class="control-label">Only letters are allowed</label>
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                             <div id="cpwd-reg" class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="co-password" required>
                                 <label id="pwd-match" style="display:none;" class="control-label">Passwords do not match</label>
-                                <label id="pwd-reg-error" style="display:none;" class="control-label">Alphanumeric 6-character passwords only</label>
+                                <label id="pwd-reg-error" style="display:none;" class="control-label">Alphanumeric & minimum 6-character only</label>
 
                             </div>
                         </div>

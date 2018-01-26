@@ -119,13 +119,17 @@ class Users{
       return $row;
     }
 
-    public function register_credentials($name,$email,$pwd,$auth,$status){
-      $query = $this->db->prepare("INSERT INTO users(usr_name,usr_email,usr_password,usr_auth,usr_status) VALUES(?,?,?,?,?)");
+    public function register_credentials($name,$email,$pwd,$address,$phone){
+      $auth = "1";
+      $status = "1";
+      $query = $this->db->prepare("INSERT INTO users(usr_name,usr_email,usr_password,usr_auth,usr_status,usr_address,usr_contact) VALUES(?,?,?,?,?,?,?)");
       $query->bindParam(1,$name);
       $query->bindParam(2,$email);
       $query->bindParam(3,$pwd);
       $query->bindParam(4,$auth);
       $query->bindParam(5,$status);
+      $query->bindParam(6,$address);
+      $query->bindParam(7,$phone);
       $query->execute();
       return $this->db->lastInsertId();
     }

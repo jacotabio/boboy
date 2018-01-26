@@ -85,6 +85,9 @@ function reloadPage(){
 $("#item-unavailable").on("hidden.bs.modal", function () {
   reloadPage();
 });
+$("#user-registered").on("hidden.bs.modal", function () {
+  window.location = "/";
+});
 
 $("#update-complete-modal").on("hidden.bs.modal", function () {
   reloadPage();
@@ -1049,7 +1052,11 @@ $(document).ready(function(){
       }
     });
   });
-
+  function resetForm(formid) {
+    $('#' + formid + ' :input').each(function(){  
+    $(this).val('').attr('checked',false).attr('selected',false);
+  });
+  }
   /*
   //-- Logout Ajax --//
   $('#btn-logout').click(function(){
@@ -1091,7 +1098,7 @@ $(document).ready(function(){
   //-- Register Ajax Function --//
   $("#register-form").on("submit", function(e){
     e.preventDefault();
-    $("#email-reg").addClass("has-error");
+    var this_id = $(this).attr("id");
     //$('#submit-register').prop('disabled', true);
     var e_pwd = document.getElementById("pwd-reg");
     var e_cpwd = document.getElementById("cpwd-reg");
@@ -1103,15 +1110,13 @@ $(document).ready(function(){
       data: $(this).serialize(),
       dataType: "json",
       success: function (d) {
-        if(d['code'] == "user_registered"){
-          $("#user-registered").modal();
-        }else{
-          $("#email-reg").removeClass("has-error");
-          $("#email-reg-exists").hide();
+        var remember;
+        function runValidation(){
           for (var key in d) {
             if (d.hasOwnProperty(key)) {
               if(key == "pwd-match"){
                 if(d[key] == 0){
+                  remember = 0;
                   $("#pwd1-reg").addClass("has-error");
                   $("#copwd-reg").addClass("has-error");
                   $("#pwd-match").show();
@@ -1121,21 +1126,22 @@ $(document).ready(function(){
                   $("#pwd-match").hide();
                 }
               }else if(key == "pwd-reg"){
-                if(d[key] == 0){
+                if(remember == 0){
                   $("#pwd1-reg").addClass("has-error");
                   $("#copwd-reg").addClass("has-error");
-                  $("#pwd-reg-error").show();
                 }else{
-                  $("#pwd1-reg").removeClass("has-error");
-                  $("#copwd-reg").removeClass("has-error");
-                  $("#pwd-reg-error").hide();
+                  if(d[key] == 0){
+                    $("#pwd1-reg").addClass("has-error");
+                    $("#copwd-reg").addClass("has-error");
+                    $("#pwd-reg-error").show();
+                  }else{
+                    $("#pwd1-reg").removeClass("has-error");
+                    $("#copwd-reg").removeClass("has-error");
+                    $("#pwd-reg-error").hide();
+                  }
                 }
-              }else if(key == "email_exists" && d[key] == 0){
-                $("#email-reg-error").hide();
-                $("#email-reg").addClass("has-error");
+                
               }else{
-                //$("#email-reg").removeClass("has-error");
-                //$("#email-reg-error").hide();
                 if(d[key] == 0){
                   $("#"+key).addClass("has-error");
                   $("#"+key+"-error").show();
@@ -1147,7 +1153,17 @@ $(document).ready(function(){
             }
           }
         }
-        
+        runValidation();
+        if(d['code'] == "user_registered"){
+          resetForm(this_id);
+          $("#user-registered").modal();
+        }
+        if(d['code'] == "email_exists"){
+          $("#email-reg").addClass("has-error");
+          $("#email-reg-exists").show();
+        }else{
+          $("#email-reg-exists").hide();
+        }
         alert(JSON.stringify(d));
         /*
         setTimeout(function(){

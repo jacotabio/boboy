@@ -61,11 +61,11 @@
       </div>
 
       <div class="modal-body">
-        <p class="lead">Thank you for your registration! To complete the entire process, you need to click the link in the confirmation email that we have sent to you.</p>
+        <p class="lead">Thank you for your registration! You can now access your account by logging in after this page has redirected.</p>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-dialog" onclick="returnIndex()" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-dialog" data-dismiss="modal">Close</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->

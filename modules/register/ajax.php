@@ -45,7 +45,7 @@ if($password != $copassword){
 }else{
   $arr['pwd-match'] = 1;
 }
-if (!preg_match("/^[a-zA-Z '-.]*$/",$name) || $name == "" || $name == null) {
+if (!preg_match("/^[ña-zA-Z .]{3,}$/",$name) || $name == "" || $name == null || $name == " ") {
   $arr['name-reg'] = 0;
 }else{
   $arr['name-reg'] = 1;
@@ -60,7 +60,7 @@ if(!preg_match("/^[a-zA-Z0-9]{6,}$/",$password) || $password == "" || $password 
 }else{
   $arr['pwd-reg'] = 1;
 }
-if(!preg_match("/^[a-zA-Z 0-9.,()#]*$/",$address) || $address == "" || $address == null){
+if(!preg_match("/^[a-zA-Z 0-9.,()#-]*$/",$address) || $address == "" || $address == null){
   $arr['address-reg'] = 0;
 }else{
   $arr['address-reg'] = 1;
@@ -81,11 +81,9 @@ if($i != 0){
   $arr['code'] = "failed";
   echo json_encode($arr);
 }else{
-  $arr['code'] = "validated";
   $chk_email = $user->chk_email_exists($_POST['email']);
   if($chk_email == 1){
-    $arr['email-reg'] = 0;
-    $arr['email-exists'] = 0;
+    $arr['code'] = "email_exists";
   }else{
     if($usr_id = $user->register_credentials($name,$email,md5($password),$address,$phone)){
       $arr['code'] = "user_registered";
