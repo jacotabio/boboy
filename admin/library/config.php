@@ -16,7 +16,7 @@ if($hosted){
 }
 if($webhost){
   define('DB_SERVER','localhost');
-  define('DB_USERNAME','id4138457_boboyexpress');
+  define('DB_USERNAME','id4138457_db_boboy');
   define('DB_PASSWORD','ProjectUrbanite01');
   define('DB_DATABASE','id4138457_db_boboy');
 }
