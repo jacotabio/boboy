@@ -156,11 +156,12 @@ class Items{
       }
     }
 
-    public function create_order($usr_id,$address,$contact){
-      $query = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number) VALUES(NOW(),?,?,?)");
+    public function create_order($usr_id,$address,$contact,$fee){
+      $query = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_fee) VALUES(NOW(),?,?,?,?)");
       $query->bindParam(1,$usr_id);
       $query->bindParam(2,$address);
       $query->bindParam(3,$contact);
+      $query->bindParam(4,$fee);
       $query->execute();
       return $this->db->lastInsertId();
     }

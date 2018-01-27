@@ -12,7 +12,10 @@ class Orders{
   }
 
   public function order_dashboard($bid){
-    $sth = $this->db->prepare("SELECT (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id AND order_status = 0) AS t_pending,(SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id AND order_status < 3) AS t_ongoing,(SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id) AS t_total");
+    $sth = $this->db->prepare("SELECT 
+  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 0) AS t_pending,
+  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 1 AND oi_delivery != 2) AS t_ongoing,
+  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ?) AS t_total");
     $sth->bindParam(1,$bid);
     $sth->bindParam(2,$bid);
     $sth->bindParam(3,$bid);

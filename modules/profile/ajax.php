@@ -157,7 +157,7 @@ if(isset($_POST['display_orders'])){?>
             <tr id="<?php echo $o['order_id'];?>" class="user-select-order row-hover">
               <td style="text-align:left;"><?php echo time_elapsed_string($o['created_at']);?></td>
               <td style="text-align:left;"><?php echo $o['order_id'];?></td>
-              <td><?php echo $currency;?><?php echo $o['order_total'];?></td>
+              <td><?php $sum = $o['order_total']+$o['custom_fee']; echo $currency.number_format((float)$sum, 2, '.', '');?></td>
               <td style="text-align:center;"><span class="label label-user-status-<?php echo $o['order_status'];?>">
                 <?php
                 switch($o['order_status']){
@@ -344,8 +344,8 @@ if(isset($_POST['order_info'])){
             <ul class="list-group">
               <li class="list-group-item order-item-list"><span class="pull-left">Number of Items</span><span class="pull-right"><?php echo $order->count_total_items($_POST['order_id']);?></span></li>
               <li class="list-group-item order-item-list borderless"><span class="pull-left">Subtotal</span><span class="pull-right"><?php echo $currency.$oinfo['order_total'];?></span></li>
-              <li class="list-group-item order-item-list borderless"><span class="pull-left">Service Fee</span><span class="pull-right"><?php echo $currency.$servicefee;?></span></li>
-              <li class="list-group-item order-item-list" style="font-weight:600;"><span class="pull-left">Total</span><span class="pull-right"><?php $total = $oinfo['order_total']+$servicefee; echo $currency.number_format((float)$total, 2, '.', '');?></span></li>
+              <li class="list-group-item order-item-list borderless"><span class="pull-left">Service Fee</span><span class="pull-right"><?php echo $currency.$oinfo['custom_fee'];?></span></li>
+              <li class="list-group-item order-item-list" style="font-weight:600;"><span class="pull-left">Total</span><span class="pull-right"><?php $total = $oinfo['order_total']+$oinfo['custom_fee']; echo $currency.number_format((float)$total, 2, '.', '');?></span></li>
             </ul>
           </div>
         </div>      
