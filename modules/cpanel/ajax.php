@@ -438,7 +438,7 @@ if(isset($_POST['order_info'])){
                 </div>
                 <div class="content-footer">
                   <div class="pull-left">
-                    <button type="button" id="open-chat" class="btn btn-action" value="<?php echo $oci['usr_id']?>"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Quick Chat</button>
+                    <button type="button" id="open-chat" class="btn btn-action" value="<?php echo $oci['usr_id']?>"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Message</button>
                   </div>
                   <div class="pull-right">
                     <?php

@@ -37,7 +37,7 @@ $currency = "₱";
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <title><?php echo $brandname;?> - Coffee Delivery Service</title>
+    <title><?php echo $brandname;?> - <?php if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 1 || !isset($_SESSION['usr_auth'])){?>Coffee Delivery Service<?php }else{ echo $_SESSION['usr_name'];}?></title>
     <!-- Bootstrap core CSS -->
     
     <link href="css/dataTables.material.min.css" rel="stylesheet">
@@ -58,14 +58,31 @@ $currency = "₱";
             <span class="icon-bar"></span>
           </button>
           <div style="margin-left: 24px;">
+            <?php
+            if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 1 || !isset($_SESSION['usr_auth'])){
+            ?>
             <a class="navbar-brand example6" href="/"></a>
+            <?php
+            }else{?>
+            <a class="navbar-brand example6" href="/?mod=cpanel"></a>
+            <?php
+            }
+            ?>
           </div>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-<li class=<?php if($module==null){ echo "active";}else{ echo '';}?>><a href="/" class="uppercase">Home</a></li>
+            <?php
+            if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 1 || !isset($_SESSION['usr_auth'])){
+            ?>
+            <li class=<?php if($module==null){ echo "active";}else{ echo '';}?>><a href="/" class="uppercase">Home</a></li>
+            <?php 
+            }
+            if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 1 || !isset($_SESSION['usr_auth'])){
+            ?>
             <li class=<?php if($module=="shop"){ echo "active";}else{ echo '';}?>><a href="/?mod=shop" class="uppercase">Shop</a></li>
             <?php
+            }
             if($user->get_session()){?>
               <?php 
               if($_SESSION['usr_auth'] == 1){
@@ -132,14 +149,14 @@ $currency = "₱";
       ?>
       <div class="nav-helper">
         <div class="container">
-          <a class="shop-directory" href="/?mod=<?php echo $_GET['mod'];?>"><?php echo ucfirst($_GET['mod']);?></a>&#10132;<?php if($_GET['mod'] == "shop"){if(isset($_GET['brand'])){?>
+          <a class="shop-directory" href="/?mod=<?php echo $_GET['mod'];?>"><?php echo ucfirst($_GET['mod']);?></a>/<?php if($_GET['mod'] == "shop"){if(isset($_GET['brand'])){?>
                 <a class="shop-directory" href="/?mod=shop&brand=<?php echo $_GET['brand'];?>">
                 <?php
                 echo $item->get_item_brand($_GET['brand']);
                 ?>
                 </a>
                 <?php
-                if(isset($_GET['item'])&&isset($_GET['brand'])){?>&#10132;<a class="shop-directory" href="<?php echo $url_str;?>">
+                if(isset($_GET['item'])&&isset($_GET['brand'])){?>/<a class="shop-directory" href="<?php echo $url_str;?>">
                       <?php
                         $dir_name = $item->get_item_and_brand($_GET['item'],$_GET['brand']);
                         if($dir_name){
@@ -151,10 +168,10 @@ $currency = "₱";
                 }
                 ?>
               <?php
-              }else{?><a class="shop-directory" href="/?mod=shop"><?php echo "All";?></a><?php
+              }else{?><a class="shop-directory" href="/?mod=shop"> <?php echo "All";?></a><?php
                 if(isset($_GET['item'])){
                   $s = $item->check_item_status($_GET['item']);
-                  if($s == 1){?>&#10132;<a class="shop-directory" href="<?php echo $url_str;?>">
+                  if($s == 1){?>/<a class="shop-directory" href="<?php echo $url_str;?>">
                       <?php
                         echo $item->get_item_name($_GET['item']);
                       ?>
@@ -165,7 +182,7 @@ $currency = "₱";
               }
             }else if($_GET['mod']=="cpanel"){
               if(isset($_GET['t'])){?>
-                <a class="shop-directory" href="/?mod=cpanel&t=<?php echo $_GET['t'];?>"><?php echo ucfirst($_GET['t']);?></a><?php if(isset($_GET['q'])){?>&#10132;<a class="shop-directory" href='<?php echo $url_str;?>'><?php echo $item->get_item_name($_GET['q']);?></a>
+                <a class="shop-directory" href="/?mod=cpanel&t=<?php echo $_GET['t'];?>"><?php echo ucfirst($_GET['t']);?></a><?php if(isset($_GET['q'])){?>/<a class="shop-directory" href='<?php echo $url_str;?>'><?php echo $item->get_item_name($_GET['q']);?></a>
             <?php 
                 }
               }
@@ -184,7 +201,8 @@ $currency = "₱";
       <?php
       }
       ?>
-      <div class="main"><?php switch($module){
+      <div class="main"><?php
+        switch($module){
           case 'login':
             require_once 'modules/login/index.php';
             break;

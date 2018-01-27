@@ -130,9 +130,9 @@ if(isset($_POST['display_shop'])){?>
           foreach($notav as $unavail) {
             $img = $unavail['item_img'];
           ?>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 shop-margin">
+          <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 notav-margin">
               <div class="item-holder">
-                <div class="item-image img-responsive" style="filter: grayscale(100%);background-image: url('<?php echo "img/upload/".$img;?>');">
+                <div class="item-image img-responsive" style="max-height:200px;filter: grayscale(100%);background-image: url('<?php echo "img/upload/".$img;?>');">
                 </div>
                 <div class="item-brand">
                   <?php echo $item->get_item_brand($unavail['brand_id']);?>
@@ -141,7 +141,7 @@ if(isset($_POST['display_shop'])){?>
                   <?php echo $unavail['item_name'];?>
                 </div>
                 <div class="item-description">
-                  <?php echo substrwords($unavail['item_description'],1);?>
+                  <?php echo substrwords($unavail['item_description'],90);?>
                 </div>
                 <div class="item-price">
                   PHP <?php echo $unavail['item_price'];?>

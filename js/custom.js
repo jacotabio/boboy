@@ -1,41 +1,177 @@
 // Custom JavaScript //
- var counter = 0;
- var counter_holder = 0;
- var user_id;
- var brand_id;
- var current;
- var chat_current;
- var realtime = true;
- var chat_pov;
- var pageLoad = 0;
- var executed = false;
+function removeURLParameter(url, parameter) {
+  //prefer to use l.search if you have a location/link object
+  var urlparts= url.split('?');   
+  if (urlparts.length>=2) {
+
+      var prefix= encodeURIComponent(parameter)+'=';
+      var pars= urlparts[1].split(/[&;]/g);
+
+      //reverse iteration as may be destructive
+      for (var i= pars.length; i-- > 0;) {    
+          //idiom for string.startsWith
+          if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
+              pars.splice(i, 1);
+          }
+      }
+
+      url= urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
+      return url;
+  } else {
+      return url;
+  }
+}
+function insertParam(key, value){
+
+    key = encodeURI(key); value = encodeURI(value);
+
+    var kvp = document.location.search.substr(1).split('&');
+
+    var i=kvp.length; var x; while(i--) 
+    {
+        x = kvp[i].split('=');
+
+        if (x[0]==key)
+        {
+            x[1] = value;
+            kvp[i] = x.join('=');
+            break;
+        }
+    }
+
+    if(i<0) {kvp[kvp.length] = [key,value].join('=');}
+
+    //this will reload the page, it's likely better to store this until finished
+    document.location.search = kvp.join('&');  
+}
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+  }
+};
+var counter = 0;
+var counter_holder = 0;
+var user_id;
+var brand_id;
+var current;
+var chat_current;
+var realtime = true;
+var chat_pov;
+var pageLoad = 0;
+var executed = false;
+var order_id = getUrlParameter('o_id');
+var shopcurrent;
 $("#material-load").hide();
 Array.prototype.diff = function(a) {
   return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
-  
-  function orderDashboard(){
-    $.ajax({
-      url: "modules/cpanel/ajax.php",
+function displayShopItems(bid,search){ 
+  $.ajax({
+      url: "modules/shop/ajax.php",
       method: "POST",
-      data: {
-        "order_dash":1
+      data:{
+        "display_shop": 1,
+        "brand_id": bid,
+        "search_val": search
       },
-      dataType: "json",
-      //dataType: "html",
-      success:function(d){
-        if(d['pending'] != 0){
-          $("#order-badge-counter").html(d['pending']);
+      success: function(data){
+        if(shopcurrent != data){
+          shopcurrent = data;
+          setTimeout(function() {
+            $("#shop-ajax-content").html(shopcurrent);
+          }, 0);
         }
-        $("#t-order-pending").html(d['pending']);
-        $("#t-order-ongoing").html(d['ongoing']);
-        $("#t-order-total").html(d['total']);
-        //alert(JSON.stringify(d));
-        //alert(d['t_pending']);
+        
       }
+  });
+};
+function displayUserOrders(){
+  $.ajax({
+      url: "modules/profile/ajax.php",
+      method: "POST",
+      data:{
+        "display_orders": 1,
+      },
+      success: function(data){
+        setTimeout(function() {
+          $("#user-orders-ajax-content").html(data);
+        }, 0);
+      }
+  });
+};
+function displayOrders(){
+    $.ajax({
+        url: "modules/cpanel/ajax.php",
+        method: "POST",
+        data:{
+          "display_orders": 1,
+        },
+        success: function(data){
+          setTimeout(function() {
+            if(current != data) {
+              current = data;
+              $("#orders-ajax-content").html(data);
+            }
+            /*
+            if($('div.dataTables_filter input').is(":focus")){
+              alert("naga focus ka");
+            }else{
+              alert("wala");
+            }*/
+          }, 0);
+        }
     });
-  }
- function showShopStatus(){
+};
+function orderDashboard(){
+  $.ajax({
+    url: "modules/cpanel/ajax.php",
+    method: "POST",
+    data: {
+      "order_dash":1
+    },
+    dataType: "json",
+    //dataType: "html",
+    success:function(d){
+      if(d['pending'] != 0){
+        $("#order-badge-counter").html(d['pending']);
+      }else{
+        $("#order-badge-counter").html("");
+      }
+      $("#t-order-pending").html(d['pending']);
+      $("#t-order-ongoing").html(d['ongoing']);
+      $("#t-order-total").html(d['total']);
+
+      // dashboard badges
+      $("#dashboard-pending").html(d['pending']);
+      $("#dashboard-ongoing").html(d['ongoing']);
+      $("#dashboard-total").html(d['total']);
+    }
+  });
+}
+function displayCartTable(){
+  $.ajax({
+      url: "modules/cart/display.php",
+      method: "POST",
+      data:{
+        "display_cart": 1
+      },
+      success: function(data){
+        setTimeout(function() {
+          $("#cart-content").html(data);
+        }, 0);
+      }
+  });
+};
+function showShopStatus(){
   var bid = $("#shop-cpanel-id").attr("value");
   $.ajax({
       url: "modules/cpanel/ajax.php",
@@ -56,7 +192,8 @@ Array.prototype.diff = function(a) {
             $("#id-name--1").prop('checked', false);
             $("#status-indicator").removeClass("green").addClass("orange");
           }
-        }, 0);
+          $("#shop-status-container").show();
+        }, 100);
       }
   });
 };
@@ -64,10 +201,67 @@ function remove_cart_show(c_id){
   $("#cart_modal").modal();
   document.getElementById('id_remove').value = c_id;
 }
-
-function updateCartCounter()
-{ 
-$("#nav-id").load(window.location.href + " #nav-id" );
+function showActiveShops(){
+  $.ajax({
+    url: "modules/shop/ajax.php",
+    method: "POST",
+    data:{
+      "display_active_shops":1
+    },
+    success:function(data){
+      $("#active-shops-container").html(data);
+      //alert("asd");
+      //setTimeout(showActiveShops,2000);
+    }
+  });
+}
+function orderInfo(){
+  // Check/Display if isset order_id
+  if(getUrlParameter('mod')=="profile" && getUrlParameter('t') == "orders"){
+    if(order_id){
+      $.ajax({
+        url: "modules/profile/ajax.php",
+        method: "POST",
+        data:{
+          "order_info":1,
+          "order_id":order_id
+        },
+        success:function(data){
+          setTimeout(function(){
+            if(data == "unknown_order"){
+              window.location = "/?mod=profile&t=orders";
+            }else{
+              $("#user-orderinfo-ajax-content").html(data);
+            }
+          },0);
+        }
+      });
+    }
+  }else if(getUrlParameter('mod')=="cpanel" && getUrlParameter('t') == "orders"){
+    if(order_id){
+      $.ajax({
+        url: "modules/cpanel/ajax.php",
+        method: "POST",
+        data:{
+          "order_info":1,
+          "order_id":order_id
+        },
+        success:function(data){
+          setTimeout(function(){
+            if(data == "order_unavailable"){
+              window.location = "/?mod=cpanel&t=orders";
+            }else{
+              $("#orderinfo-ajax-content").html(data);
+              $("#order-loading").hide();
+            }
+          },0);
+        }
+      });
+    }
+  }
+}
+function updateCartCounter(){ 
+  $("#nav-id").load(window.location.href + " #nav-id" );
 }
 
 function returnIndex(){
@@ -127,156 +321,23 @@ $('#add-item-price').on('keypress', function(e){
     /[0-9]/.test(String.fromCharCode(e.which)); // numbers
 });
 
-function removeURLParameter(url, parameter) {
-  //prefer to use l.search if you have a location/link object
-  var urlparts= url.split('?');   
-  if (urlparts.length>=2) {
 
-      var prefix= encodeURIComponent(parameter)+'=';
-      var pars= urlparts[1].split(/[&;]/g);
-
-      //reverse iteration as may be destructive
-      for (var i= pars.length; i-- > 0;) {    
-          //idiom for string.startsWith
-          if (pars[i].lastIndexOf(prefix, 0) !== -1) {  
-              pars.splice(i, 1);
-          }
-      }
-
-      url= urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : "");
-      return url;
-  } else {
-      return url;
-  }
+showShopStatus();
+displayCartTable();
+showActiveShops();
+displayUserOrders();
+orderInfo();
+displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
+if(order_id==null){
+  displayOrders();
 }
-
-function insertParam(key, value){
-
-    key = encodeURI(key); value = encodeURI(value);
-
-    var kvp = document.location.search.substr(1).split('&');
-
-    var i=kvp.length; var x; while(i--) 
-    {
-        x = kvp[i].split('=');
-
-        if (x[0]==key)
-        {
-            x[1] = value;
-            kvp[i] = x.join('=');
-            break;
-        }
-    }
-
-    if(i<0) {kvp[kvp.length] = [key,value].join('=');}
-
-    //this will reload the page, it's likely better to store this until finished
-    document.location.search = kvp.join('&');  
-}
-
-var getUrlParameter = function getUrlParameter(sParam) {
-  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-      sURLVariables = sPageURL.split('&'),
-      sParameterName,
-      i;
-
-  for (i = 0; i < sURLVariables.length; i++) {
-      sParameterName = sURLVariables[i].split('=');
-
-      if (sParameterName[0] === sParam) {
-          return sParameterName[1] === undefined ? true : sParameterName[1];
-      }
-  }
-};
-
-
-
-
-
  // DOCUMENT READY //
 
 $(document).ready(function(){
-  
-  checknotif();
-
-  var order_id = getUrlParameter('o_id');
-  showActiveShops();
-  showShopStatus();
-  displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
-  displayCartTable();
-  if(order_id==null){
-    displayOrders();
-  }
-  displayUserOrders();
-  orderInfo();
-
-  
-  // CPanel Order ID
-  
+  // CPanel Order ID  
   if(order_id && getUrlParameter('t') != "orders"){
     window.location = "/?mod="+getUrlParameter('mod');;
   }
-  function showActiveShops(){
-    $.ajax({
-      url: "modules/shop/ajax.php",
-      method: "POST",
-      data:{
-        "display_active_shops":1
-      },
-      success:function(data){
-        $("#active-shops-container").html(data);
-        //alert("asd");
-        //setTimeout(showActiveShops,2000);
-      }
-    });
-  }
-
-  function orderInfo(){
-    // Check/Display if isset order_id
-    if(getUrlParameter('mod')=="profile" && getUrlParameter('t') == "orders"){
-      if(order_id){
-        $.ajax({
-          url: "modules/profile/ajax.php",
-          method: "POST",
-          data:{
-            "order_info":1,
-            "order_id":order_id
-          },
-          success:function(data){
-            setTimeout(function(){
-              if(data == "unknown_order"){
-                window.location = "/?mod=profile&t=orders";
-              }else{
-                $("#user-orderinfo-ajax-content").html(data);
-              }
-            },0);
-          }
-        });
-      }
-    }else if(getUrlParameter('mod')=="cpanel" && getUrlParameter('t') == "orders"){
-      if(order_id){
-        $.ajax({
-          url: "modules/cpanel/ajax.php",
-          method: "POST",
-          data:{
-            "order_info":1,
-            "order_id":order_id
-          },
-          success:function(data){
-            setTimeout(function(){
-              if(data == "order_unavailable"){
-                window.location = "/?mod=cpanel&t=orders";
-              }else{
-                $("#orderinfo-ajax-content").html(data);
-                $("#order-loading").hide();
-              }
-            },0);
-          }
-        });
-      }
-    }
-  }
-
   $("#form-brand-chat").on("submit",function(e){
     e.preventDefault();
     var msg = $("#chat-input-message").val();
@@ -301,7 +362,6 @@ $(document).ready(function(){
       });
     }
   });
-
   $("#form-user-chat").on("submit",function(e){
     e.preventDefault();
     var msg = $("#chat-input-message").val();
@@ -326,23 +386,19 @@ $(document).ready(function(){
       });
     }
   });
-
   function scrollBottomChat(){
     $(".chat-panel-body").animate({ scrollTop: $('.chat-panel-body').prop("scrollHeight")}, 250);
   };
-
   $('body').on("click",".qc-button", function(e){
     brand_id = $(this).attr("value");
     if($("#chat-modal").modal()){
       loadUserChat(brand_id);
     }
   });
-
   $('body').on("click","#btn-cancel-order", function(e){
     e.preventDefault();
     $("#cancel-order-modal").modal();
   });
-
   $('body').on("click","#btn-confirm-cancel-order", function(e){
     $.ajax({
       url: "modules/profile/ajax.php",
@@ -363,13 +419,11 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click",".oi-remove", function(e){
     var oi_id = $(this).val();
     $("#oi-remove-confirm").val(oi_id);
     $("#oi-remove-modal").modal();
   });
-
   $('body').on("click","#oi-remove-confirm", function(e){
     var oi_id = $(this).val();
     $.ajax({
@@ -390,17 +444,13 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click","#scroll-bottom", function(e){
     scrollBottomChat();
   });
-
   $('body').on("click","#open-chat", function(e){
     e.preventDefault();
     $('#chat-input-message').focus();
-    
     user_id = $("#open-chat").attr("value");
-    
     if($("#chat-modal").modal()){
       loadChat(user_id);
     }
@@ -415,12 +465,9 @@ $(document).ready(function(){
         $("#chat-modal-title").html(data);
       }
     });
-    
   });
-
   function loadChat(user_id){
     var cac = $("#chat-ajax-content");
-    
     current_content = cac.html();
     $.ajax({
       url: "modules/chat/ajax.php",
@@ -445,7 +492,6 @@ $(document).ready(function(){
       }
     });
   }
-
   function loadUserChat(brand_id){
     var cac = $("#chat-ajax-content");
     current_content = cac.html();
@@ -495,10 +541,6 @@ $(document).ready(function(){
       z_index: 1031,
     });
   }
-  $('body').on("click","#notify", function(e){
-    
-  });
-
   $('body').on("click","#order-ready", function(e){
     $(this).hide();
     $("#order-loading").show();
@@ -514,7 +556,6 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click","#order-claimed", function(e){
     $(this).hide();
     $("#order-loading").show();
@@ -530,7 +571,6 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click","#accept-order", function(e){
     $(this).hide();
     $("#order-loading").show();
@@ -544,6 +584,7 @@ $(document).ready(function(){
       },
       success: function(data){
         orderInfo();
+        orderDashboard();
       }
     });
   });
@@ -560,74 +601,18 @@ $(document).ready(function(){
       },
       success: function(data){
         orderInfo();
+        orderDashboard();
       }
     });
   });
-
   $('body').on("click",".select-order", function(e){
     var oid = $(this).attr("id");
     window.location = "/?mod=cpanel&t=orders&o_id="+oid;
   });
-
   $('body').on("click",".user-select-order", function(e){
     var oid = $(this).attr("id");
     window.location = "/?mod=profile&t=orders&o_id="+oid;
   });
-
-  function displayShopItems(bid,search){
-    $.ajax({
-        url: "modules/shop/ajax.php",
-        method: "POST",
-        data:{
-          "display_shop": 1,
-          "brand_id": bid,
-          "search_val": search
-        },
-        success: function(data){
-          setTimeout(function() {
-            $("#shop-ajax-content").html(data);
-          }, 0);
-        }
-    });
-  };
-  function displayOrders(){
-    $.ajax({
-        url: "modules/cpanel/ajax.php",
-        method: "POST",
-        data:{
-          "display_orders": 1,
-        },
-        success: function(data){
-          setTimeout(function() {
-            if(current != data) {
-              current = data;
-              $("#orders-ajax-content").html(data);
-            }
-            /*
-            if($('div.dataTables_filter input').is(":focus")){
-              alert("naga focus ka");
-            }else{
-              alert("wala");
-            }*/
-          }, 0);
-        }
-    });
-  };
-  function displayUserOrders(){
-    $.ajax({
-        url: "modules/profile/ajax.php",
-        method: "POST",
-        data:{
-          "display_orders": 1,
-        },
-        success: function(data){
-          setTimeout(function() {
-            $("#user-orders-ajax-content").html(data);
-          }, 0);
-        }
-    });
-  };
-
   $("#id-name--1").change(function(){
     var bid = $("#shop-cpanel-id").attr("value");
     if (this.checked) {
@@ -658,7 +643,6 @@ $(document).ready(function(){
       });
     }
   });
-
   // AJAX UPDATE ACCOUNT PASSWORD
   $("#form-account-password").on("submit",function(e){
     e.preventDefault();
@@ -719,7 +703,6 @@ $(document).ready(function(){
       });
     }
   });
-
   // AJAX UPDATE ACCOUNT DETAILS
   $("#form-account-details").on("submit",function(e){
     $("#btn-update-account").prop("disabled",true);
@@ -762,8 +745,6 @@ $(document).ready(function(){
       }
     });
   });
-
-
   $("#shop-search-item").on("submit",function(e){
     e.preventDefault();
     var search_value = $("#shop-search-value").val();
@@ -774,7 +755,6 @@ $(document).ready(function(){
       insertParam("search",search_value);
     }
   });
-
   $('#shop-filter-by').bind('change', function (e) { // bind change event to select
     var brand_id = $(this).val(); // get selected value
     e.preventDefault();
@@ -785,7 +765,6 @@ $(document).ready(function(){
       insertParam("brand",brand_id);
     }
   });
-
   $('#search-form').on("submit", function(e){
     e.preventDefault();
     var search_value = document.getElementById('cpanel-search-item').value;
@@ -795,13 +774,11 @@ $(document).ready(function(){
       window.location = "/?mod=cpanel&t=items&search="+search_value;
     }
   });
-
   $("#btn-delete-item").click(function(){
     var item_id = $(this).attr("value");
     $("#delete-item-confirm").modal();
     $("#btn-delete-item-true").val(item_id);
   });
-
   $("#btn-delete-item-true").click(function(){
     var item_id = $(this).attr("value");
     $.ajax({
@@ -817,15 +794,11 @@ $(document).ready(function(){
       }
     });
   });
-
   $('#add-item-form').on("submit", function(e){
     e.preventDefault();
     $('#loading-modal').modal({backdrop: 'static', keyboard: false});
-
     $("#btn-add-item").prop("disabled", true);
-
     var formData = new FormData(this);
-
     $.ajax({
       url: 'modules/cpanel/itemview_add.php',
       type: 'POST',
@@ -847,7 +820,6 @@ $(document).ready(function(){
       }
     });
   });
-
   $('#edit-item-form').on("submit", function(e){
     e.preventDefault();
     $('#loading-modal').modal({backdrop: 'static', keyboard: false});
@@ -875,14 +847,10 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click",".item-select", function(e){
-
     var item_id = $(this).attr("id");
     window.location = "/?mod=cpanel&t=items&q="+item_id;
-
   });
-
   $("#form-delivery-address").on("submit",function(e){
     $("#btn-order-confirm").prop("disabled",true);
     e.preventDefault();
@@ -931,34 +899,28 @@ $(document).ready(function(){
       }
     });
   });
-
   $('body').on("click", "#text-custom-number", function(e){
     $("#chkbox-contact-default").prop("checked",false);
     $("#chkbox-contact-custom").prop("checked",true);
   });
-
   $('body').on("click", "#chkbox-default-add", function(e){
     $("#chkbox-default").prop("checked",true);
     $("#chkbox-custom").prop("checked",false);
   });
-
   $('body').on("click", "#default-add", function(e){
     $("#chkbox-default").prop("checked",true);
     $("#chkbox-custom").prop("checked",false);
     $("#chkbox-custom").prop("required",false);
   });
-
   $('body').on("click", "#chkbox-custom", function(e){
     $("#chkbox-default").prop("checked",false);
     $("#chkbox-custom").prop("checked",true);
   });
-
   $('body').on("click", "#textarea-custom-address", function(e){
     $("#chkbox-default").prop("checked",false);
     $("#chkbox-custom").prop("checked",true);
     $("#chkbox-custom").prop("required",true);
   });
-
   $('body').on("click", "#btn-order", function(e){
     $("#btn-order-confirm").prop("disabled",true);
     $("#custom-delivery-modal").modal();
@@ -981,7 +943,6 @@ $(document).ready(function(){
       });
     }
   });
-  
   $("#remove_btn").click(function(){
     $("#remove_btn").prop('disabled',true);
     var r_id = $("#id_remove").val();
@@ -1007,22 +968,6 @@ $(document).ready(function(){
       }
     });
   });
-
-  function displayCartTable(){
-    $.ajax({
-        url: "modules/cart/display.php",
-        method: "POST",
-        data:{
-          "display_cart": 1
-        },
-        success: function(data){
-          setTimeout(function() {
-            $("#cart-content").html(data);
-          }, 0);
-        }
-    });
-  };
-
   $("#atc-form").on("submit", function(e){
     $("#btn-atc").prop("disabled",true);
     $("#modal_loading").modal();
@@ -1060,18 +1005,6 @@ $(document).ready(function(){
     $(this).val('').attr('checked',false).attr('selected',false);
   });
   }
-  /*
-  //-- Logout Ajax --//
-  $('#btn-logout').click(function(){
-    $.ajax({
-      url: 'logout.php',
-      success: function(d){
-        window.location = "/";
-        location.reload();
-      }
-    });
-  });*/
-  //-- End Logout Ajax --//
   //-- Login Ajax --//
   $("#login-form").on("submit", function(e){
     e.preventDefault();
@@ -1097,7 +1030,6 @@ $(document).ready(function(){
     });
   });
   //-- End Login Ajax --//
-
   //-- Register Ajax Function --//
   $("#register-form").on("submit", function(e){
     e.preventDefault();
@@ -1171,7 +1103,6 @@ $(document).ready(function(){
       }
     });
   });
-
   function filter(obj1, obj2) {
     var result = {};
     for(key in obj1) {
@@ -1183,7 +1114,6 @@ $(document).ready(function(){
     }
     return result;
   }
-
   function jsonEqual(a,b) {
     return JSON.stringify(a) === JSON.stringify(b);
   }
@@ -1199,7 +1129,6 @@ $(document).ready(function(){
   //-- End Register Ajax --//
 
   function checknotif() {
-    
     if (!Notification) {
       $('body').append('<h4 style="color:red">*Browser does not support Web Notification</h4>');
       return;
@@ -1249,39 +1178,39 @@ $(document).ready(function(){
   
     }
   };
-  
-    // Realtime Chat Refresh
-    (function chatRealtime() {
-      checknotif();
-      if(getUrlParameter('mod') && getUrlParameter('t')=="orders" && getUrlParameter('o_id')){
-        if(user_id != null && brand_id == null){
-          
-          loadChat(user_id);
-        }
-        if(user_id == null & brand_id != null){
-          loadUserChat(brand_id);
-        }
+  checknotif();
+  // Realtime Chat Refresh
+  (function chatRealtime() {
+    checknotif();
+    if(getUrlParameter('mod') && getUrlParameter('t')=="orders" && getUrlParameter('o_id')){
+      if(user_id != null && brand_id == null){
+        
+        loadChat(user_id);
       }
-       setTimeout(chatRealtime, 4000);
-    }());
-    
-    // Realtime Dynamic Refresh
-    (function realtimeCheck() {
-      if(getUrlParameter('mod') == "shop"){
-        showActiveShops();
-        displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
+      if(user_id == null & brand_id != null){
+        loadUserChat(brand_id);
       }
-      if(getUrlParameter('t') == "orders" && getUrlParameter('mod') == "cpanel"){
-        if(getUrlParameter('o_id') == null){
-          displayOrders();
-          orderDashboard();
-        }
-      }
-      if(getUrlParameter('mod') == "profile" && getUrlParameter('t') == "orders"){
-        if(getUrlParameter('o_id') != null){
-          orderInfo();
-        }
-      }
-       setTimeout(realtimeCheck, 10000);
-    }());
+    }
+     setTimeout(chatRealtime, 4000);
+  }());
 });
+
+// Realtime Dynamic Refresh
+(function realtimeCheck() {
+  orderDashboard();
+  if(getUrlParameter('mod') == "shop"){
+    showActiveShops();
+    displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
+  }
+  if(getUrlParameter('t') == "orders" && getUrlParameter('mod') == "cpanel"){
+    if(getUrlParameter('o_id') == null){
+      displayOrders();
+    }
+  }
+  if(getUrlParameter('mod') == "profile" && getUrlParameter('t') == "orders"){
+    if(getUrlParameter('o_id') != null){
+      orderInfo();
+    }
+  }
+   setTimeout(realtimeCheck, 10000);
+}());

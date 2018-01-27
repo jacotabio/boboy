@@ -91,7 +91,7 @@ if($acc){
                                 <input name="co-password" type="password" placeholder="Confirm Password" class="form-control input-md" required="">
                                 <span class="help-block">
                                     <label id="password-not-match" style="display:none;" class="control-label">Passwords do not match</label>
-                                    <label id="new-password-invalid" style="display:none;" class="control-label">Your new password is invalid</label>
+                                    <label id="new-password-invalid" style="display:none;" class="control-label">Atleast 6 characters and letters only</label>
                                 </span>
                             </div>
                             

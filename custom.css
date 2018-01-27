@@ -24,7 +24,12 @@ body{
 .text-black{
   color: #000;
 }
-
+.huge{
+  font-size: 40px;
+  padding-top:16px;
+  padding-bottom:16px;
+  display:inline-block;
+}
 .header-text-big{
   font-weight: 700; 
   font-size: 3.5em; 
@@ -118,6 +123,11 @@ body{
 }
 .panel-text{
   font-weight: 600;
+}
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: red !important;
+    border-color: #ddd;
 }
 .vertical-alignment-helper {
   display:table;
@@ -259,7 +269,7 @@ tr.cart-header th{
 }
 .item-holder{
   border: 0px solid;
-  border-color: rgba(0,0,0,0.1);
+  border-color: rgba(0,0,0,0.1)
 }
 .item-brand{
   font-family: 'Roboto';
@@ -344,6 +354,14 @@ tr.cart-header th{
 }
 .shop-margin{
   padding-top: 4px; padding-left: 4px; padding-right: 4px; padding-bottom: 4px;
+  cursor:pointer;
+}
+.shop-margin:hover{
+  background-color:rgba(0,0,0,0.05);
+}
+.notav-margin{
+  padding-top: 4px; padding-left: 4px; padding-right: 4px; padding-bottom: 4px;
+  cursor: not-allowed;
 }
 .roboto{
   font-family: 'Roboto';
@@ -884,19 +902,19 @@ footer{
     background-position: center;
   }
 
-
   .switch-input {
     display: none;
+
   }
   .switch-label {
     position: relative;
     display: inline-block;
     min-width: 112px;
-    cursor: pointer;
     font-weight: 500;
     text-align: left;
     margin: 0px;
     padding: 16px 0 16px 44px;
+    cursor:pointer;
   }
   .switch-label:before, .switch-label:after {
     content: "";

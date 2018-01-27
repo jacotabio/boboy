@@ -59,7 +59,7 @@ if(isset($_POST['update_password'])){
   $newpass = test_input($_POST['new-password']);
 
   if($user->check_password(md5($password),$_SESSION['usr_id'])){
-    if (!preg_match("/^[a-zA-Z 0-9.]*$/",$newpass) || $newpass == "" || $newpass == null) {
+    if (!preg_match("/^[a-zA-Z 0-9.]{6,}$/",$newpass) || $newpass == "" || $newpass == null) {
       echo "new_invalid";
     }else{
       // update the password

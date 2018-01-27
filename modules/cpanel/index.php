@@ -8,7 +8,7 @@
           <div class="" style="display:inline-block;">
             <label id="shop-cpanel-id" class="roboto" style="padding: 16px 16px 16px 16px;margin:0;" value="<?php echo $_SESSION['brand_id'];?>"><?php echo $_SESSION['usr_name'];?><label>
           </div>
-          <div class="" style="display:inline-block;float:right;margin-right:0;padding-right:0;">
+          <div id="shop-status-container" style="display:none;float:right;margin-right:0;padding-right:0;">
             <input type="checkbox" id="id-name--1" name="set-name" class="switch-input" checked>
             <label for="id-name--1" class="switch-label roboto"><span id="show-shop-status">&nbsp;</span>
             </label>
@@ -18,10 +18,11 @@
           <div class="sidebar hidden-xs" style="margin-bottom: 16px;">
             
             <ul class="nav nav-stacked" style="background-color:#f9f9f9; ">
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=items'>My Items<?php if($t == "items"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=orders'>Orders<span id="order-badge-counter" class="badge pull-right"></span><?php if($t == "orders"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=account'>Account<?php if($t == "account"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel'>Unknown</a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel'>Dashboard</a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=orders'>Orders<span id="order-badge-counter" class="badge pull-right"></span></a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=items'>My Items</a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=account'>Account</a></li>
+              
             </ul>
           </div>
           <!-- End of Sidenav -->

@@ -133,7 +133,7 @@ class Items{
     }
 
     public function get_home_items(){
-      $query = $this->db->prepare("SELECT * FROM items");
+      $query = $this->db->prepare("SELECT * FROM items,brands WHERE items.brand_id = brands.brand_id AND brand_status = 1");
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_ASSOC)){
         $list[] = $row;
