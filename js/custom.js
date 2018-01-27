@@ -24,6 +24,9 @@ Array.prototype.diff = function(a) {
       dataType: "json",
       //dataType: "html",
       success:function(d){
+        if(d['pending'] != 0){
+          $("#order-badge-counter").html(d['pending']);
+        }
         $("#t-order-pending").html(d['pending']);
         $("#t-order-ongoing").html(d['ongoing']);
         $("#t-order-total").html(d['total']);
@@ -1099,7 +1102,7 @@ $(document).ready(function(){
   $("#register-form").on("submit", function(e){
     e.preventDefault();
     var this_id = $(this).attr("id");
-    //$('#submit-register').prop('disabled', true);
+    $('#submit-register').prop('disabled', true);
     var e_pwd = document.getElementById("pwd-reg");
     var e_cpwd = document.getElementById("cpwd-reg");
 
@@ -1110,6 +1113,7 @@ $(document).ready(function(){
       data: $(this).serialize(),
       dataType: "json",
       success: function (d) {
+        $('#submit-register').prop('disabled', false);
         var remember;
         function runValidation(){
           for (var key in d) {
@@ -1164,27 +1168,6 @@ $(document).ready(function(){
         }else{
           $("#email-reg-exists").hide();
         }
-        alert(JSON.stringify(d));
-        /*
-        setTimeout(function(){
-          if(d == "non_match_password"){
-            e_pwd.classList.add("has-error");
-            e_cpwd.classList.add("has-error");
-            document.getElementById("pwd-reg-help").innerHTML = "Passwords do not match";
-          }
-          if(d == "email_exists"){
-            e_email.classList.add("has-error");
-            document.getElementById("email-reg-help").innerHTML = "Email already exists";
-          }
-          if(d=="brand_registered"){
-            $("#brand-registered").modal();
-          }
-          if(d=="user_registered"){
-            $("#user-registered").modal();
-          }
-          $('#submit-register').prop('disabled', false);
-        },0);
-        */
       }
     });
   });

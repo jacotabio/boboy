@@ -19,7 +19,7 @@
             
             <ul class="nav nav-stacked" style="background-color:#f9f9f9; ">
               <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=items'>My Items<?php if($t == "items"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=orders'>Orders<span class="badge pull-right">14</span><?php if($t == "orders"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=orders'>Orders<span id="order-badge-counter" class="badge pull-right"></span><?php if($t == "orders"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
               <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel&t=account'>Account<?php if($t == "account"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
               <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel'>Unknown</a></li>
             </ul>

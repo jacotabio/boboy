@@ -112,21 +112,22 @@ if(isset($_POST['display_orders'])){?>
               foreach($orders as $o){
                 $check_status = $order->approval_status($o['order_id'],$_SESSION['brand_id']);
                 $delivery_status = $order->get_delivery_status($o['order_id'],$_SESSION['brand_id']);
-
+                $subtotal = $order->get_order_subtotal($o['order_id'],$_SESSION['brand_id']);
+                if(empty($subtotal)){
+                  $subtotal = "0.00";
+                }
                   //if($check_status != "Declined"){?>
                 <tr id="<?php echo $o['order_id'];?>" class="select-order row-hover">
                   <td style="text-align:left;"><?php echo time_elapsed_string($o['date_ordered']);?></td>
                   <td style="text-align:left;"><?php echo $o['usr_name'];?></td>
                   <td style="text-align:left;"><?php echo $o['usr_contact']?></td>
-                  <td><?php echo $currency;?><?php echo $o['order_total'];?></td>
-                  <?php $_s1 = $order->approval_status($o['order_id'],$_SESSION['brand_id']);?>
-                  <td style="text-align:center;"><span class="label label-approval-<?php echo $_s1;?>"><?php echo $_s1?></span></td>
-                  <?php $_s2 = $order->get_delivery_status($o['order_id'],$_SESSION['brand_id']);?>
+                  <td><?php echo $currency;?><?php echo $subtotal;?></td>
+                  <td style="text-align:center;"><span class="label label-approval-<?php echo $check_status;?>"><?php echo $check_status?></span></td>
                   <td style="text-align:center;">
                   <?php
-                  if($_s1 != "Declined"){
+                  if($check_status != "Declined"){
                   ?>
-                  <span class="label label-delivery-<?php echo $_s2;?>"><?php echo $_s2;?></span>
+                  <span class="label label-delivery-<?php echo $delivery_status;?>"><?php echo $delivery_status;?></span>
                   <?php
                   }else{?>
                     <span class="label label-delivery-Declined">Declined</span>
