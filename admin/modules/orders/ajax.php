@@ -5,6 +5,14 @@ include '../../classes/class.orders.php';
 $order = new Orders();
 $currency = "P";
 
+if(isset($_POST['delete_order'])){
+	if($order->delete_order($_POST['order_id'])){
+		echo "delete_success";
+	}else{
+		echo "delete_failed";
+	}
+}
+
 if(isset($_POST['order_view'])){
 	$get = $order->order_details($_POST['order_id']);
 	if(!$get){
@@ -31,9 +39,7 @@ if(isset($_POST['order_view'])){
 			                      <i class="fa fa-ellipsis-v button" style="font-size:20px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			                      </i>
 			                      <div class="dropdown-menu dropdown-menu-right">
-			                        <button class="dropdown-item pointer" type="button">Add Item</button>
-			                        <button class="dropdown-item pointer" type="button">Edit Details</button>
-			                        <button id="tmodal-order-del" class="dropdown-item pointer" type="button">Delete Order</button>
+			                        <button id="tmodal-order-del" value="<?php echo $_POST['order_id']?>" class="dropdown-item pointer" type="button">Delete Order</button>
 			                      </div>
 			                    </div>
 			                  </div>

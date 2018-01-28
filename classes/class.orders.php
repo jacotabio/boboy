@@ -15,10 +15,12 @@ class Orders{
     $sth = $this->db->prepare("SELECT 
   (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 0) AS t_pending,
   (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 1 AND oi_delivery != 2) AS t_ongoing,
-  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ?) AS t_total");
+  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ?) AS t_total,
+  (SELECT COUNT(msg_id) FROM conversations,messages WHERE brand_id = ? AND usr_id = 1 AND conversations.convo_id = messages.convo_id AND sender_id = 1 AND msg_open = 0) AS admin_msg");
     $sth->bindParam(1,$bid);
     $sth->bindParam(2,$bid);
     $sth->bindParam(3,$bid);
+    $sth->bindParam(4,$bid);
     $sth->execute();
 
     while($row = $sth->fetch(PDO::FETCH_ASSOC)){

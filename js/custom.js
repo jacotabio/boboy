@@ -139,7 +139,6 @@ function orderDashboard(){
       "order_dash":1
     },
     dataType: "json",
-    //dataType: "html",
     success:function(d){
       if(d['pending'] != 0){
         $("#order-badge-counter").html(d['pending']);
@@ -153,7 +152,7 @@ function orderDashboard(){
       // dashboard badges
       $("#dashboard-pending").html(d['pending']);
       $("#dashboard-ongoing").html(d['ongoing']);
-      $("#dashboard-total").html(d['total']);
+      $("#dashboard-msgs").html(d['msgs']);
     }
   });
 }
@@ -186,11 +185,13 @@ function showShopStatus(){
             $("#show-shop-status").html("Online");
             $("#id-name--1").prop('checked', true);
             $("#status-indicator").removeClass("orange").addClass("green");
+            alert("green");
           }
           if(data == 0){
             $("#show-shop-status").html("Offline");
             $("#id-name--1").prop('checked', false);
             $("#status-indicator").removeClass("green").addClass("orange");
+            alert("orange");
           }
           $("#shop-status-container").show();
         }, 100);
@@ -449,6 +450,7 @@ $(document).ready(function(){
   });
   $('body').on("click","#open-chat", function(e){
     e.preventDefault();
+    //alert("asd");
     $('#chat-input-message').focus();
     user_id = $("#open-chat").attr("value");
     if($("#chat-modal").modal()){
@@ -1170,7 +1172,7 @@ $(document).ready(function(){
               };
               setTimeout(function(){
                 notifikasi.close();
-              }, 2500);
+              }, 4000);
             };
           }
         }
@@ -1191,7 +1193,7 @@ $(document).ready(function(){
         loadUserChat(brand_id);
       }
     }
-     setTimeout(chatRealtime, 4000);
+     setTimeout(chatRealtime, 3000);
   }());
 });
 

@@ -11,6 +11,12 @@ class Orders{
     }
   }
 
+  public function delete_order($id){
+    $sth = $this->db->prepare("DELETE FROM orders WHERE order_id = ?");
+    $sth->bindParam(1,$id);
+    return $sth->execute();
+  }
+
   public function pending_orders(){
     $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,
                                   CASE

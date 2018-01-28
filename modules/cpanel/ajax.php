@@ -81,6 +81,7 @@ if(isset($_POST['order_dash'])){
   $array['pending'] = $a['t_pending'];
   $array['ongoing'] = $a['t_ongoing'];
   $array['total'] = $a['t_total'];
+  $array['msgs'] = $a['admin_msg'];
   echo json_encode($array);
 }
 
@@ -239,9 +240,9 @@ if(isset($_POST['order_info'])){
                   <?php
                   if($check_status != "Declined"){
                     if($check_status == "Approved" && $delivery_status == "Complete"){?>
-                      <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Order Approved</span>
+                      <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Approved</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
-                      <span class='label label-success'><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Preparation</span>
+                      <span class='label label-success'><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Ready</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Complete</span>
                     <?php
@@ -250,14 +251,14 @@ if(isset($_POST['order_info'])){
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class="label label-muted">Order Approved</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
-                      <span class='label <?php echo $delivery_status == "Ready" ? 'label-status-2' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Preparation</span>
+                      <span class='label <?php echo $delivery_status == "Ready" ? 'label-status-2' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Ready</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class="label label-muted">Complete</span>
                     <?php
                     }else{?>
                       <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Order Approved</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
-                      <span class='label <?php echo $delivery_status == "Ready" ? 'label-delivery-Ready' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Preparation</span>
+                      <span class='label <?php echo $delivery_status == "Ready" ? 'label-delivery-Ready' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Ready</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class="label label-muted">Complete</span>
                     <?php
@@ -276,23 +277,28 @@ if(isset($_POST['order_info'])){
                 <div class="">
                   
                   <div class="panel-body no-gap">
-                    <div class="" style="padding:10px 0px 0px 0px;display:inline-block;">
-                      <div class="pull-left" style="padding:8px 16px;">
-                        <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Date / Time Ordered</label>
-                        <p class="no-gap" style="font-size:13px;font-weight:400;"><?php $date = new DateTime($oci['created_at']);echo $date->format('M j, Y g:i A');?></p>
+                    <div class="container-fluid">
+                      
+                      <!-- ----------------------------------------------------------- -->
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-2 col-lg-2" style="margin-top:16px;">
+                          <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Order #</label>
+                          <p class="no-gap" style="font-size: 13px;"><?php echo $oci['order_id'];?></p>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-lg-3" style="margin-top:16px;">
+                          <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Date / Time Ordered</label>
+                          <p class="no-gap" style="font-size: 13px;"><?php $date = new DateTime($oci['created_at']);echo $date->format('M j, Y g:i A');?></p>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 col-lg-2" style="margin-top:16px;">
+                          <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Contact #</label>
+                          <p class="no-gap" style="font-size: 13px;"><?php echo $oci['usr_contact'];?></p>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 col-lg-2" style="margin-top:16px;">
+                          <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Customer Name</label>
+                          <p class="no-gap" style="font-size: 13px;"><?php echo $oci['usr_name'];?></p>
+                        </div>
                       </div>
-                      <div class="pull-left" style="padding:8px 16px;">
-                      <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Order #</label>
-                        <p class="no-gap" style="font-size: 13px;"><?php echo $oci['order_id'];?></p>
-                      </div>
-                      <div class="pull-left" style="padding:8px 16px;">
-                        <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Customer</label>
-                        <p class="no-gap" style="font-size:13px;font-weight:400;"><?php echo $oci['usr_name'];?></p>
-                      </div>
-                      <div class="pull-left" style="padding:8px 16px;">
-                        <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Contact Number</label>
-                        <p class="no-gap" style="font-size:13px;font-weight:400;"><?php echo $oci['usr_contact'];?></p>
-                      </div>
+                      <!-- ----------------------------------------------------------- -->
                     </div>
                     <div class="table-container" style="margin-top: 16px;">
                       <table class="table table-filter" style="margin-bottom:0px;">

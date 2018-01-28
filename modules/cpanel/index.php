@@ -15,7 +15,7 @@
           </div>
         </div>
         <!-- Sidenav Filter Left -->
-          <div class="sidebar hidden-xs" style="margin-bottom: 16px;">
+          <div class="sidebar" style="margin-bottom: 16px;">
             
             <ul class="nav nav-stacked" style="background-color:#f9f9f9; ">
               <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=cpanel'>Dashboard</a></li>

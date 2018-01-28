@@ -1,4 +1,8 @@
-
+<?php
+if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 2){
+  header("location: /?mod=cpanel");
+}
+?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">

@@ -49,7 +49,27 @@ $(document).ready(function(){
         });
     }
     $("body").on("click","#btn-confirm-cancel-order", function(e){
-        //alert("HAHA");
+        var id = $(this).val();
+        $(this).prop("disabled",true);
+        $.ajax({
+            url: "modules/orders/ajax.php",
+            method: "POST",
+            data:{
+                "delete_order":1,
+                "order_id":id
+            },
+            success:function(data){
+                setTimeout(function(){
+                    if(data == "delete_success"){
+                        window.location = "/admin/?p=orders";
+                    }
+                    if(data == "delete_failed"){
+                        $("#modal-error").modal();
+                    }
+                    $(this).prop("disabled",false);
+                },2000);
+            }
+        });
     });
 
     $("body").on("click",".btn-chat", function(e){
@@ -70,6 +90,8 @@ $(document).ready(function(){
     });
 
     $("body").on("click","#tmodal-order-del", function(e){
+        var id = $(this).val();
+        $("#btn-confirm-cancel-order").val(id);
         $("#modal-order-del").modal();
     });
 
