@@ -48,6 +48,24 @@ $(document).ready(function(){
             }
         });
     }
+    $("body").on("click","#btn-close-order", function(){
+        $("#modal-order-close").modal();
+    });
+    $("body").on("click","#btn-close-order-confirm", function(){
+        $.ajax({
+            url: "modules/orders/ajax.php",
+            method: "POST",
+            data:{
+                "close_order":1,
+                "order_id":order_id
+            },
+            success:function(data){
+                if(data == "close_success"){
+                    loadOrderItems(order_id);
+                }
+            }
+        });
+    });
     $("body").on("click","#btn-confirm-cancel-order", function(e){
         var id = $(this).val();
         $(this).prop("disabled",true);
@@ -67,7 +85,7 @@ $(document).ready(function(){
                         $("#modal-error").modal();
                     }
                     $(this).prop("disabled",false);
-                },2000);
+                },0);
             }
         });
     });
@@ -192,8 +210,36 @@ $(document).ready(function(){
         }
     });
 
+    var tblcust = $('#table-customers').DataTable( {
+        aaSorting: [[0, 'desc']],
+        columnDefs: [
+        {   
+            "className": ["dt-right"],
+            "targets": [3,4]
+        }],
+        bDeferRender:true,
+        responsive:true,
+        ajax: {
+            url: "modules/users/customers.php",
+            type: "POST"
+        },
+        rowId: 'usr_id',
+        columns:[
+            { "data": "name"},
+            { "data": "email"},
+            { "data": "address"},
+            { "data": "contact"},
+            { "data": "status" }
+        ],
+        oLanguage:{
+            sProcessing: "Loading customers",
+            sZeroRecords: "No customers"
+        }
+    });
+
     setInterval( function () {
         tblpen.ajax.reload();
+        tblcust.ajax.reload();
     }, 5000 );
     
     function scrollBottomChat(){
@@ -210,7 +256,19 @@ $(document).ready(function(){
         // Redirect to order details page
         window.location = "/admin/?p=orders&o="+id;
         //alert( 'Clicked row id '+id );
-      });
+    });
+
+    $('#table-customers').on( 'click', 'tr', function () {
+        // Get the rows id value
+        var id = tblcust.row( this ).id();
+        // Filter for only numbers
+        id = id.replace(/\D/g, '');
+        // Transform to numeric value
+        id = parseInt(id, 10);
+        // Redirect to order details page
+        window.location = "/admin/?p=customers&id="+id;
+        //alert( 'Clicked row id '+id );
+    });
 
     
     

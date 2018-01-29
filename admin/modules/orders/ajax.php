@@ -13,6 +13,12 @@ if(isset($_POST['delete_order'])){
 	}
 }
 
+if(isset($_POST['close_order'])){
+	if($order->close_order($_POST['order_id'])){
+		echo "close_success";
+	}
+}
+
 if(isset($_POST['order_view'])){
 	$get = $order->order_details($_POST['order_id']);
 	if(!$get){
@@ -149,6 +155,7 @@ if(isset($_POST['order_view'])){
 	                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right"><?php echo $g['service_fee'];?></span></li>
 	                      <li class="list-group-item">Total<span id="od-tt" class="float-right"><?php echo $g['total'];?></span></li>
 	                    </ul>
+	                    <button id="btn-close-order" style="margin-top:8px;width:100%;" class="btn btn-themecolor">Close Order</button>
 	                  </div>
 	                </div>
 	            </div>
@@ -157,5 +164,4 @@ if(isset($_POST['order_view'])){
 	</div>
 	<?php
 	}
-
 }

@@ -69,3 +69,22 @@
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
 </div><!-- modal -->
+
+<div class="modal" id="modal-order-close" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+
+      <div class="modal-body">
+        <p class="">Closing this order means that all transactions are completed. Are you sure?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-themecolor" id="btn-close-order-confirm" data-dismiss="modal">Confirm</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->

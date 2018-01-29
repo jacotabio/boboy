@@ -20,6 +20,26 @@ class Users{
       }
   }
 
+  public function get_user_details($id){
+    $sth = $this->db->prepare("SELECT * FROM users WHERE usr_id = ? AND usr_auth = 1");
+    $sth->bindParam(1,$id);
+    $sth->execute();
+
+    $row = $sth->fetch(PDO::FETCH_ASSOC);
+    return $row;
+  }
+
+  public function get_customers(){
+    $sth = $this->db->prepare("SELECT usr_id,usr_name,usr_email,usr_address,usr_contact,CASE WHEN usr_status = 0 THEN 'Deactivated' ELSE 'Activated' END AS usr_status FROM users WHERE usr_auth = 1");
+    $sth->execute();
+    while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+      $list[] = $row;
+    }
+    if(!empty($list)){
+      return $list;
+    }
+  }
+
   public function get_brandname($id){
     $query = $this->db->prepare("SELECT brand_name FROM brands WHERE brand_id = ?");
     $query->bindParam(1,$id);

@@ -55,3 +55,6 @@ button, input, optgroup, select, textarea{
 .modal-footer{
 	border-top:none;
 }
+.card{
+	border:1px solid rgba(0,0,0,0.1) !important;
+}

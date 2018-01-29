@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `subtotal` float(10,2) NOT NULL DEFAULT '0.00',
   `usr_id` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10000380 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10000404 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table db_boboy.cart: 0 rows
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
@@ -69,10 +69,13 @@ CREATE TABLE IF NOT EXISTS `conversations` (
   PRIMARY KEY (`convo_id`),
   KEY `usr_id` (`usr_id`),
   KEY `brand_id` (`brand_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table db_boboy.conversations: ~0 rows (approximately)
 /*!40000 ALTER TABLE `conversations` DISABLE KEYS */;
+INSERT INTO `conversations` (`convo_id`, `usr_id`, `brand_id`, `created_at`) VALUES
+	(3, 33, 15, '2018-01-27 02:54:47'),
+	(4, 33, 14, '2018-01-29 01:56:37');
 /*!40000 ALTER TABLE `conversations` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.fees
@@ -126,12 +129,23 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `sender_id` int(8) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `show_notif` int(11) NOT NULL DEFAULT '0',
+  `msg_open` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`msg_id`),
   KEY `convo_id` (`convo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.messages: ~0 rows (approximately)
+-- Dumping data for table db_boboy.messages: ~1 rows (approximately)
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`msg_id`, `convo_id`, `msg`, `sender_id`, `created_at`, `show_notif`, `msg_open`) VALUES
+	(4, 3, 'wala pa?', 33, '2018-01-27 02:54:47', 1, 0),
+	(5, 4, 'mam', 14, '2018-01-29 01:56:38', 0, 0),
+	(6, 4, 'wala kami white coffee? ok lang? ', 14, '2018-01-29 01:56:47', 0, 0),
+	(7, 4, 'indi', 33, '2018-01-29 01:56:56', 0, 0),
+	(8, 4, 'ma sunggod lang ko', 33, '2018-01-29 01:56:58', 0, 0),
+	(9, 4, 'ok', 14, '2018-01-29 01:57:05', 0, 0),
+	(10, 4, 'remove lang ni namon ha...', 14, '2018-01-29 01:57:09', 0, 0),
+	(11, 4, 'mwa labs u', 14, '2018-01-29 01:57:12', 0, 0),
+	(12, 4, 'K', 33, '2018-01-29 01:57:17', 0, 0);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.oitem
@@ -147,15 +161,15 @@ CREATE TABLE IF NOT EXISTS `oitem` (
   PRIMARY KEY (`oi_id`),
   KEY `item_id` (`item_id`,`order_id`),
   KEY `usr_id` (`usr_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50000317 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=50000336 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.oitem: 4 rows
+-- Dumping data for table db_boboy.oitem: 3 rows
 /*!40000 ALTER TABLE `oitem` DISABLE KEYS */;
 INSERT INTO `oitem` (`oi_id`, `order_id`, `item_id`, `oi_qty`, `oi_subtotal`, `usr_id`, `oi_status`, `oi_delivery`) VALUES
-	(50000316, 20000256, 20, 1, 70.00, 28, 1, 2),
-	(50000315, 20000255, 30, 1, 145.00, 28, 0, 0),
-	(50000314, 20000254, 26, 1, 100.00, 28, 2, 0),
-	(50000313, 20000253, 17, 1, 45.00, 28, 1, 2);
+	(50000334, 20000270, 17, 1, 45.00, 33, 1, 2),
+	(50000335, 20000271, 17, 1, 45.00, 2, 1, 1),
+	(50000333, 20000270, 26, 1, 100.00, 33, 2, 2),
+	(50000332, 20000270, 30, 1, 145.00, 33, 1, 2);
 /*!40000 ALTER TABLE `oitem` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.orders
@@ -169,15 +183,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `contact_number` varchar(50) NOT NULL,
   `custom_fee` float(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20000257 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20000272 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.orders: 4 rows
+-- Dumping data for table db_boboy.orders: 1 rows
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`order_id`, `order_total`, `created_at`, `order_status`, `usr_id`, `delivery_address`, `contact_number`, `custom_fee`) VALUES
-	(20000253, 45.00, '2018-01-24 03:55:01', 3, 28, 'N/A', 'N/A', 0.00),
-	(20000254, 100.00, '2018-01-24 03:55:11', 5, 28, 'N/A', 'N/A', 0.00),
-	(20000255, 145.00, '2018-01-24 03:55:20', 0, 28, 'N/A', 'N/A', 0.00),
-	(20000256, 70.00, '2018-01-24 03:55:31', 3, 28, 'N/A', 'N/A', 0.00);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.users
@@ -194,19 +203,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `usr_contact` varchar(50) NOT NULL DEFAULT 'N/A',
   `admin` int(11) NOT NULL DEFAULT '0',
   KEY `usr_id` (`usr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.users: ~8 rows (approximately)
+-- Dumping data for table db_boboy.users: ~9 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`usr_id`, `usr_name`, `usr_email`, `usr_password`, `usr_auth`, `usr_status`, `usr_img`, `brand_id`, `usr_address`, `usr_contact`, `admin`) VALUES
 	(2, 'John Carlo Octabio', 'jacotabio@gmail.com', '924c7653b61c3f43be726a0300a6f819', 1, 1, '', 0, 'Ubiquity Global Services, Negros First Cybercentre, Bacolod City', '09437095893', 0),
 	(26, 'SleepNot', 'sleepnot@gmail.com', 'e049a162fbb91145da951b0c438c7b2f', 2, 1, 'img/logo.png', 14, 'The Palms, 18th Street Lacson, Bacolod City', '09223344167', 0),
 	(27, 'Starbucks', 'coffee@starbucks.com', '21232f297a57a5a743894a0e4a801fc3', 2, 0, '', 15, '', 'N/A', 0),
-	(28, 'Ron Guanzon', 'ronguanzon@gmail.com', '202cb962ac59075b964b07152d234b70', 1, 0, 'img/logo.png', 0, 'N/A', 'N/A', 0),
+	(28, 'Ron Guanzo', 'ronguanzon@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1, 0, 'img/logo.png', 0, 'Blk 2 Lot 4 Country Homes, Brgy. Bata, Bacolod City', '09224329341', 0),
 	(29, 'Jeland Quinamot', 'jelandquinamot@gmail.com', '202cb962ac59075b964b07152d234b70', 1, 0, '', 0, '', 'N/A', 0),
-	(30, 'Rafael Davis', 'rd0_0@yahoo.com', '827ccb0eea8a706c4c34a16891f84e7b', 1, 0, '', 0, '', 'N/A', 0),
 	(31, 'John Brix Arrobang', 'johnbarrobang@gmail.com', '202cb962ac59075b964b07152d234b70', 1, 0, '', 0, '', 'N/A', 0),
-	(1, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0, '', 'N/A', 1);
+	(1, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0, '', 'N/A', 1),
+	(33, 'Donna Rose Eran', 'donna.eran@gmail.com', 'bfd59291e825b5f2bbf1eb76569f8fe7', 1, 1, '', 0, '#22 Clayton Street, St. Francis Village, Taculing, Bacolod City', '09123456789', 0),
+	(34, 'Rafael Davis', 'ruinedrafael@gmail.com', '4297f44b13955235245b2497399d7a93', 1, 1, '', 0, '#22 Clayton Street, St. Francis Village, Taculing, Bacolod City', '09456321655', 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

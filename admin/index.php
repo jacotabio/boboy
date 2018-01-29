@@ -2,6 +2,8 @@
 include 'library/config.php';
 include 'classes/class.users.php';
 
+$user = new Users();
+
 if(!isset($_SESSION['admin_login'])){
 	header("location: /admin/login/login.php");
 }
@@ -124,22 +126,13 @@ $brandname = "Boboy";
                             <a href="/admin/" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="/admin/?p=orders" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Orders</a>
+                            <a href="/admin/?p=orders" class="waves-effect"><i class="fa fa-list m-r-10" aria-hidden="true"></i>Orders</a>
                         </li>
                         <li>
-                            <a href="table-basic.html" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Basic Table</a>
+                            <a href="/admin/?p=customers" class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>Customers</a>
                         </li>
                         <li>
-                            <a href="icon-fontawesome.html" class="waves-effect"><i class="fa fa-font m-r-10" aria-hidden="true"></i>Icons</a>
-                        </li>
-                        <li>
-                            <a href="map-google.html" class="waves-effect"><i class="fa fa-globe m-r-10" aria-hidden="true"></i>Google Map</a>
-                        </li>
-                        <li>
-                            <a href="pages-blank.html" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="pages-error-404.html" class="waves-effect"><i class="fa fa-info-circle m-r-10" aria-hidden="true"></i>Error 404</a>
+                            <a href="/admin/?p=brands" class="waves-effect"><i class="fa fa-building m-r-10" aria-hidden="true"></i>Brands</a>
                         </li>
                     </ul>
                 </nav>
@@ -196,6 +189,12 @@ $brandname = "Boboy";
                         }else{
                             require_once 'modules/orders/index.php';
                         }
+                        break;
+                    case 'customers':
+                        require_once "modules/users/index.php";
+                        break;
+                    case 'brands':
+                        require_once "modules/brands/index.php";
                         break;
                     default:
                         require_once 'modules/dashboard/index.php';

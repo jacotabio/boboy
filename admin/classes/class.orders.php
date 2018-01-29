@@ -17,6 +17,12 @@ class Orders{
     return $sth->execute();
   }
 
+  public function close_order($id){
+    $sth = $this->db->prepare("UPDATE orders SET order_status = 4 WHERE order_id = ? AND order_status = 3");
+    $sth->bindParam(1,$id);
+    return $sth->execute();
+  }
+
   public function pending_orders(){
     $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,
                                   CASE
