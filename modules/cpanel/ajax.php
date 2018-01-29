@@ -48,7 +48,7 @@ if(isset($_POST['get_chat_name'])){
   echo $user->get_name($_POST['id']);
 }
 if(isset($_POST['show_status'])){
-  echo $brand->get_brand_status($_POST['brand_id']);
+  echo $brand->get_brand_status($_SESSION['brand_id']);
 }
 
 if(isset($_POST['change_status'])){

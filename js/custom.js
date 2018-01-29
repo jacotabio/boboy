@@ -171,15 +171,14 @@ function displayCartTable(){
   });
 };
 function showShopStatus(){
-  var bid = $("#shop-cpanel-id").attr("value");
   $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
       data:{
-        "show_status": 1,
-        "brand_id":bid
+        "show_status": 1
       },
       success: function(data){
+
         setTimeout(function() {
           if(data == 1){
             $("#show-shop-status").html("Online");
