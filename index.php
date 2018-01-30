@@ -94,7 +94,7 @@ $currency = "₱";
               }
               ?>
               <li class="dropdown">
-                <a class="dropdown-toggle uppercase" data-toggle="dropdown" href=""><?php 
+                <a class="dropdown-toggle" style="font-size:14px;font-weight:400;" data-toggle="dropdown" href=""><?php 
                 if($_SESSION['usr_auth']==2){
                   if($brand->get_brand_status($_SESSION['brand_id'])==1){?>
                     <span id="status-indicator" class="green">&#9679;</span>

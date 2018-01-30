@@ -159,7 +159,14 @@ $brandname = "Boboy";
                         <h3 class="text-themecolor m-b-0 m-t-0"><?php if($p == null){ echo "Dashboard";}else{ echo ucfirst($p);}?></h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
-                            <li class="breadcrumb-item active"><?php if($p == null){ echo "Dashboard";}else{?> <a href="/admin/?p=orders"><?php echo ucfirst($p);?></a><?php if(isset($_GET['o']) && $_GET['o'] != ""){?><li class="breadcrumb-item"><strong style="color:#444;"><?php echo $_GET['o'];?></strong></li><?php }}?></li>
+                            <li class="breadcrumb-item active"><?php if($p == null){ echo "Dashboard";}else{?> <a href="/admin/?p=<?php echo $p;?>"><?php echo ucfirst($p);?></a><?php if(isset($_GET['o']) && $_GET['o'] != ""){?><li class="breadcrumb-item"><strong style="color:#444;"><?php echo $_GET['o'];?></strong></li><?php }}?></li>
+                            <?php 
+                            if(isset($_GET['p']) && isset($_GET['id'])){
+                            ?>
+                            <li class="breadcrumb-item active"><a href="/admin/?p=customers&id=<?php echo $_GET['id'];?>"><?php echo $_GET['id']?></a></li>
+                            <?php
+                            }
+                            ?>
                         </ol>
                     </div>
                     <?php

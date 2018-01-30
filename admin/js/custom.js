@@ -217,8 +217,6 @@ $(document).ready(function(){
             "className": ["dt-right"],
             "targets": [3,4]
         }],
-        bDeferRender:true,
-        responsive:true,
         ajax: {
             url: "modules/users/customers.php",
             type: "POST"
@@ -232,8 +230,8 @@ $(document).ready(function(){
             { "data": "status" }
         ],
         oLanguage:{
-            sProcessing: "Loading customers",
-            sZeroRecords: "No customers"
+            sProcessing: "Loading",
+            sZeroRecords: "No Customers"
         }
     });
 

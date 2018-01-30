@@ -171,6 +171,7 @@ function displayCartTable(){
   });
 };
 function showShopStatus(){
+  //alert("running ajax status");
   $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -178,21 +179,19 @@ function showShopStatus(){
         "show_status": 1
       },
       success: function(data){
-
+        //alert("shop status loaded");
         setTimeout(function() {
+          $("#shop-status-container").show();
           if(data == 1){
             $("#show-shop-status").html("Online");
             $("#id-name--1").prop('checked', true);
             $("#status-indicator").removeClass("orange").addClass("green");
-            alert("green");
           }
           if(data == 0){
             $("#show-shop-status").html("Offline");
             $("#id-name--1").prop('checked', false);
             $("#status-indicator").removeClass("green").addClass("orange");
-            alert("orange");
           }
-          $("#shop-status-container").show();
         }, 100);
       }
   });
@@ -322,7 +321,7 @@ $('#add-item-price').on('keypress', function(e){
 });
 
 
-showShopStatus();
+
 displayCartTable();
 showActiveShops();
 displayUserOrders();
@@ -331,6 +330,7 @@ displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
 if(order_id==null){
   displayOrders();
 }
+showShopStatus();
  // DOCUMENT READY //
 
 $(document).ready(function(){

@@ -126,7 +126,6 @@ body{
 }
 .panel-default>.panel-heading {
     color: #333;
-    background-color: red !important;
     border-color: #ddd;
 }
 .vertical-alignment-helper {
@@ -163,6 +162,7 @@ body{
 }
 .panel-default {
   border: none;
+  border-radius:0px !important;
 }
 .item-description {
   overflow: hidden;
@@ -244,6 +244,9 @@ body{
 }
 .tbl-left{
   padding-left:16px !important;
+}
+.panel-heading{
+  border-radius:0px;
 }
 .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
   padding-bottom:17px;
@@ -517,7 +520,7 @@ footer{
 #myFooter {
   background-color: #3a3f46;
   color: white;
-  margin-top: 100px;
+  margin-top: 16px;
 }
 
 #myFooter .row {

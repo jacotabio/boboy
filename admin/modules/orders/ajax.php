@@ -155,7 +155,13 @@ if(isset($_POST['order_view'])){
 	                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right"><?php echo $g['service_fee'];?></span></li>
 	                      <li class="list-group-item">Total<span id="od-tt" class="float-right"><?php echo $g['total'];?></span></li>
 	                    </ul>
+	                    <?php
+	                    if($os == 3){
+	                    ?>
 	                    <button id="btn-close-order" style="margin-top:8px;width:100%;" class="btn btn-themecolor">Close Order</button>
+	                    <?php
+						}
+	                    ?>
 	                  </div>
 	                </div>
 	            </div>

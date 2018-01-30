@@ -175,7 +175,7 @@ if(isset($_POST['order_ready'])){
       foreach($list as $arr){
         $order->ready_cpanel_order($arr['oi_id']);   
       }
-      if($order->check_ready_votes($_POST['order_id'],$_SESSION['brand_id']) == 0){
+      if($order->check_ready_votes($_POST['order_id'],$_SESSION['brand_id']) == 0 && $order->count_pending_items($_POST['order_id']) == 0){
         $order->ready_order_status($_POST['order_id']);
       }
     }
@@ -293,7 +293,7 @@ if(isset($_POST['order_info'])){
                           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Contact #</label>
                           <p class="no-gap" style="font-size: 13px;"><?php echo $oci['usr_contact'];?></p>
                         </div>
-                        <div class="col-xs-12 col-sm-7 col-lg-2" style="margin-top:16px;">
+                        <div class="col-xs-12 col-sm-7 col-lg-5" style="margin-top:16px;">
                           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Customer Name</label>
                           <p class="no-gap" style="font-size: 13px;"><?php echo $oci['usr_name'];?></p>
                         </div>
