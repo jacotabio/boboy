@@ -143,7 +143,7 @@ class Users{
 
     public function check_login($email,$password){
       $query = $this->db->prepare("SELECT * FROM users WHERE
-      usr_email = ? AND usr_password = ?");
+      usr_email = ? AND usr_password = ? AND usr_status = 1");
       $query->bindParam(1,$email);
       $query->bindParam(2,$password);
       $query->execute();

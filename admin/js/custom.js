@@ -134,8 +134,10 @@ $(document).ready(function(){
 
     $("body").on("click","#del-customer",function(e){
         e.preventDefault();
+        $("#modal-customer-del").modal();
+    });
+    $("body").on("click","#del-customer-confirm",function(e){
         var id = getUrlParameter('id');
-        //alert("asd");
         $.ajax({
             url: "modules/users/delete.php",
             method: "POST",
@@ -144,29 +146,45 @@ $(document).ready(function(){
                 "usr_id":id
             },
             success:function(data){
-                alert(data);
+                if(data == "delete_success"){
+                    window.location = "/admin/?p=customers";
+                }
+                if(data == "delete_failed"){
+                    $("#modal-error").modal();
+                }
             }
         });
     });
     $("#form-cust-d").on("submit",function(e){
         e.preventDefault();
-        alert($(this).attr('name'));
-        /*
-        $("#btn-login").prop("disabled",true);
         $.ajax({
-            url:"../login/ajax.php",
-            method:"POST",
+            url: "modules/users/update.php",
+            method: "POST",
             data:$(this).serialize(),
+            dataType: "json",
+            //dataType: "html",
             success:function(data){
-            if(data == "login_success"){
-                window.location = "/admin/";
+                alert(data['code']);
+                if(data['code'] == "input_passed"){
+                    alert("tinlo ang form");
+                }
+                if(data['code'] == "input_failed"){
+                    alert("higko ang form");
+                }
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                      if(data[key] == 0){
+                        //$("#"+key).addClass("has-error");
+                        $("#"+key+"-error").show();
+                      }else{
+                        //$("#"+key).removeClass("has-error");
+                        $("#"+key+"-error").hide();
+                      }
+                    }
+                }
+                //alert(JSON.stringify(data));
             }
-            if(data == "login_failed"){
-                alert("Username or password does not exist");
-            }
-            $("#btn-login").prop("disabled",false);
-            }
-        });*/
+        });
     });
 
     $("#form-chat").on("submit",function(e){

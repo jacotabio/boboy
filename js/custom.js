@@ -729,10 +729,10 @@ $(document).ready(function(){
           for (var key in d) {
             if (d.hasOwnProperty(key)) {
               if(d[key] == 0){
-                $("#"+key).addClass("has-error");
+                $("#"+key).addClass('has-error');
                 $("#"+key+"-error").show();
               }else{
-                $("#"+key).removeClass("has-error");
+                $("#"+key).removeClass('has-error');
                 $("#"+key+"-error").hide();
               }
             }

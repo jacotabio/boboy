@@ -163,7 +163,7 @@ $brandname = "Boboy";
                             <?php 
                             if(isset($_GET['p']) && isset($_GET['id'])){
                             ?>
-                            <li class="breadcrumb-item active"><a href="/admin/?p=customers&id=<?php echo $_GET['id'];?>"><?php echo $_GET['id']?></a></li>
+                            <li class="breadcrumb-item active"><a href="/admin/?p=customers&id=<?php echo $_GET['id'];?>"><?php echo $user->get_customer_name($_GET['id']);?></a></li>
                             <?php
                             }
                             ?>

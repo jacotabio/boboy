@@ -40,6 +40,20 @@ class Users{
     }
   }
 
+  public function get_customer_name($id){
+    $query = $this->db->prepare("SELECT usr_name FROM users WHERE usr_id = ?");
+    $query->bindParam(1,$id);
+    $query->execute();
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    return $row['usr_name'];
+  }
+
+  public function delete_customer($id){
+    $sth = $this->db->prepare("DELETE FROM users WHERE usr_id = ?");
+    $sth->bindParam(1,$id);
+    return $sth->execute();
+  }
+
   public function get_brandname($id){
     $query = $this->db->prepare("SELECT brand_name FROM brands WHERE brand_id = ?");
     $query->bindParam(1,$id);
