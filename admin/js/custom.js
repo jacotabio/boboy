@@ -132,6 +132,43 @@ $(document).ready(function(){
         });
     });
 
+    $("body").on("click","#del-customer",function(e){
+        e.preventDefault();
+        var id = getUrlParameter('id');
+        //alert("asd");
+        $.ajax({
+            url: "modules/users/delete.php",
+            method: "POST",
+            data:{
+                "delete_customer":1,
+                "usr_id":id
+            },
+            success:function(data){
+                alert(data);
+            }
+        });
+    });
+    $("#form-cust-d").on("submit",function(e){
+        e.preventDefault();
+        alert($(this).attr('name'));
+        /*
+        $("#btn-login").prop("disabled",true);
+        $.ajax({
+            url:"../login/ajax.php",
+            method:"POST",
+            data:$(this).serialize(),
+            success:function(data){
+            if(data == "login_success"){
+                window.location = "/admin/";
+            }
+            if(data == "login_failed"){
+                alert("Username or password does not exist");
+            }
+            $("#btn-login").prop("disabled",false);
+            }
+        });*/
+    });
+
     $("#form-chat").on("submit",function(e){
         e.preventDefault();
         var msg = $("#chat-input-message").val();
