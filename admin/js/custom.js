@@ -67,6 +67,7 @@ $(document).ready(function(){
         });
     });
     $("body").on("click","#btn-confirm-cancel-order", function(e){
+        $(".preloader").show();
         var id = $(this).val();
         $(this).prop("disabled",true);
         $.ajax({
@@ -82,6 +83,7 @@ $(document).ready(function(){
                         window.location = "/admin/?p=orders";
                     }
                     if(data == "delete_failed"){
+                        $(".preloader").hide();
                         $("#modal-error").modal();
                     }
                     $(this).prop("disabled",false);
@@ -136,7 +138,13 @@ $(document).ready(function(){
         e.preventDefault();
         $("#modal-customer-del").modal();
     });
+    $("body").on("click","#del-brand",function(e){
+        e.preventDefault();
+        $("#modal-brand-del").modal();
+    });
+
     $("body").on("click","#del-customer-confirm",function(e){
+        $(".preloader").show();
         var id = getUrlParameter('id');
         $.ajax({
             url: "modules/users/delete.php",
@@ -146,6 +154,7 @@ $(document).ready(function(){
                 "usr_id":id
             },
             success:function(data){
+                $(".preloader").fadeOut();
                 if(data == "delete_success"){
                     window.location = "/admin/?p=customers";
                 }
@@ -155,21 +164,86 @@ $(document).ready(function(){
             }
         });
     });
+    $("body").on("click","#del-brand-confirm",function(e){
+        $(".preloader").show();
+        var bid = getUrlParameter('bid');        
+        $.ajax({
+            url: "modules/brands/delete.php",
+            method: "POST",
+            data:{
+                "delete_brand":1,
+                "brand_id":bid
+            },
+            success:function(data){
+                $(".preloader").fadeOut();
+                if(data == "delete_success"){
+                    window.location = "/admin/?p=brands";
+                }
+                if(data == "delete_failed"){
+                    $("#modal-error").modal();
+                }
+            }
+        });
+    });
+    $("#form-cust-password").on("submit",function(e){
+        e.preventDefault();
+        $(".preloader").show();
+        var id = getUrlParameter('id');
+        var data = $(this).serializeArray();
+        data.push({name: "usr_id", value: id});
+        $.ajax({
+            url: "modules/users/password.php",
+            method: "POST",
+            data: data,
+            dataType: "json",
+            success:function(data){
+                $("#password-input").val("");
+                if(data['code'] == "validation_failed"){
+                    $("#password-input-error").show();
+                }
+                if(data['code'] == "update_failed"){
+                    $("#modal-error").modal();
+                    $("#password-input-error").hide();
+
+                }
+                if(data['code'] == "update_success"){
+                    $("#customer-password-success").show();
+                    setTimeout(function(){
+                        $("#customer-password-success").fadeOut();
+                    },5000);
+                    $("#password-input-error").hide();
+                }
+                $(".preloader").fadeOut();
+            }
+        });
+    });
     $("#form-cust-d").on("submit",function(e){
         e.preventDefault();
+        $(".preloader").show();
+        var id = getUrlParameter('id');
+        var data = $(this).serializeArray();
+        data.push({name: 'usr_id', value: id});
         $.ajax({
             url: "modules/users/update.php",
             method: "POST",
-            data:$(this).serialize(),
+            data:data,
             dataType: "json",
-            //dataType: "html",
             success:function(data){
-                alert(data['code']);
-                if(data['code'] == "input_passed"){
-                    alert("tinlo ang form");
+                //alert(data);
+                //alert(JSON.stringify(data));
+                
+                if(data['code'] == "update_success"){
+                    $("#customer-update-success").show();
+                    $(".page-wrapper").scrollTop(20);
+                    setTimeout(function(){
+                        $("#customer-update-success").fadeOut();
+                    },5000)
+                }
+                if(data['code'] == "update_failed"){
+                    $("#modal-error").modal();
                 }
                 if(data['code'] == "input_failed"){
-                    alert("higko ang form");
+                    //alert("higko ang form");
                 }
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
@@ -182,7 +256,8 @@ $(document).ready(function(){
                       }
                     }
                 }
-                //alert(JSON.stringify(data));
+                
+                $(".preloader").fadeOut();
             }
         });
     });
@@ -290,9 +365,35 @@ $(document).ready(function(){
         }
     });
 
+    var tblbrands = $('#table-brands').DataTable( {
+        aaSorting: [[0, 'desc']],
+        columnDefs: [
+        {   
+            "className": ["dt-right"],
+            "targets": [3,4]
+        }],
+        ajax: {
+            url: "modules/brands/partners.php",
+            type: "POST"
+        },
+        rowId: 'brand_id',
+        columns:[
+            { "data": "name"},
+            { "data": "email"},
+            { "data": "address"},
+            { "data": "contact"},
+            { "data": "status" }
+        ],
+        oLanguage:{
+            sProcessing: "Loading",
+            sZeroRecords: "No Brands"
+        }
+    });
+
     setInterval( function () {
         tblpen.ajax.reload();
         tblcust.ajax.reload();
+        tblbrands.ajax.reload();
     }, 5000 );
     
     function scrollBottomChat(){
@@ -320,6 +421,18 @@ $(document).ready(function(){
         id = parseInt(id, 10);
         // Redirect to order details page
         window.location = "/admin/?p=customers&id="+id;
+        //alert( 'Clicked row id '+id );
+    });
+
+    $('#table-brands').on( 'click', 'tr', function () {
+        // Get the rows id value
+        var id = tblbrands.row( this ).id();
+        // Filter for only numbers
+        id = id.replace(/\D/g, '');
+        // Transform to numeric value
+        id = parseInt(id, 10);
+        // Redirect to order details page
+        window.location = "/admin/?p=brands&bid="+id;
         //alert( 'Clicked row id '+id );
     });
 

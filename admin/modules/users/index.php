@@ -40,6 +40,9 @@ if(!isset($_GET['id'])){
             <div class="card-block">
                 <h4 class="card-title">Customer Details</h4>
                 <h6 class="card-subtitle">Customer account details</h6>
+                <div id="customer-update-success" style="display:none;" class="alert alert-success">
+                    <strong>Success!</strong> Customer's details has been updated successfully
+                </div>
                 <div class="table-responsive">
                     <form id="form-cust-d" class="form-horizontal">
                         <div id="name-input" class="form-group">
@@ -54,58 +57,70 @@ if(!isset($_GET['id'])){
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-lg-7 col-md-12">
                                 <input name="email" type="email" value="<?php echo $u['usr_email'];?>" placeholder="example@email.com" class="form-control input-sm" required>
-                                <label id="email-input-error" style="display:;" class="control-label text-error">Email invalid</label>
+                                <label id="email-input-error" style="display:none;" class="control-label text-error">Email invalid</label>
                             </div>
                         </div>
                         <div id="phone-input" class="form-group">
                             <label class="col-md-4 control-label">Phone #</label>
-                            <div class="col-md-6">
+                            <div class="col-lg-7 col-md-12">
                                 <input name="phone" type="number" value="<?php echo $u['usr_contact'];?>" placeholder="e.g (0915-XXX-XXXX)" class="form-control input-sm" required>
-                                <label id="phone-input-error" style="display:;" class="control-label text-error">Enter 11-digit phone number only</label>
+                                <label id="phone-input-error" style="display:none;" class="control-label text-error">Enter 11-digit phone number only</label>
                             </div>
                         </div>
                         <div id="address-input" class="form-group">
                             <label class="col-md-4 control-label">Default Address</label>
-                            <div class="col-md-6">
+                            <div class="col-lg-7 col-md-12">
                                 <textarea style="resize:none;" rows="5" name="address" type="text" placeholder="Default Address" class="form-control input-sm" required=""><?php echo $u['usr_address'];?></textarea>
-                                <label id="address-input-error" style="display:;" class="control-label text-error">Address consists of invalid characters</label>
+                                <label id="address-input-error" style="display:none;" class="control-label text-error">Address consists of invalid characters</label>
+                            </div>
+                        </div>
+                        <div id="address-input" class="form-group">
+                            <label class="col-md-4 control-label">Status</label>
+                            <div class="col-lg-7 col-md-12">
+                                <select type="text" name="status" class="form-control input-sm" required>
+                                    <?php
+                                    if($u['usr_status'] == 0){?>
+                                        <option value="0" selected>Deactivated</option>
+                                        <option value="1">Activated</option>
+                                    <?php
+                                    }else{?>
+                                        <option value="1" selected>Activated</option>
+                                        <option value="0">Deactivated</option>
+                                    <?php
+                                    }
+                                    ?>
+                                    
+                                    
+                                </select>
+                                <label id="status-input-error" style="display:none;" class="control-label text-error">Address consists of invalid characters</label>
                             </div>
                         </div>
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
                             <div class="col-md-4">
-                                <button type="submit" name="submit" class="btn btn-primary btn-sm"><span class="fa fa-"></span>Save Changes</button>
+                                <button type="submit" name="submit" class="btn btn-info btn-sm"><span class="fa fa-"></span>Save Changes</button>
                                 <button type="button" id="del-customer" name="delete" class="btn btn-red btn-sm"><span class="fa fa-"></span>Delete Customer</button>
-                            </div>
-                            <div class="material-load-details" class="" style="display:none;margin-right:30px;">
-                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                    <circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30>
-                                    </circle>
-                                </svg>
                             </div>
                         </div>
                     </form>
-                    <form>
+                    <form id="form-cust-password" class="form-horizontal">
                         <h4 class="card-title">Change Password</h4>
-                        <div id="name-input" class="form-group">
+                        <div id="customer-password-success" style="display:none;" class="alert alert-success">
+                            <strong>Success!</strong> Customer's password was changed successfully
+                        </div>
+                        <div id="" class="form-group">
                             <input type="hidden" value="<?php echo $u['usr_id'];?>">
                             <label class="col-md-4 control-label">New Password</label>
                             <div class="col-lg-7 col-md-12">
-                                <input name="fullname" type="text" placeholder="New password" class="form-control input-sm" required>
-                                <label id="name-input-error" style="display:none;" class="control-label">No special characters allowed</label>
+                                <input id="password-input" name="password" type="password" placeholder="New password" class="form-control input-sm" required>
+                                <label id="password-input-error" style="display:none;" class="control-label text-error">Alphanumeric & minimum 6-character only</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
                             <div class="col-md-4">
-                                <button type="submit" name="submit" class="btn btn-primary btn-sm"><span class="fa fa-"></span>Change Password</button>
-                            </div>
-                            <div class="material-load-details" class="" style="display:none;margin-right:30px;">
-                                <svg class="spinner" stroke="#5677fc" width="30px" height="30px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                    <circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r=30>
-                                    </circle>
-                                </svg>
+                                <button type="submit" name="submit" class="btn btn-info btn-sm"><span class="fa fa-"></span>Change Password</button>
                             </div>
                         </div>
                     </form>

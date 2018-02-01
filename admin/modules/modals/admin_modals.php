@@ -71,6 +71,25 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<div class="modal" id="modal-brand-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+
+      <div class="modal-body">
+        <p class="">Do you want to delete this brand from the system?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-themecolor" id="del-brand-confirm" data-dismiss="modal">Delete</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 <div class="modal" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

@@ -1,8 +1,10 @@
 <?php
 include 'library/config.php';
 include 'classes/class.users.php';
+include 'classes/class.brands.php';
 
 $user = new Users();
+$brand = new Brands();
 
 if(!isset($_SESSION['admin_login'])){
 	header("location: /admin/login/login.php");
@@ -150,7 +152,7 @@ $brandname = "Boboy";
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div id="content-wrapper" class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
@@ -161,9 +163,12 @@ $brandname = "Boboy";
                             <li class="breadcrumb-item"><a href="/admin/">Home</a></li>
                             <li class="breadcrumb-item active"><?php if($p == null){ echo "Dashboard";}else{?> <a href="/admin/?p=<?php echo $p;?>"><?php echo ucfirst($p);?></a><?php if(isset($_GET['o']) && $_GET['o'] != ""){?><li class="breadcrumb-item"><strong style="color:#444;"><?php echo $_GET['o'];?></strong></li><?php }}?></li>
                             <?php 
-                            if(isset($_GET['p']) && isset($_GET['id'])){
+                            if(isset($_GET['p']) && $_GET['p'] == "customers" && isset($_GET['id'])){
                             ?>
                             <li class="breadcrumb-item active"><a href="/admin/?p=customers&id=<?php echo $_GET['id'];?>"><?php echo $user->get_customer_name($_GET['id']);?></a></li>
+                            <?php
+                            }else if(isset($_GET['p']) && $_GET['p'] == "brands" && isset($_GET['bid'])){?>
+                            <li class="breadcrumb-item active"><a href="/admin/?p=brands&bid=<?php echo $_GET['bid'];?>"><?php echo $brand->get_brand_name($_GET['bid']);?></a></li>
                             <?php
                             }
                             ?>

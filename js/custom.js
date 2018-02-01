@@ -1017,16 +1017,21 @@ $(document).ready(function(){
       type: 'POST',
       data: $(this).serialize(),
       success: function(d){
+        if(d=="user_banned"){
+          document.getElementById("pwd-login-help").innerHTML = "Your account is temporarily banned";
+        }
         if(d=="login_success"){
           location.reload();
-          $('#submit-login').prop('disabled', false);
         }
         if(d=="login_failed"){
           e_pwd.classList.add("has-error");
           e_email.classList.add("has-error");
           document.getElementById("pwd-login-help").innerHTML = "Username or password does not exists";
-          $('#submit-login').prop('disabled', false);
+        }else{
+          e_pwd.classList.remove("has-error");
+          e_email.classList.remove("has-error");
         }
+        $('#submit-login').prop('disabled', false);
       }
     });
   });

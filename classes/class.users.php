@@ -142,23 +142,29 @@ class Users{
     }
 
     public function check_login($email,$password){
-      $query = $this->db->prepare("SELECT * FROM users WHERE
-      usr_email = ? AND usr_password = ? AND usr_status = 1");
+      $query = $this->db->prepare("SELECT *,
+                                  CASE
+                                    WHEN usr_status = 0 THEN '1'
+                                    WHEN usr_status = 1 THEN '0'
+                                  END AS usr_banned
+                                FROM users 
+                                WHERE usr_email = ? AND usr_password = ? AND is_hidden = 0 AND admin = 0");
       $query->bindParam(1,$email);
       $query->bindParam(2,$password);
       $query->execute();
       $userdata = $query->fetch(PDO::FETCH_ASSOC);
       $count = $query->rowCount();
-      if($count == 1){
-              $_SESSION['usr_login']=true;
-              $_SESSION['usr_id']=$userdata['usr_id'];
-              $_SESSION['usr_name']=$userdata['usr_name'];
-              $_SESSION['usr_auth']=$userdata['usr_auth'];
-              $_SESSION['brand_id']=$userdata['brand_id'];
-        return true;
-      }
-      else{
-        return false;
+      
+      if($userdata['usr_banned'] == 0 && $count == 1){
+        //return "1 record found and user not banned";
+        $_SESSION['usr_login']=true;
+        $_SESSION['usr_id']=$userdata['usr_id'];
+        $_SESSION['usr_name']=$userdata['usr_name'];
+        $_SESSION['usr_auth']=$userdata['usr_auth'];
+        $_SESSION['brand_id']=$userdata['brand_id'];
+        return "login_success";
+      }else{
+        return $userdata['usr_banned'];
       }
     }
 

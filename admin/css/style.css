@@ -62,3 +62,38 @@ button, input, optgroup, select, textarea{
 .text-error{
 	color: red !important;
 }
+
+input::-webkit-input-placeholder {
+color: rgba(0,0,0,0.3) !important;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+color: rgba(0,0,0,0.3) !important;  
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+color: rgba(0,0,0,0.3) !important; 
+}
+ 
+input:-ms-input-placeholder {  
+color: rgba(0,0,0,0.3) !important; 
+}
+
+textarea{
+	padding-top:8px !important;
+}
+textarea::-webkit-input-placeholder {
+color: rgba(0,0,0,0.3) !important;
+}
+ 
+textarea:-moz-placeholder { /* Firefox 18- */
+color: rgba(0,0,0,0.3) !important;  
+}
+ 
+textarea::-moz-placeholder {  /* Firefox 19+ */
+color: rgba(0,0,0,0.3) !important; 
+}
+ 
+textarea:-ms-input-placeholder {  
+color: rgba(0,0,0,0.3) !important; 
+}

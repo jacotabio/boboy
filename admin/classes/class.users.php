@@ -20,8 +20,26 @@ class Users{
       }
   }
 
+  public function update_customer($id,$name,$email,$phone,$address,$status){
+    $sth = $this->db->prepare("UPDATE users SET usr_name = ?, usr_email = ?,usr_contact = ?, usr_address = ?, usr_status = ? WHERE usr_id = ?");
+    $sth->bindParam(1,$name);
+    $sth->bindParam(2,$email);
+    $sth->bindParam(3,$phone);
+    $sth->bindParam(4,$address);
+    $sth->bindParam(5,$status);
+    $sth->bindParam(6,$id);
+    return $sth->execute();
+  }
+
+  public function update_password($id,$password){
+    $sth = $this->db->prepare("UPDATE users SET usr_password = ? WHERE usr_id = ?");
+    $sth->bindParam(1,$password);
+    $sth->bindParam(2,$id);
+    return $sth->execute();
+  }
+
   public function get_user_details($id){
-    $sth = $this->db->prepare("SELECT * FROM users WHERE usr_id = ? AND usr_auth = 1");
+    $sth = $this->db->prepare("SELECT * FROM users WHERE usr_id = ? AND usr_auth = 1 AND is_hidden = 0");
     $sth->bindParam(1,$id);
     $sth->execute();
 
@@ -30,7 +48,7 @@ class Users{
   }
 
   public function get_customers(){
-    $sth = $this->db->prepare("SELECT usr_id,usr_name,usr_email,usr_address,usr_contact,CASE WHEN usr_status = 0 THEN 'Deactivated' ELSE 'Activated' END AS usr_status FROM users WHERE usr_auth = 1");
+    $sth = $this->db->prepare("SELECT usr_id,usr_name,usr_email,usr_address,usr_contact,CASE WHEN usr_status = 0 THEN 'Deactivated' ELSE 'Activated' END AS usr_status FROM users WHERE usr_auth = 1 AND is_hidden = 0");
     $sth->execute();
     while($row = $sth->fetch(PDO::FETCH_ASSOC)){
       $list[] = $row;
@@ -41,7 +59,7 @@ class Users{
   }
 
   public function get_customer_name($id){
-    $query = $this->db->prepare("SELECT usr_name FROM users WHERE usr_id = ?");
+    $query = $this->db->prepare("SELECT usr_name FROM users WHERE usr_id = ? AND admin = 0 AND is_hidden = 0");
     $query->bindParam(1,$id);
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
@@ -49,7 +67,7 @@ class Users{
   }
 
   public function delete_customer($id){
-    $sth = $this->db->prepare("DELETE FROM users WHERE usr_id = ?");
+    $sth = $this->db->prepare("UPDATE users SET is_hidden = 1 WHERE usr_id = ? AND is_hidden = 0");
     $sth->bindParam(1,$id);
     return $sth->execute();
   }
