@@ -51,6 +51,38 @@ $(document).ready(function(){
     $("body").on("click","#btn-close-order", function(){
         $("#modal-order-close").modal();
     });
+    $("body").on("click","#ban-brand", function(){
+        var id = getUrlParameter('bid');
+        $.ajax({
+            url: "modules/brands/ban.php",
+            method: "POST",
+            data:{
+                "ban":1,
+                "brand_id":id
+            },
+            success:function(data){
+                if(data == "ban_success"){
+                    location.reload();
+                }
+            }
+        });
+    });
+    $("body").on("click","#unban-brand", function(){
+        var id = getUrlParameter('bid');
+        $.ajax({
+            url: "modules/brands/ban.php",
+            method: "POST",
+            data:{
+                "unban":1,
+                "brand_id":id
+            },
+            success:function(data){
+                if(data == "unban_success"){
+                    location.reload();
+                }
+            }
+        });
+    });
     $("body").on("click","#btn-close-order-confirm", function(){
         $.ajax({
             url: "modules/orders/ajax.php",
@@ -217,6 +249,38 @@ $(document).ready(function(){
             }
         });
     });
+    $("#form-brand-password").on("submit",function(e){
+        e.preventDefault();
+        $(".preloader").show();
+        var id = getUrlParameter('bid');
+        var data = $(this).serializeArray();
+        data.push({name: "brand_id", value: id});
+        $.ajax({
+            url: "modules/brands/password.php",
+            method: "POST",
+            data: data,
+            dataType: "json",
+            success:function(data){
+                $("#password-input").val("");
+                if(data['code'] == "validation_failed"){
+                    $("#password-input-error").show();
+                }
+                if(data['code'] == "update_failed"){
+                    $("#modal-error").modal();
+                    $("#password-input-error").hide();
+
+                }
+                if(data['code'] == "update_success"){
+                    $("#customer-password-success").show();
+                    setTimeout(function(){
+                        $("#customer-password-success").fadeOut();
+                    },5000);
+                    $("#password-input-error").hide();
+                }
+                $(".preloader").fadeOut();
+            }
+        });
+    });
     $("#form-cust-d").on("submit",function(e){
         e.preventDefault();
         $(".preloader").show();
@@ -257,6 +321,46 @@ $(document).ready(function(){
                     }
                 }
                 
+                $(".preloader").fadeOut();
+            }
+        });
+    });
+
+    $("#form-brand-d").on("submit",function(e){
+        e.preventDefault();
+        $(".preloader").show();
+        var id = getUrlParameter('bid');
+        var data = $(this).serializeArray();
+        data.push({name: 'brand_id', value: id});
+        $.ajax({
+            url: "modules/brands/update.php",
+            method: "POST",
+            data:data,
+            dataType: "json",
+            success:function(data){
+                if(data['code'] == "update_success"){
+                    $("#brand-update-success").show();
+                    setTimeout(function(){
+                        $("#brand-update-success").fadeOut();
+                    },5000)
+                }
+                if(data['code'] == "update_failed"){
+                    $("#modal-error").modal();
+                }
+                if(data['code'] == "input_failed"){
+                    //alert("higko ang form");
+                }
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                      if(data[key] == 0){
+                        //$("#"+key).addClass("has-error");
+                        $("#"+key+"-error").show();
+                      }else{
+                        //$("#"+key).removeClass("has-error");
+                        $("#"+key+"-error").hide();
+                      }
+                    }
+                }
                 $(".preloader").fadeOut();
             }
         });

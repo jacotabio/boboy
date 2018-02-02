@@ -1,10 +1,11 @@
 <?php
 include '../../library/config.php';
-include '../../classes/class.users.php';
+include '../../classes/class.brands.php';
 
-$user = new Users();
+$brand = new Brands();
 
 //print_r($_POST);
+
 
 function test_input($data) {
   $data = trim($data);
@@ -18,13 +19,7 @@ $fullname = test_input($_POST['fullname']);
 $email = test_input($_POST['email']);
 $phone = test_input($_POST['phone']);
 $address = test_input($_POST['address']);
-$status = test_input($_POST['status']);
 
-if($status != "0" && $status != "1" || $status == "" || $status == " " || $status == null){
-	$arr['status-input'] = 0;
-}else{
-	$arr['status-input'] = 1;
-}
 if (!preg_match("/^[a-zA-Z '-.]*$/",$fullname) || $fullname == "" || $fullname == null) {
 	$arr['name-input'] = 0;
 }else{
@@ -40,7 +35,7 @@ if(!preg_match("/^[0-9]{11,11}$/", $phone) || $phone == "" || $phone == null){
 }else{
 	$arr['phone-input'] = 1;
 }
-if(!preg_match("/^[a-zA-Z 0-9.,()#]*$/",$address) || $address == "" || $address == null){
+if(!preg_match("/^[a-zA-Z 0-9-._,()#]*$/",$address) || $address == "" || $address == null){
 	$arr['address-input'] = 0;
 }else{
 	$arr['address-input'] = 1;
@@ -58,7 +53,7 @@ if($i != 0){
 	echo json_encode($arr);
 }else{
 	// proceed update data
-	if($user->update_customer($_POST['usr_id'],$fullname,$email,$phone,$address,$status)){
+	if($brand->update_brand($_POST['brand_id'],$fullname,$email,$phone,$address)){
 		$arr['code'] = "update_success";
 	}else{
 		$arr['code'] = "update_failed";

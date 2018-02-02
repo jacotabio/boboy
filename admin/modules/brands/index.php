@@ -36,10 +36,20 @@ if(!isset($_GET['bid'])){?>
     <div class="col-sm-12">
         <div class="card">
             <div class="card-block">
+                <?php
+                if($b['usr_status'] == 1){
+                ?>
+                <button type="button" id="ban-brand" class="btn btn-red btn-sm float-right"><span class="fa fa-ban"></span>&nbsp;Ban Account</button>
+                <?php
+                }else{?>
+                <button type="button" id="unban-brand" name="delete" class="btn btn-secondary btn-sm float-right"><span class=""></span>Unban Account</button>
+                <?php
+                }
+                ?>
                 <h4 class="card-title">Brand Details</h4>
                 <h6 class="card-subtitle">Brand account details</h6>
-                <div id="customer-update-success" style="display:none;" class="alert alert-success">
-                    <strong>Success!</strong> Customer's details has been updated successfully
+                <div id="brand-update-success" style="display:none;" class="alert alert-success">
+                    <strong>Success!</strong> Brand's details has been updated successfully
                 </div>
                 <div class="table-responsive">
                     <form id="form-brand-d" class="form-horizontal">
@@ -50,6 +60,7 @@ if(!isset($_GET['bid'])){?>
                                 <input name="fullname" type="text" value="<?php echo $b['brand_name'];?>" placeholder="Full Name" class="form-control input-sm" required>
                                 <label id="name-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
                             </div>
+                            
                         </div>
                         <div id="email-input" class="form-group">
                             <label class="col-md-4 control-label">Email</label>
@@ -81,12 +92,12 @@ if(!isset($_GET['bid'])){?>
                             </div>
                         </div>
                     </form>
-                    <form id="form-cust-password" class="form-horizontal">
+                    <form id="form-brand-password" class="form-horizontal">
                         <h4 class="card-title">Change Password</h4>
                         <div id="customer-password-success" style="display:none;" class="alert alert-success">
                             <strong>Success!</strong> Customer's password was changed successfully
                         </div>
-                        <div id="" class="form-group">
+                        <div class="form-group">
                             <input type="hidden" value="<?php echo $u['usr_id'];?>">
                             <label class="col-md-4 control-label">New Password</label>
                             <div class="col-lg-7 col-md-12">

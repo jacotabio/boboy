@@ -92,7 +92,7 @@ if(!isset($_GET['id'])){
                                     
                                     
                                 </select>
-                                <label id="status-input-error" style="display:none;" class="control-label text-error">Address consists of invalid characters</label>
+                                <label id="status-input-error" style="display:none;" class="control-label text-error">Status not allowed</label>
                             </div>
                         </div>
                         <!-- Button -->
