@@ -29,6 +29,19 @@ class Brands{
     $query->bindParam(3,$bid);
     $query->execute();
   }
+
+  public function check_account($id){
+      $sth = $this->db->prepare("SELECT usr_status, is_hidden FROM users WHERE brand_id = ?");
+      $sth->bindParam(1,$id);
+      $sth->execute();
+      $row = $sth->fetch(PDO::FETCH_ASSOC);
+
+      if($row['is_hidden'] == 1){
+        return "deleted";
+      }else if($row['usr_status'] == 0){
+        return "disabled";
+      }
+  }
   
   public function realtime_brand_checker(){
     $query = $this->db->prepare("SELECT * FROM brands WHERE update_checker = 1");

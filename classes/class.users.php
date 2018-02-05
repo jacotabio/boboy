@@ -27,6 +27,19 @@ class Users{
       
     }
 
+    public function check_account($id){
+      $sth = $this->db->prepare("SELECT usr_status, is_hidden FROM users WHERE usr_id = ?");
+      $sth->bindParam(1,$id);
+      $sth->execute();
+      $row = $sth->fetch(PDO::FETCH_ASSOC);
+
+      if($row['is_hidden'] == 1){
+        return "deleted";
+      }else if($row['usr_status'] == 0){
+        return "disabled";
+      }
+    }
+
     public function update_password($val,$uid){
       $sth = $this->db->prepare("UPDATE users SET usr_password = ? WHERE usr_id = ?");
       $sth->bindParam(1,$val);

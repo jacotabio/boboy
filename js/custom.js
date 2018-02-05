@@ -169,9 +169,24 @@ function displayCartTable(){
         }, 0);
       }
   });
-};
+}
+function checkSession(){
+  $.ajax({
+    url: "modules/ajax/ajax.php",
+    method: "POST",
+    success:function(data){
+      if(data == "deleted"){
+        alert("account was deleted by the admin");
+        window.location = "/";
+      }
+      if(data == "disabled"){
+        alert("Your account was disabled by the admin");
+        window.location = "/";
+      }
+    }
+  });
+}
 function showShopStatus(){
-  //alert("running ajax status");
   $.ajax({
       url: "modules/cpanel/ajax.php",
       method: "POST",
@@ -195,7 +210,7 @@ function showShopStatus(){
         }, 100);
       }
   });
-};
+}
 function remove_cart_show(c_id){
   $("#cart_modal").modal();
   document.getElementById('id_remove').value = c_id;
@@ -334,6 +349,8 @@ showShopStatus();
  // DOCUMENT READY //
 
 $(document).ready(function(){
+  checkSession();
+
   // CPanel Order ID  
   if(order_id && getUrlParameter('t') != "orders"){
     window.location = "/?mod="+getUrlParameter('mod');;
@@ -1203,6 +1220,7 @@ $(document).ready(function(){
 
 // Realtime Dynamic Refresh
 (function realtimeCheck() {
+  checkSession();
   orderDashboard();
   if(getUrlParameter('mod') == "shop"){
     showActiveShops();

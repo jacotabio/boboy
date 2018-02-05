@@ -58,7 +58,7 @@ button, input, optgroup, select, textarea{
 .card{
 	border:1px solid rgba(0,0,0,0.1) !important;
 }
-.input-sm{padding:0px 12px;font-weight:400;font-size:14px;line-height:1.5;border-radius:0px;letter-spacing: 0.015em;}
+.input-sm{padding:0px 12px;font-weight:400;font-size:13px;line-height:1.5;border-radius:0px;letter-spacing: 0.015em;}
 .text-error{
 	color: red !important;
 }

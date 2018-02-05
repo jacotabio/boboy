@@ -39,14 +39,14 @@ if(!isset($_GET['bid'])){?>
                 <?php
                 if($b['usr_status'] == 1){
                 ?>
-                <button type="button" id="ban-brand" class="btn btn-red btn-sm float-right"><span class="fa fa-ban"></span>&nbsp;Ban Account</button>
+                <button type="button" id="ban-brand" class="btn btn-red btn-sm float-right"><span class="fa fa-ban"></span>&nbsp;Disable Account</button>
                 <?php
                 }else{?>
-                <button type="button" id="unban-brand" name="delete" class="btn btn-secondary btn-sm float-right"><span class=""></span>Unban Account</button>
+                <button type="button" id="unban-brand" name="delete" class="btn btn-info btn-sm float-right"><span class=""></span>Enable Account</button>
                 <?php
                 }
                 ?>
-                <h4 class="card-title">Brand Details</h4>
+                <h4 class="card-title">Brand Details <?php if($b['usr_status'] == 0){?>(banned)<?php }?></h4>
                 <h6 class="card-subtitle">Brand account details</h6>
                 <div id="brand-update-success" style="display:none;" class="alert alert-success">
                     <strong>Success!</strong> Brand's details has been updated successfully
