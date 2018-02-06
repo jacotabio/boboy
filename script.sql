@@ -54,10 +54,12 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `subtotal` float(10,2) NOT NULL DEFAULT '0.00',
   `usr_id` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cart_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10000366 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10000371 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.cart: 0 rows
+-- Dumping data for table db_boboy.cart: 1 rows
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` (`cart_id`, `item_id`, `item_qty`, `subtotal`, `usr_id`) VALUES
+	(10000370, 17, 1, 45.00, 2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.conversations
@@ -161,11 +163,12 @@ CREATE TABLE IF NOT EXISTS `oitem` (
   PRIMARY KEY (`oi_id`),
   KEY `item_id` (`item_id`,`order_id`),
   KEY `usr_id` (`usr_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50000301 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=50000302 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.oitem: 7 rows
+-- Dumping data for table db_boboy.oitem: 8 rows
 /*!40000 ALTER TABLE `oitem` DISABLE KEYS */;
 INSERT INTO `oitem` (`oi_id`, `order_id`, `item_id`, `oi_qty`, `oi_subtotal`, `usr_id`, `oi_status`, `oi_delivery`) VALUES
+	(50000301, 20000241, 17, 1, 45.00, 2, 0, 0),
 	(50000300, 20000240, 17, 1, 45.00, 2, 2, 0),
 	(50000299, 20000240, 19, 1, 30.00, 2, 2, 0),
 	(50000298, 20000240, 20, 1, 70.00, 2, 2, 0),
@@ -183,13 +186,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_status` int(1) NOT NULL DEFAULT '0',
   `usr_id` int(8) NOT NULL DEFAULT '0',
   `delivery_address` longtext NOT NULL,
-  `contact_number` varchar(50) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
   `custom_fee` float(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20000241 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20000242 DEFAULT CHARSET=latin1;
 
--- Dumping data for table db_boboy.orders: 0 rows
+-- Dumping data for table db_boboy.orders: 1 rows
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` (`order_id`, `order_total`, `created_at`, `order_status`, `usr_id`, `delivery_address`, `contact_number`, `custom_fee`) VALUES
+	(20000241, 45.00, '2018-02-05 20:05:39', 0, 2, '#22 Clayton Street, St. Francis Village, Brgy. Taculing, Bacolod City', '09437095891', 50.00);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table db_boboy.users
@@ -213,8 +218,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`usr_id`, `usr_name`, `usr_email`, `usr_password`, `usr_auth`, `usr_status`, `usr_img`, `brand_id`, `usr_address`, `usr_contact`, `admin`, `is_hidden`) VALUES
 	(2, 'John Carlo H. Octabio', 'jacotabio@gmail.com', '924c7653b61c3f43be726a0300a6f819', 1, 1, '', 0, '#22 Clayton Street, St. Francis Village, Brgy. Taculing, Bacolod City', '09437095891', 0, 0),
-	(26, 'SleepNot', 'sleepnot@gmail.com', 'e049a162fbb91145da951b0c438c7b2f', 2, 1, 'img/logo.png', 14, 'The Palms, 18th Street Lacson, Bacolod City', '09123456789', 0, 0),
-	(27, 'Starbucks', 'coffee@starbucks.com', '31853b0b42aabe37f4f4063e80dcd39b', 2, 0, '', 15, '18th St. Lacson, Bacolod, 6100 Negros Occidental', '09437095893', 0, 0),
+	(26, 'SleepNot', 'sleepnot@gmail.com', 'e049a162fbb91145da951b0c438c7b2f', 2, 0, 'img/logo.png', 14, 'The Palms, 18th Street Lacson, Bacolod City', '09123456789', 0, 0),
+	(27, 'Starbucks', 'coffee@starbucks.com', 'a3dcb4d229de6fde0db5686dee47145d', 2, 1, '', 15, '18th St. Lacson, Bacolod, 6100 Negros Occidental', '09437095893', 0, 0),
 	(1, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0, '', 'N/A', 1, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
