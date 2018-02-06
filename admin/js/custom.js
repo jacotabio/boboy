@@ -19,32 +19,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 $(document).ready(function(){
-    $("#retrieve-item-list").select2({
-        placeholder: "Search for an item",
-        ajax: {
-            url: "modules/orders/ajax.php",
-            dataType: 'json',
-            quietMillis: 100,
-            data: function (term, page) {
-                return {
-                    term: term, //search term
-                    page_limit: 10 // page size
-                };
-            },
-            results: function (data, page) {
-                return { results: data.results };
-            }
-
-        },
-        initSelection: function(element, callback) {
-            return $.getJSON("modules/orders/ajax.php?id=" + (element.val()), null, function(data) {
-
-                    return callback(data);
-
-            });
-        }
-
-    });
     order_id = getUrlParameter('o');
     function loadOrderItems(order_id){
         var holder = $("#vieworder-ajax-parent");

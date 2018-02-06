@@ -33,7 +33,6 @@ $brandname = "Boboy";
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/chat.css" rel="stylesheet">
-    <link href="css/select2.min.css" rel="stylesheet">
     <link href="css/step-wizard.css" rel="stylesheet">
     <link href="../assets/plugins/bootstrap/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -255,7 +254,6 @@ $brandname = "Boboy";
     <!--stickey kit -->
     <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
-    <script src="js/select2.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/custom.js"></script>
     
