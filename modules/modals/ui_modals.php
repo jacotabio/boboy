@@ -34,6 +34,24 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<div class="modal" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+
+      <div class="modal-body">
+        <p class="lead">Oops, something went wrong. Please try again.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dialog" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 <div class="modal" id="cancel-order-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

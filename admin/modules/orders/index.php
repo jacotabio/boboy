@@ -16,6 +16,31 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
                                 <label id="name-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
                             </div>
                         </div>
+                        <div id="name-input" class="form-group">
+                            <label class="col-md-4 control-label">Delivery Address</label>
+                            <div class="col-lg-7 col-md-12">
+                                <input name="address" type="text" value="" placeholder="Delivery Address" class="form-control input-sm" required>
+                                <label id="address-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
+                            </div>
+                        </div>
+                        <div id="name-input" class="form-group">
+                            <label class="col-md-4 control-label">Phone #</label>
+                            <div class="col-lg-7 col-md-12">
+                                <input name="phone" type="text" value="" placeholder="Phone #" class="form-control input-sm" required>
+                                <label id="phone-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
+                            </div>
+                        </div>
+                        <div id="name-input" class="form-group">
+                            <label class="col-md-4 control-label">Phone #</label>
+                            <div class="col-lg-7 col-md-12">
+                                <select id="retrieve-item-list" class="form-control input-sm">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                        </div>
                     </form>
                 </div>
             </div>

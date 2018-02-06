@@ -50,7 +50,7 @@ class Items{
     }
 
     public function get_item_name($id){
-      $query = $this->db->prepare("SELECT item_name FROM items WHERE item_id = ?");
+      $query = $this->db->prepare("SELECT item_name FROM items,brands,users WHERE item_id = ? AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
@@ -68,7 +68,7 @@ class Items{
     }
 
     public function get_shop_items(){
-      $query = $this->db->prepare("SELECT * FROM items,brands WHERE item_status = '1' AND brand_status = '1' AND items.brand_id = brands.brand_id");
+      $query = $this->db->prepare("SELECT * FROM items,brands,users WHERE item_status = '1' AND brand_status = '1' AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_ASSOC)){
         $list[] = $row;
@@ -79,7 +79,7 @@ class Items{
     }
 
     public function get_shop_items_search($search){
-      $query = $this->db->prepare("SELECT * FROM items,brands WHERE item_name LIKE ? AND items.brand_id = brands.brand_id AND brand_status = '1'");
+      $query = $this->db->prepare("SELECT * FROM items,brands,users WHERE item_name LIKE ? AND items.brand_id = brands.brand_id AND brand_status = '1' AND brands.brand_id = users.brand_id AND usr_status = 1");
       $val = '%'.$search.'%';
       $query->bindParam(1,$val);
       $query->execute();
@@ -95,7 +95,7 @@ class Items{
     }
 
     public function get_shop_items_search_and_brand($search,$bid){
-      $query = $this->db->prepare("SELECT * FROM items WHERE item_name LIKE ? AND brand_id = ?");
+      $query = $this->db->prepare("SELECT * FROM items,brands,users WHERE item_name LIKE ? AND items.brand_id = ? AND brands.brand_id = users.brand_id AND items.brand_id = brands.brand_id AND usr_status = 1");
       $val = '%'.$search.'%';
       $query->bindParam(1,$val);
       $query->bindParam(2,$bid);
@@ -177,7 +177,7 @@ class Items{
     }
 
     public function get_item($id){
-      $query = $this->db->prepare("SELECT * FROM items,brands WHERE item_id = ? AND item_status = '1' AND items.brand_id = brands.brand_id AND brand_status = '1'");
+      $query = $this->db->prepare("SELECT * FROM items,brands,users WHERE item_id = ? AND item_status = '1' AND items.brand_id = brands.brand_id AND brand_status = '1' AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -255,7 +255,7 @@ class Items{
       return $row['total'];
     }
     public function get_cart($id){
-      $query = $this->db->prepare("SELECT * FROM cart,items WHERE usr_id = ? AND cart.item_id = items.item_id AND item_status = '1'");
+      $query = $this->db->prepare("SELECT * FROM cart,items,brands,users WHERE cart.usr_id = ? AND cart.item_id = items.item_id AND item_status = '1' AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -278,12 +278,22 @@ class Items{
     }
 
     public function insert_to_cart($uid,$iid,$qty,$subtotal){
-      $query = $this->db->prepare("INSERT INTO cart(item_id,item_qty,subtotal,usr_id) VALUES(?,?,?,?)");
-      $query->bindParam(1,$iid);
-      $query->bindParam(2,$qty);
-      $query->bindParam(3,$subtotal);
-      $query->bindParam(4,$uid);
-      return $query->execute();
+      $sth = $this->db->prepare("SELECT COUNT(item_id) AS total FROM items,brands,users WHERE item_id = ? AND items.brand_id = brands.brand_id AND brands.brand_id AND brands.brand_id AND users.brand_id = brands.brand_id AND usr_status = 1");
+      $sth->bindParam(1,$iid);
+      $sth->execute();
+      $row = $sth->fetch(PDO::FETCH_ASSOC);
+      $count = $row['total'];
+
+      if($count == 1){
+        $query = $this->db->prepare("INSERT INTO cart(item_id,item_qty,subtotal,usr_id) VALUES(?,?,?,?)");
+        $query->bindParam(1,$iid);
+        $query->bindParam(2,$qty);
+        $query->bindParam(3,$subtotal);
+        $query->bindParam(4,$uid);
+        return $query->execute();
+      }else{
+        return false;
+      }
     }
 
     public function update_to_cart($uid,$iid,$qty,$subtotal){
@@ -296,7 +306,7 @@ class Items{
     }
 
     public function count_cart($id){
-      $query = $this->db->prepare("SELECT COUNT(cart_id) as total FROM cart WHERE usr_id = ?");
+      $query = $this->db->prepare("SELECT COUNT(cart_id) as total FROM cart,items,brands,users WHERE cart.usr_id = ? AND cart.item_id = items.item_id AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);

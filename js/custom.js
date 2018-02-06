@@ -996,6 +996,9 @@ $(document).ready(function(){
       data: $(this).serialize(),
       success: function(d){
         setTimeout(function(){
+          if(d == "insert_failed"){
+            $("#item-unavailable").modal();
+          }
           if(d=="item_unavailable"){
             $("#item-unavailable").modal();
           }

@@ -9,7 +9,7 @@ if($user->get_session()){
       <div class="cart-left-content hidden-sm hidden-xs">
         <p style="margin-top:100px;margin-bottom:24px;font-size:150px;color:rgba(0,0,0,0.1);"><i class="glyphicon glyphicon-shopping-cart"></i></p>
         <h3 class="no-gap" style="font-size:16px;color:rgba(0,0,0,0.4);font-weight:400;">Shopping Cart</h3>
-        <div style="padding-left:15%;padding-right:15%;">
+        <div style="padding-left:15%;padding-right:15%;padding-bottom:15%;">
           <p class="no-gap" style="font-size:13px;color:rgba(0,0,0,0.4);font-weight:400;">All of your added items can be seen here. Once complete, click the continue button to proceed with the ordering process.</p>
         </div>
       </div>
