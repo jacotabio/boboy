@@ -255,7 +255,7 @@ class Items{
       return $row['total'];
     }
     public function get_cart($id){
-      $query = $this->db->prepare("SELECT * FROM cart,items,brands,users WHERE cart.usr_id = ? AND cart.item_id = items.item_id AND item_status = '1' AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
+      $query = $this->db->prepare("SELECT *,cart.usr_id AS cart_user FROM cart,items,brands,users WHERE cart.usr_id = ? AND cart.item_id = items.item_id AND item_status = '1' AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       while($row = $query->fetch(PDO::FETCH_ASSOC)){

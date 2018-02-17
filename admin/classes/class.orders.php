@@ -11,6 +11,10 @@ class Orders{
     }
   }
 
+  public function create_order(){
+    $sth = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_name) VALUES(NOW(),'1',?,?,?)");
+  }
+
   public function delete_order($id){
     $sth = $this->db->prepare("DELETE FROM orders WHERE order_id = ?");
     $sth->bindParam(1,$id);
@@ -23,6 +27,44 @@ class Orders{
     return $sth->execute();
   }
 
+  public function add_cart($id,$qty){
+    // Query item availability
+    $sth1 = $this->db->prepare("SELECT item_price, CASE WHEN COUNT(item_id) = 1 THEN 'available' ELSE 'unavailable' END AS check_item FROM items,brands,users WHERE item_id = ? AND item_status = 1 AND brands.brand_id = items.brand_id AND brand_status = 1 AND users.brand_id = brands.brand_id AND usr_status = 1");
+    $sth1->bindParam(1,$id);
+    $sth1->execute();
+    $row1 = $sth1->fetch(PDO::FETCH_ASSOC);
+
+    // If item is available
+    if($row1['check_item'] == "available"){
+      $sth2 = $this->db->prepare("SELECT COUNT(cart_id) AS total FROM cart WHERE item_id = ? AND usr_id = 1");
+      $sth2->bindParam(1,$id);
+      $sth2->execute();
+      $row2 = $sth2->fetch(PDO::FETCH_ASSOC);
+
+      if($row2['total'] == 1){
+        // Update record
+        $upd = $this->db->prepare("UPDATE cart SET item_qty = ? WHERE usr_id = 1 AND item_id = ?");
+        $upd->bindParam(1,$qty);
+        $upd->bindParam(2,$id);
+        $upd->execute();
+
+        return "record_exists";
+
+      }else if($row2['total'] == 0){
+        // Insert record
+        $ins = $this->db->prepare("INSERT INTO cart(item_id,item_qty,usr_id) VALUES(?,?,'1')");
+        $ins->bindParam(1,$id);
+        $ins->bindParam(2,$qty);
+        $ins->execute();
+        return "insert_success";
+      }
+    }
+    // If item is unavailable
+    if($row1['check_item'] == "unavailable"){
+      return $row1['check_item'];
+    }
+  }
+  
   public function pending_orders(){
     $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,
                                   CASE

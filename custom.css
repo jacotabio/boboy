@@ -340,7 +340,7 @@ tr.cart-header th{
   background: url('img/logo.png') left / contain no-repeat;
 }
 .nav-helper{
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   padding: 16px 0px 16px 0px;
   box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
 }
@@ -470,7 +470,8 @@ tr.cart-header th{
   border-color: rgba(0,0,0,0.1);
 }
 .washed{
-  color: rgba(0,0,0,0.45);
+  /*color: rgba(0,0,0,0.45);*/
+  color:#317ecc;
 }
 .container-fluid{
 	max-width: 1140px;
@@ -1189,7 +1190,7 @@ li.borderless {
   }
 
   .label-delivery-Ready{
-    background-color: #2ac4fc;
+    background-color: #2fce51;
   }
   .label-delivery-Pending{
     background-color: #ffa600;

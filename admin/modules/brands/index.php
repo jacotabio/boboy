@@ -17,6 +17,7 @@ if(!isset($_GET['bid'])){?>
                             <th style="text-align:left;">Address</th>
                             <th style="text-align:right;">Contact #</th>
                             <th style="text-align:right;">Status</th>
+                            <th style="text-align:right;">Banned</th>
                         </tr>
                     </thead>
                     <tbody>

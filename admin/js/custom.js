@@ -18,8 +18,26 @@ var getUrlParameter = function getUrlParameter(sParam) {
   }
 };
 
+function cartItems(){
+    $.ajax({
+        url:"modules/orders/ajax.php",
+        method:"POST",
+        data:{
+            "load_cart":1
+        },
+        success:function(data){
+            $("#cart-items").html(data);
+        }
+    });
+}
+
+$("body").on("hide.bs.modal","#modal-atc-item", function () {
+    $("#atc-qty").val("");
+    $("#atc-qty-error").hide();
+});
 $(document).ready(function(){
     order_id = getUrlParameter('o');
+
     function loadOrderItems(order_id){
         var holder = $("#vieworder-ajax-parent");
         $.ajax({
@@ -62,6 +80,90 @@ $(document).ready(function(){
             },
             success:function(data){
                 if(data == "ban_success"){
+                    location.reload();
+                }
+            }
+        });
+    });
+    $("#form-create-order").on("submit",function(e){
+        e.preventDefault();
+        //$(".preloader").show();
+        var data = $(this).serializeArray();
+        data.push({name: "create_order", value: 1});
+        $.ajax({
+            url:"modules/orders/ajax.php",
+            method:"POST",
+            data: data,
+            dataType: "json",
+            success:function(data){
+                if(data['code'] == "invalid"){
+                    alert("there are errors");
+                }
+                if(data['code'] == "valid"){
+                    alert("wala problema");
+                }
+                //$(".preloader").fadeOut();
+            }
+        });
+    });
+    $("#form-atc").on("submit",function(e){
+        e.preventDefault();
+        $(".preloader").show();
+        var data = $(this).serializeArray();
+        data.push({name: "order_atc", value: 1});
+        $.ajax({
+            url:"modules/orders/ajax.php",
+            method:"POST",
+            data: data,
+            success:function(data){
+                if(data == "invalid"){
+                    $("#atc-qty-error").show();
+                }else{
+                    $("#atc-qty-error").hide();
+                }
+                if(data == "insert_success"){
+                    $("#modal-atc-item").modal('hide');
+                    cartItems();
+                }
+                if(data == "record_exists"){
+                    $("#modal-atc-item").modal('hide');
+                    cartItems();
+                }
+                $(".preloader").fadeOut();
+            }
+        });
+    });
+    $("body").on("click",".item", function(){
+        var id = $(this).val();
+        $("#atc-id").val(id);
+        $("#modal-atc-item").modal();
+    });
+    $('body').on('keyup', '#item-search-input', function(ev){
+        // Declare variables
+        var filter, ul, li, a, i;
+        filter = $("#item-search-input").val().toUpperCase();
+        li = $("#ul-item-list li");
+        for (var i = 0; i < li.length; i++) {
+            var name = li[i].getElementsByClassName('name')[0].innerHTML;
+            if (name.toUpperCase().indexOf(filter) == 0) 
+                li[i].style.display = '';
+            else
+                li[i].style.display = 'none';
+        }
+    });
+    $("body").on("click",".btn-remove-cart",function(){
+        var c_id = $(this).attr('id');
+        $.ajax({
+            url: "modules/orders/ajax.php",
+            method: "POST",
+            data:{
+                "remove_cart" : 1,
+                "cart_id" : c_id
+            },
+            success:function(data){
+                if(data == "remove_success"){
+                    cartItems();
+                }else{
                     location.reload();
                 }
             }
@@ -474,7 +576,7 @@ $(document).ready(function(){
         columnDefs: [
         {   
             "className": ["dt-right"],
-            "targets": [3,4]
+            "targets": [3,4,5]
         }],
         ajax: {
             url: "modules/brands/partners.php",
@@ -486,7 +588,8 @@ $(document).ready(function(){
             { "data": "email"},
             { "data": "address"},
             { "data": "contact"},
-            { "data": "status" }
+            { "data": "status" },
+            { "data": "banned" }
         ],
         oLanguage:{
             sProcessing: "Loading",

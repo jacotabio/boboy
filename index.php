@@ -21,7 +21,6 @@ $brandname = "Boboy";
 $currency = "₱";
 ?>
 <!DOCTYPE html>
-<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -305,14 +304,9 @@ $currency = "₱";
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
-    <script src="js/bootstrap-switch.js"></script>
     <script src="js/datatables.min.js"></script>
     <script src="js/dataTables.material.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
-    <script src="js/bootstrap-notify.min.js"></script>
-    <script src="js/Gruntfile.js"></script>
-    <script src="js/package.js"></script>
-    <script src="js/test_meteor.js"></script>
   </body>
 </html>

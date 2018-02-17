@@ -2,8 +2,10 @@
 include 'library/config.php';
 include 'classes/class.users.php';
 include 'classes/class.brands.php';
+include 'classes/class.items.php';
 
 $user = new Users();
+$item = new Items();
 $brand = new Brands();
 
 if(!isset($_SESSION['admin_login'])){
@@ -12,6 +14,7 @@ if(!isset($_SESSION['admin_login'])){
 
 $p = (isset($_GET['p']) && $_GET['p'] != '') ? $_GET['p'] : '';
 $brandname = "Boboy";
+$currency = "₱ ";
 ?>
 
 <!DOCTYPE html>

@@ -97,3 +97,32 @@ color: rgba(0,0,0,0.3) !important;
 textarea:-ms-input-placeholder {  
 color: rgba(0,0,0,0.3) !important; 
 }
+.item{
+	cursor:pointer;
+	border-radius: 0px !important;
+	border-left: none;
+	border-right:none;
+}
+.item:hover{
+	background-color:rgba(0,0,0,0.03);
+}
+.cart-item{
+	border-radius: 0px !important;
+	border:none;
+}
+.btn-remove-cart{
+	cursor:pointer;
+}
+.search-item{
+	border-radius: 0px !important;
+	border-left: none;
+	border-right:none;
+	border-bottom:none;
+	border-top:none;
+}
+input.empty {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}

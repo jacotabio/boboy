@@ -66,13 +66,12 @@ if(isset($_POST['submit_order'])){
       $servicefee = $fee->get_service_fee();
       $order_id = $item->create_order($_SESSION['usr_id'],$address,$contact,$servicefee);
       foreach($get as $g){
-        $fixed_usr = $g['usr_id'];
-        $item->insert_order($order_id,$g['item_id'],$g['item_qty'],$g['subtotal'],$g['usr_id']);
+        $fixed_usr = $g['cart_user'];
+        $item->insert_order($order_id,$g['item_id'],$g['item_qty'],$g['subtotal'],$fixed_usr);
       }
       $item->insert_order_total($order_id,$item->cart_sum_total($fixed_usr));
       $item->empty_cart($fixed_usr);
 
-      
       $jsonArray['code'] = "order_success";
       $jsonArray['order_id'] = $order_id;
       echo json_encode($jsonArray);

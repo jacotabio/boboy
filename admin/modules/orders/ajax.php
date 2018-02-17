@@ -1,9 +1,19 @@
 <?php
 include '../../library/config.php';
 include '../../classes/class.orders.php';
+include '../../classes/class.items.php';
 
 $order = new Orders();
-$currency = "P";
+$item = new Items();
+
+$currency = "₱ ";
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 if(isset($_POST['delete_order'])){
 	if($order->delete_order($_POST['order_id'])){
@@ -19,6 +29,54 @@ if(isset($_POST['close_order'])){
 	}
 }
 
+if(isset($_POST['create_order'])){
+	$fullname = test_input($_POST['fullname']);
+	$address = test_input($_POST['address']);
+	$phone = test_input($_POST['phone']);
+
+	$arr = array();
+
+	if(!preg_match("/^[a-zA-Z '-.]*$/",$fullname) || $fullname == "" || $fullname == null) {
+		$arr['name-input'] = 0;
+	}else{
+		$arr['name-input'] = 1;
+	}
+
+	if(!preg_match("/^[0-9]{11,11}$/", $phone) || $phone == "" || $phone == null){
+		$arr['phone-input'] = 0;
+	}else{
+		$arr['phone-input'] = 1;
+	}
+
+	if(!preg_match("/^[a-zA-Z 0-9-._,()#]*$/",$address) || $address == "" || $address == null){
+		$arr['address-input'] = 0;
+	}else{
+		$arr['address-input'] = 1;
+	}
+	$ctr = 0;
+	foreach($arr as $a){
+		if($a == 0){
+			$ctr++;
+		}
+	}
+	if($ctr != 0){
+		$arr['code'] = "invalid";
+		echo json_encode($arr);
+	}else{
+		$arr['code'] = "valid";
+
+		// Create order & return ID
+		if($order_id = $order->create_order($fullname,$address,$phone)){
+			$items = $item->get_cart();
+			/*foreach($items as $i){
+
+			}*/
+		}
+		echo json_encode($arr);
+	}
+	
+
+}
 if(isset($_POST['order_view'])){
 	$get = $order->order_details($_POST['order_id']);
 	if(!$get){
@@ -169,5 +227,67 @@ if(isset($_POST['order_view'])){
 	    </div>
 	</div>
 	<?php
+	}
+}
+
+if(isset($_POST['order_atc'])){
+	$qty = test_input($_POST['qty']);
+
+	if(!preg_match("/^[0-9]*$/",$qty) || $qty == "" || $qty == null || $qty == 0 || $qty == "0"){
+		echo "invalid";
+	}else{
+		echo $atc = $order->add_cart($_POST['id'],$qty);
+	}
+}
+
+if(isset($_POST['load_cart'])){?>
+    <ul class="list-group" style="overflow-y: scroll;min-height:262px;height:262px;max-height:262px;border:1px solid #ddd;">
+                                                <?php
+                                                $cart = $item->get_cart();
+                                                if($cart){
+                                                    foreach($cart as $c){?>
+                                                <li class="list-group-item cart-item">
+                                                    <div class="row">
+                                                        <div class="col-lg-1">
+                                                            <i style="color:red;" class="fa fa-minus-circle btn-remove-cart" id="<?php echo $c['cart_id'];?>"></i>
+                                                        </div>
+                                                        <div class="col-lg-7">
+                                                            <?php echo $c['item_name'];?>
+                                                        </div>
+                                                        <div class="col-lg-1">
+                                                            <?php echo $c['item_qty'];?>
+                                                        </div>
+                                                        <div class="col-lg-3">X
+                                                            <span class="float-right"><?php echo $currency.$c['subtotal'];?></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <?php 
+                                                    }?>
+
+                                                <?php
+                                                }else{?>
+                                                    <p style="width:100%;text-align:center;margin-top:30%;">No items added</p>
+                                                <?php
+                                                }
+                                                ?>
+
+                                            </ul>
+                                            <li class="list-group-item" style="border-radius: 0;border-top:none;">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <span style="font-weight:600;">Total Amount</span>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <span class="float-right"><?php echo $currency.$item->cart_total();?></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <?php
+}
+
+if(isset($_POST['remove_cart'])){
+	if($item->remove_cart($_POST['cart_id'])){
+		echo "remove_success";
 	}
 }

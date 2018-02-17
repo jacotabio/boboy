@@ -52,6 +52,29 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<div class="modal" id="modal-atc-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+      <form id="form-atc" method="POST">
+        <div class="modal-body">
+          <p class="" style="margin-bottom:8px;">Enter Quantity</p>
+          <input type="hidden" id="atc-id" name="id">
+          <input type="text" id="atc-qty" name="qty" class="form-control" required autofocus="on" autocomplete="off">
+          <label id="atc-qty-error" style="display:none;color:red;">Invalid Number</label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-themecolor">Confirm</button>
+        </div>
+      </form>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 <div class="modal" id="modal-customer-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

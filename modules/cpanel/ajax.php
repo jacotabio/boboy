@@ -249,14 +249,14 @@ if(isset($_POST['order_info'])){
                     }else if($check_status == "Pending"){?>
                       <span class="label label-info">Pending</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
-                      <span class="label label-muted">Order Approved</span>
+                      <span class="label label-muted">Approved</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class='label <?php echo $delivery_status == "Ready" ? 'label-status-2' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Ready</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class="label label-muted">Complete</span>
                     <?php
                     }else{?>
-                      <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Order Approved</span>
+                      <span class="label label-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Approved</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
                       <span class='label <?php echo $delivery_status == "Ready" ? 'label-delivery-Ready' : 'label-muted'?>'><?php if($delivery_status == "Ready"){?><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<?php }?>Ready</span>
                       <span style="font-size:10px;color:rgba(0,0,0,0.4);" class="glyphicon glyphicon-arrow-right"></span>
