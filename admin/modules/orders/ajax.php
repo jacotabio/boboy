@@ -2,9 +2,11 @@
 include '../../library/config.php';
 include '../../classes/class.orders.php';
 include '../../classes/class.items.php';
+include '../../classes/class.fees.php';
 
 $order = new Orders();
 $item = new Items();
+$fee = new Fees();
 
 $currency = "₱ ";
 
@@ -63,16 +65,25 @@ if(isset($_POST['create_order'])){
 		$arr['code'] = "invalid";
 		echo json_encode($arr);
 	}else{
-		$arr['code'] = "valid";
+		$servicefee = $fee->get_service_fee();
+		$items = $item->get_cart();
+		if($items){
+			// Create order & return ID
+			if($order_id = $order->create_order($fullname,$address,$phone,$servicefee)){
+				foreach($items as $i){
+					$item->insert_oitem($order_id,$i['item_id'],$i['item_qty'],$i['subtotal'],1);
+				}
+				$order->set_order_total($order_id,$item->cart_total());
+      			$item->empty_cart();
 
-		// Create order & return ID
-		if($order_id = $order->create_order($fullname,$address,$phone)){
-			$items = $item->get_cart();
-			/*foreach($items as $i){
-
-			}*/
+      			$arr['code'] = "valid";
+      			$arr['order_id'] = $order_id;
+      			echo json_encode($arr);
+			}
+		}else{
+			$arr['code'] = "cart_empty";
+			echo json_encode($arr);
 		}
-		echo json_encode($arr);
 	}
 	
 
@@ -182,21 +193,25 @@ if(isset($_POST['order_view'])){
 	                    $oitem = $order->get_oitems($g['order_id']);
 	                    if($oitem){
 	                      $oitemb = $order->get_oitems_brands($g['order_id']);
-	                      foreach($oitemb as $oib){?>
+	                      foreach($oitemb as $oib){
+	                      	?>
 	                        <div class="list-group-wrapper">
 	                          <div style="width:100%;">
 	                            <button class="btn btn-chat float-right" value="<?php echo $oib['brand_id']?>" style="color:#317ecc;padding:0;background:none;"><span class="fa fa-comment"></span>&nbsp;Message</button>
-	                            <label class="label-title"><?php echo $oib['brand_name']?>
+	                            <label class="label-title"><?php echo $oib['brand_name']?><span class="circle brand-status-<?php echo $oib['brand_status'];?>"></span>
 	                            </label>
 	                          </div>
 	                          <ul class="list-group">
 	                      <?php
 	                        foreach($oitem as $oi){
-	                          if($oib['brand_id'] == $oi['brand_id']){?>
+	                          if($oib['brand_id'] == $oi['brand_id']){
+	                          	?>
 	                            <li class="list-group-item oi-status-<?php echo $oi['oi_status'];?>"><?php if($oi['oi_status'] == 0){?><span style="padding-left:2px;padding-right:1px;">&#9679;</span>&nbsp;&nbsp;<?php }else if($oi['oi_status'] == 1){?><span style="font-weight:bold;" class="text-success">&#10004;</span>&nbsp;&nbsp;<?php }else{?><span style="font-weight:bold;" class="text-danger">&#10006;</span>&nbsp;&nbsp;<?php }?><?php echo $oi['oi_qty']." x ".$oi['item_name'];?><span class="float-right"><?php echo $currency.$oi['item_price'];?></span></li>
 	                          <?php
 	                          }
-	                        }?>
+	                        }
+	                        ?>
+	                        	<li class="list-group-item" style="font-weight:500;">Total<span class="float-right"><?php echo $currency.$oib['per_total'];?></span></li>
 	                          </ul>
 	                        </div>
 	                        <?php
@@ -209,9 +224,9 @@ if(isset($_POST['order_view'])){
 	                    <label class="label-title">Order Summary</label>
 	                    <ul class="list-group" style="display:inline-block;width:100%;">
 	                      <li class="list-group-item">Number of Items<span id="od-noi" class="float-right"><?php echo $g['noi'];?></span></li>
-	                      <li class="list-group-item list-borderless">Subtotal<span id="od-st" class="float-right"><?php echo $g['subtotal'];?></span></li>
-	                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right"><?php echo $g['service_fee'];?></span></li>
-	                      <li class="list-group-item">Total<span id="od-tt" class="float-right"><?php echo $g['total'];?></span></li>
+	                      <li class="list-group-item list-borderless">Subtotal<span id="od-st" class="float-right"><?php echo $currency.$g['subtotal'];?></span></li>
+	                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right"><?php echo $currency.$g['service_fee'];?></span></li>
+	                      <li class="list-group-item" style="font-weight:500;">Total<span id="od-tt" class="float-right"><?php echo $currency.$g['total'];?></span></li>
 	                    </ul>
 	                    <?php
 	                    if($os == 3){
@@ -249,15 +264,15 @@ if(isset($_POST['load_cart'])){?>
                                                 <li class="list-group-item cart-item">
                                                     <div class="row">
                                                         <div class="col-lg-1">
-                                                            <i style="color:red;" class="fa fa-minus-circle btn-remove-cart" id="<?php echo $c['cart_id'];?>"></i>
-                                                        </div>
-                                                        <div class="col-lg-7">
-                                                            <?php echo $c['item_name'];?>
+                                                            <i style="color:red;" class="fa fa-times btn-remove-cart" id="<?php echo $c['cart_id'];?>"></i>
                                                         </div>
                                                         <div class="col-lg-1">
                                                             <?php echo $c['item_qty'];?>
                                                         </div>
-                                                        <div class="col-lg-3">X
+                                                        <div class="col-lg-7">
+                                                            <?php echo $c['item_name'];?>
+                                                        </div>
+                                                        <div class="col-lg-3">
                                                             <span class="float-right"><?php echo $currency.$c['subtotal'];?></span>
                                                         </div>
                                                     </div>
@@ -276,10 +291,20 @@ if(isset($_POST['load_cart'])){?>
                                             <li class="list-group-item" style="border-radius: 0;border-top:none;">
                                                 <div class="row">
                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                        <span style="font-weight:600;">Service Fee</span>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                        <span class="float-right"><?php $sf = $fee->get_service_fee(); echo $currency.$sf;?></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item" style="border-radius: 0;">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                         <span style="font-weight:600;">Total Amount</span>
                                                     </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                        <span class="float-right"><?php echo $currency.$item->cart_total();?></span>
+                                                        <span style="font-weight:600;" class="float-right"><?php $ct = $item->cart_total(); $total = $sf + $ct; echo $currency.number_format($total,2);?></span>
                                                     </div>
                                                 </div>
                                             </li>

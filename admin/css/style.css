@@ -126,3 +126,9 @@ input.empty {
     font-weight: normal;
     text-decoration: inherit;
 }
+.brand-status-1{
+	color:#55ce63;
+}
+.brand-status-0{
+	color: rgb(255, 136, 0);
+}

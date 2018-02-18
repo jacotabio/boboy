@@ -24,6 +24,13 @@ body{
 .text-black{
   color: #000;
 }
+.cart-row:hover{
+  cursor:pointer;
+  background-color:rgba(0,0,0,0.05);
+}
+.cart-row:active{
+  background-color:rgba(0,0,0,0.1);
+}
 .huge{
   font-size: 40px;
   padding-top:16px;

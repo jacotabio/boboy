@@ -23,10 +23,25 @@ class Items{
     }
   }
 
+  public function insert_oitem($oid,$iid,$qty,$subtotal,$uid){
+    $sth = $this->db->prepare("INSERT INTO oitem(order_id,item_id,oi_qty,oi_subtotal,usr_id) VALUES(?,?,?,?,?)");
+    $sth->bindParam(1,$oid);
+    $sth->bindParam(2,$iid);
+    $sth->bindParam(3,$qty);
+    $sth->bindParam(4,$subtotal);
+    $sth->bindParam(5,$uid);
+    $sth->execute();
+  }
+
+  public function empty_cart(){
+    $sth = $this->db->prepare("DELETE FROM cart WHERE usr_id = 1");
+    return $sth->execute();
+  }
+
   public function get_cart(){
     // Remove unavailable items on load
-    /*$query = $this->db->prepare("DELETE T1 FROM cart AS T1 INNER JOIN items AS T2 WHERE T1.item_id = T2.item_id AND T2.item_status = 0 AND T1.usr_id = 1");
-    $query->execute();*/
+    $query = $this->db->prepare("DELETE T1 FROM cart AS T1 INNER JOIN items AS T2 WHERE T1.item_id = T2.item_id AND T2.item_status = 0 AND T1.usr_id = 1");
+    $query->execute();
 
     $sth = $this->db->prepare("SELECT cart_id,cart.item_id,item_name,item_qty,cart.usr_id,SUM(item_price * item_qty) AS subtotal FROM cart,items,users,brands WHERE items.item_id = cart.item_id AND items.brand_id = brands.brand_id AND users.brand_id = brands.brand_id AND usr_status = 1 AND cart.usr_id = 1 AND item_status = 1 GROUP BY cart_id");
     $sth->execute();

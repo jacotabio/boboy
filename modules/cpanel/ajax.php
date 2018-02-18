@@ -121,7 +121,7 @@ if(isset($_POST['display_orders'])){?>
                 <tr id="<?php echo $o['order_id'];?>" class="select-order row-hover">
                   <td style="text-align:left;"><?php echo time_elapsed_string($o['date_ordered']);?></td>
                   <td style="text-align:left;"><?php echo $o['usr_name'];?></td>
-                  <td style="text-align:left;"><?php echo $o['usr_contact']?></td>
+                  <td style="text-align:left;"><?php echo $o['contact_number']?></td>
                   <td><?php echo $currency;?><?php echo $subtotal;?></td>
                   <td style="text-align:center;"><span class="label label-approval-<?php echo $check_status;?>"><?php echo $check_status?></span></td>
                   <td style="text-align:center;">
@@ -291,7 +291,7 @@ if(isset($_POST['order_info'])){
                         </div>
                         <div class="col-xs-12 col-sm-7 col-lg-2" style="margin-top:16px;">
                           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Contact #</label>
-                          <p class="no-gap" style="font-size: 13px;"><?php echo $oci['usr_contact'];?></p>
+                          <p class="no-gap" style="font-size: 13px;"><?php echo $oci['contact_number'];?></p>
                         </div>
                         <div class="col-xs-12 col-sm-7 col-lg-5" style="margin-top:16px;">
                           <label class="no-gap" style="color:rgba(0,0,0,0.8);font-size:12px;font-weight:500;">Customer Name</label>

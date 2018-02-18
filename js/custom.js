@@ -379,6 +379,10 @@ $(document).ready(function(){
       });
     }
   });
+
+  $("body").on("click",".cart-row",function(e){
+    remove_cart_show($(this).attr("id"));
+  });
   $("#form-user-chat").on("submit",function(e){
     e.preventDefault();
     var msg = $("#chat-input-message").val();
@@ -880,6 +884,20 @@ $(document).ready(function(){
       data: sub,
       dataType: 'json',
       success: function(data){
+        if(data['code'] == "invalid_address"){
+          $("#address-label-error").show();
+          $("#custom-address-holder").addClass("has-error");
+        }else{
+          $("#address-label-error").hide();
+          $("#custom-address-holder").removeClass("has-error");
+        }
+        if(data['code'] == "invalid_phone"){
+          $("#contact-label-error").show();
+          $("#custom-number-holder").addClass("has-error");
+        }else{
+          $("#contact-label-error").hide();
+          $("#custom-number-holder").removeClass("has-error");
+        }
         if(data['code'] == "empty_both"){
           $("#address-label").show();
           $("#custom-address-holder").addClass("has-error");

@@ -30,6 +30,12 @@ class Brands{
     $query->execute();
   }
 
+  public function offline_status($bid){
+    $sth = $this->db->prepare("UPDATE brands SET brand_status = 0 WHERE brand_id = ?");
+    $sth->bindParam(1,$bid);
+    return $sth->execute();
+  }
+
   public function check_account($id){
       $sth = $this->db->prepare("SELECT usr_status, is_hidden FROM users WHERE brand_id = ?");
       $sth->bindParam(1,$id);

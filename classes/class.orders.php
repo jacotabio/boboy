@@ -30,7 +30,7 @@ class Orders{
     //return $pending = $row['t_pending'];
   }
   public function pending_brand_orders($bid){
-    $query = $this->db->prepare("SELECT *,orders.created_at AS date_ordered FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id AND order_status != 5 GROUP BY orders.order_id ORDER BY orders.created_at DESC");
+    $query = $this->db->prepare("SELECT orders.order_id,contact_number,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,orders.created_at AS date_ordered FROM orders,oitem,items,users WHERE orders.order_id = oitem.order_id AND oitem.item_id = items.item_id AND items.brand_id = ? AND users.usr_id = orders.usr_id AND order_status != 5 GROUP BY orders.order_id ORDER BY orders.created_at DESC");
     $query->bindParam(1,$bid);
     $query->execute();
 
@@ -384,7 +384,7 @@ class Orders{
   }
 
   public function get_order_customer_info($oid,$bid){
-    $query = $this->db->prepare("SELECT * FROM items,oitem,orders,users WHERE items.item_id = oitem.item_id AND orders.order_id = oitem.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id AND items.brand_id = ?");
+    $query = $this->db->prepare("SELECT *,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name FROM items,oitem,orders,users WHERE items.item_id = oitem.item_id AND orders.order_id = oitem.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id AND items.brand_id = ?");
     $query->bindParam(1,$oid);
     $query->bindParam(2,$bid);
     $query->execute();

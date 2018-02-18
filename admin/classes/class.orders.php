@@ -11,14 +11,32 @@ class Orders{
     }
   }
 
-  public function create_order(){
-    $sth = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_name) VALUES(NOW(),'1',?,?,?)");
+  public function create_order($name,$address,$phone,$fee){
+    $sth = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_name,custom_fee) VALUES(NOW(),'1',?,?,?,?)");
+    $uid = 1;
+    $sth->bindParam(1,$address);
+    $sth->bindParam(2,$phone);
+    $sth->bindParam(3,$name);
+    $sth->bindParam(4,$fee);
+    $sth->execute();
+    return $this->db->lastInsertId();
+  }
+
+  public function set_order_total($oid,$total){
+    $sth = $this->db->prepare("UPDATE orders SET order_total = ? WHERE order_id = ?");
+    $sth->bindParam(1,$total);
+    $sth->bindParam(2,$oid);
+    return $sth->execute();
   }
 
   public function delete_order($id){
     $sth = $this->db->prepare("DELETE FROM orders WHERE order_id = ?");
     $sth->bindParam(1,$id);
-    return $sth->execute();
+    $sth->execute();
+
+    $sth2 = $this->db->prepare("DELETE FROM oitem WHERE order_id = ?");
+    $sth2->bindParam(1,$id);
+    return $sth2->execute();
   }
 
   public function close_order($id){
@@ -66,7 +84,7 @@ class Orders{
   }
   
   public function pending_orders(){
-    $query = $this->db->prepare("SELECT order_id,orders.created_at,usr_name,order_total,
+    $query = $this->db->prepare("SELECT order_id,orders.created_at,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,order_total,
                                   CASE
                                     WHEN order_status = 0 THEN 'Processing'
                                     WHEN order_status = 1 THEN 'Approved'
@@ -88,7 +106,7 @@ class Orders{
   }
 
   public function order_details($id){
-    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,order_total+custom_fee AS total,orders.order_id,order_total AS subtotal,created_at,order_status,usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id");
+    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,order_total+custom_fee AS total,orders.order_id,order_total AS subtotal,created_at,order_status,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id");
     $query->bindParam(1,$id);
     $query->execute();
 
@@ -114,7 +132,7 @@ class Orders{
   }
 
   public function get_oitems_brands($id){
-    $query = $this->db->prepare("SELECT DISTINCT(items.brand_id),brand_name FROM oitem,items,brands WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = brands.brand_id");
+    $query = $this->db->prepare("SELECT DISTINCT(items.brand_id),brand_name,SUM(oi_subtotal) AS per_total,brand_status FROM oitem,items,brands WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = brands.brand_id GROUP BY brand_id");
     $query->bindParam(1,$id);
     $query->execute();
 

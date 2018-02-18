@@ -46,40 +46,50 @@ if(isset($_POST['submit_order'])){
         }
         return $newArr;
     } 
-    $sanitized_data = array_map_r('strip_tags', $_POST);
 
     $cinfo = $user->user_contact_info($_SESSION['usr_id']);
 
     if($_POST['radio-address'] == 2){
-      $address = test_input($sanitized_data['textarea-custom']);
+      //$address = test_input($sanitized_data['textarea-custom']);
+      $address = $_POST['textarea-custom'];
     }else{
       $address = $cinfo['usr_address'];
     }
     if($_POST['radio-contact'] == 2){
-      $contact = test_input($sanitized_data['custom-number']);
+      //$contact = test_input($sanitized_data['custom-number']);
+      $contact = $_POST['custom-number'];
     }else{
       $contact = $cinfo['usr_contact'];
     }
-    
-    $get = $item->get_cart($_SESSION['usr_id']);
-    if($get){
-      $servicefee = $fee->get_service_fee();
-      $order_id = $item->create_order($_SESSION['usr_id'],$address,$contact,$servicefee);
-      foreach($get as $g){
-        $fixed_usr = $g['cart_user'];
-        $item->insert_order($order_id,$g['item_id'],$g['item_qty'],$g['subtotal'],$fixed_usr);
-      }
-      $item->insert_order_total($order_id,$item->cart_sum_total($fixed_usr));
-      $item->empty_cart($fixed_usr);
 
-      $jsonArray['code'] = "order_success";
-      $jsonArray['order_id'] = $order_id;
+    if(!preg_match("/^[a-zA-Z 0-9.,()#]*$/",$address) || $address == "" || $address == null){
+      $jsonArray['code'] = "invalid_address";
       echo json_encode($jsonArray);
-      exit;
+    }else if(!preg_match("/^[0-9]{11,11}$/", $contact) || $contact == "" || $contact == null){
+      $jsonArray['code'] = "invalid_phone";
+      echo json_encode($jsonArray);
     }else{
-      $jsonArray['code'] = "empty_cart";
-      echo json_encode($jsonArray);
-    }
+      $sanitized_data = array_map_r('strip_tags', $_POST);
+      
+      $servicefee = $fee->get_service_fee();
+      $get = $item->get_cart($_SESSION['usr_id']);
+      if($get){
+        $order_id = $item->create_order($_SESSION['usr_id'],$address,$contact,$servicefee);
+        foreach($get as $g){
+          $fixed_usr = $g['cart_user'];
+          $item->insert_order($order_id,$g['item_id'],$g['item_qty'],$g['subtotal'],$fixed_usr);
+        }
+        $item->insert_order_total($order_id,$item->cart_sum_total($fixed_usr));
+        $item->empty_cart($fixed_usr);
 
+        $jsonArray['code'] = "order_success";
+        $jsonArray['order_id'] = $order_id;
+        echo json_encode($jsonArray);
+        exit;
+      }else{
+        $jsonArray['code'] = "empty_cart";
+        echo json_encode($jsonArray);
+      }
+    }
   }
 }

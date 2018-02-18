@@ -3,8 +3,10 @@ include 'library/config.php';
 include 'classes/class.users.php';
 include 'classes/class.brands.php';
 include 'classes/class.items.php';
+include 'classes/class.fees.php';
 
 $user = new Users();
+$fee = new Fees();
 $item = new Items();
 $brand = new Brands();
 
@@ -138,6 +140,9 @@ $currency = "₱ ";
                         </li>
                         <li>
                             <a href="/admin/?p=brands" class="waves-effect"><i class="fa fa-building m-r-10" aria-hidden="true"></i>Brands</a>
+                        </li>
+                        <li id="btn-show-sf">
+                            <a href="#"><i class="fa fa-money m-r-10"></i>Service Fee<span class="float-right"><?php echo $currency.$fee->get_service_fee();?></span></a>
                         </li>
                     </ul>
                 </nav>

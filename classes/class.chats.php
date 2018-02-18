@@ -90,7 +90,7 @@ class Chats{
   }
 
   public function shops_for_chat($oid){
-    $query = $this->db->prepare("SELECT users.brand_id,users.usr_name,usr_img FROM oitem,items,users WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = users.brand_id GROUP BY users.brand_id");
+    $query = $this->db->prepare("SELECT users.brand_id,users.usr_name,usr_img,brand_status FROM oitem,items,users,brands WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = users.brand_id AND brands.brand_id = users.brand_id GROUP BY users.brand_id");
     $query->bindParam(1,$oid);
     $query->execute();
 

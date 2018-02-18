@@ -5,6 +5,8 @@ include '../../classes/class.brands.php';
 
 $item = new Items();
 $brand = new Brands();
+
+$currency = "₱ ";
 function substrwords($text, $maxchar, $end='...') {
   if (strlen($text) > $maxchar || $text == '') {
       $words = preg_split('/\s/', $text);      
@@ -100,7 +102,7 @@ if(isset($_POST['display_shop'])){?>
                     <?php echo substrwords($i['item_description'],90);?>
                   </div>
                   <div class="item-price">
-                    PHP <?php echo $i['item_price'];?>
+                    <?php echo $currency.$i['item_price'];?>
                   </div>
                 </a>
             </div>
@@ -144,7 +146,7 @@ if(isset($_POST['display_shop'])){?>
                   <?php echo substrwords($unavail['item_description'],90);?>
                 </div>
                 <div class="item-price">
-                  PHP <?php echo $unavail['item_price'];?>
+                  <?php echo $currency.$unavail['item_price'];?>
                 </div>
                 
               </div>

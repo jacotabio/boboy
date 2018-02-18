@@ -75,6 +75,30 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<div class="modal" id="modal-service-fee" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+      <form id="form-service-fee" method="POST">
+        <div class="modal-body">
+          <p class="" style="margin-bottom:8px;">Set Service Fee ( <?php echo $currency;?>)</p>
+          <div id="sf-input" class="form-group" style="margin-bottom:8px;">
+            <input type="number" name="amount" value="<?php echo $fee->get_service_fee();?>" placeholder="Amount" class="form-control input-sm" required autocomplete="off">
+          </div>
+          <label id="sf-input-error" style="display:none;color:red;">Invalid Number</label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-themecolor">Confirm</button>
+        </div>
+      </form>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 <div class="modal" id="modal-customer-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">

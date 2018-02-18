@@ -16,7 +16,8 @@ if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 2){
                               <div class="row aligned-row">
                                   <?php
                                   $home = $item->get_home_items();
-                                  foreach($home as $i){
+                                  if($home){
+                                    foreach($home as $i){
                                   ?>
                                   <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 shop-margin">
                                     <div class="item-holder">
@@ -36,6 +37,14 @@ if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 2){
                                           PHP <?php echo $i['item_price'];?>
                                         </div>
                                       </a>
+                                    </div>
+                                  </div>
+                                  <?php
+                                    }
+                                  }else{?>
+                                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 shop-margin">
+                                    <div class="item-holder" style="text-align:center;padding:150px;">
+                                        No Items Available
                                     </div>
                                   </div>
                                   <?php

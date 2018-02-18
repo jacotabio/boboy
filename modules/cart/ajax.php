@@ -33,6 +33,7 @@ if(isset($_POST['show_address'])){
           <div id="custom-address-holder" class="form-group">
           <textarea type="text" id="textarea-custom-address" rows="5" name="textarea-custom" style="resize: none;" class="form-control text-address has-error" autocomplete="off"></textarea>
           <label id="address-label" class="control-label no-gap">This is a required field</label>
+          <label id="address-label-error" style="display:none;" class="control-label no-gap">Invalid Address</label>
           </div>
         </div>
       </label>
@@ -52,6 +53,7 @@ if(isset($_POST['show_address'])){
           <div id="custom-number-holder" class="form-group">
             <input type="number" id="text-custom-number" pattern="[0-9]{9}" maxlength="11" name="custom-number" autocomplete="off" class="form-control text-address"/>
             <label id="contact-label" class="control-label no-gap">This is a required field</label>
+            <label id="contact-label-error" style="display:none;" class="control-label no-gap">Please enter 11-digit mobile phone number</label>
           </div>
         </div>
       </label>

@@ -30,7 +30,6 @@ function cartItems(){
         }
     });
 }
-
 $("body").on("hide.bs.modal","#modal-atc-item", function () {
     $("#atc-qty").val("");
     $("#atc-qty-error").hide();
@@ -53,13 +52,6 @@ $(document).ready(function(){
                     order = data;
                     holder.html(order);
                 }
-                //holder.html(data);
-                /*
-                $("#od-st").html(data["order_total"]);
-                $("#od-sf").html(data["custom_fee"]);
-                $("#od-tt").html(data["total"]);
-                $("#od-noi").html(data["noi"]);
-                */
             }
             ,error:function(e){
                 //alert("ajax failed");
@@ -85,6 +77,29 @@ $(document).ready(function(){
             }
         });
     });
+
+    $("body").on("click","#btn-show-sf",function(){
+        $("#modal-service-fee").modal();
+    });
+    //$("#name-input-error").show();
+
+    $("#form-service-fee").on("submit",function(e){
+        e.preventDefault();
+        $.ajax({
+            url: "modules/fees/update.php",
+            method: "POST",
+            data: $(this).serializeArray(),
+            success:function(data){
+                if(data == "invalid"){
+                    $("#sf-input").addClass("error");
+                    $("#sf-input-error").show();
+                }
+                if(data == "update_success"){
+                    location.reload();
+                }
+            }
+        });
+    });
     $("#form-create-order").on("submit",function(e){
         e.preventDefault();
         //$(".preloader").show();
@@ -96,11 +111,22 @@ $(document).ready(function(){
             data: data,
             dataType: "json",
             success:function(data){
-                if(data['code'] == "invalid"){
-                    alert("there are errors");
-                }
                 if(data['code'] == "valid"){
-                    alert("wala problema");
+                    window.location = "/admin/?p=orders&o="+data['order_id'];
+                }
+                if(data['code'] == "cart_empty"){
+                    alert("You have not added an item");
+                }
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                      if(data[key] == 0){
+                        $("#"+key).addClass("error");
+                        //$("#"+key+"-error").show();
+                      }else{
+                        $("#"+key).removeClass("error");
+                        //$("#"+key+"-error").hide();
+                      }
+                    }
                 }
                 //$(".preloader").fadeOut();
             }
@@ -422,7 +448,6 @@ $(document).ready(function(){
                       }
                     }
                 }
-                
                 $(".preloader").fadeOut();
             }
         });

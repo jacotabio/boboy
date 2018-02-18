@@ -9,7 +9,17 @@
             <label id="shop-cpanel-id" class="roboto" style="padding: 16px 16px 16px 16px;margin:0;" value="<?php echo $_SESSION['brand_id'];?>"><?php echo $_SESSION['usr_name'];?><label>
           </div>
           <div id="shop-status-container" style="display:none;float:right;margin-right:0;padding-right:0;">
+            <?php 
+            if($brand->get_brand_status($_SESSION['brand_id']) == 1){
+            ?>
             <input type="checkbox" id="id-name--1" name="set-name" class="switch-input" checked>
+            <?php 
+            }else{
+            ?>
+            <input type="checkbox" id="id-name--1" name="set-name" class="switch-input">
+            <?php
+            }
+            ?>
             <label for="id-name--1" class="switch-label roboto"><span id="show-shop-status">&nbsp;</span>
             </label>
           </div>

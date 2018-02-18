@@ -380,7 +380,7 @@ if(isset($_POST['order_info'])){
             <?php
             foreach($sfc as $ch){
             ?>
-              <td style="text-align:center;"><small style="color:rgba(0,0,0,0.7);font-weight:500;font-size:13px;"><?php echo $ch['usr_name'];?></small></td>
+              <td style="text-align:center;"><?php if($ch['brand_status'] == 1){?><span class="circle green"></span><?php }else{?><span class="circle orange"></span><?php }?>&nbsp;<small style="color:rgba(0,0,0,0.7);font-weight:500;font-size:13px;"><?php echo $ch['usr_name'];?></small></td>
             <?php
             }
             ?>
