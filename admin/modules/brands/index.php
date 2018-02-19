@@ -1,6 +1,47 @@
 <?php
-
-if(!isset($_GET['bid'])){?>
+if(isset($_GET['action']) && $_GET['action'] == "register"){?>
+<div class="row">
+    <!-- column -->
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Register Brand</h4>
+                <h6 class="card-subtitle"></h6>
+                <div class="">
+                    <form id="form-create-brand" method="POST">
+                        <div style="margin-bottom:24px;margin-top:24px;">
+                            <div id="name-input" class="form-group col-lg-4" style="display:inline-block;margin:0;padding:0;">
+                                <label class="col-md-12 control-label">Brand Name</label>
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="fullname" type="text" value="" placeholder="Brand Name" class="form-control input-sm" autocomplete="off" autofocus="on" required>
+                                </div>
+                            </div>
+                            <div id="address-input" class="form-group col-lg-4" style="display:inline-block;margin:0;padding:0;">
+                                <label class="col-md-12 control-label">Address/Location</label>
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="address" type="text" value="" placeholder="Address/Location" class="form-control input-sm" required autocomplete="off">
+                                </div>
+                            </div>
+                            <div id="phone-input" class="form-group" style="display:inline-block;margin:0;padding:0;width:32.7%;">
+                                <label class="col-md-12 control-label">Contact #</label>
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="phone" type="text" value="" placeholder="Contact #" class="form-control input-sm" required autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container" style="margin-top:24px;background-color:red;">
+                            <div class="form-group float-right">
+                                <button type="submit" class="btn btn-themecolor">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+}else if(!isset($_GET['bid'])){?>
 <div class="row">
     <!-- column -->
     <div class="col-sm-12">

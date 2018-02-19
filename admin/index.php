@@ -188,6 +188,11 @@ $currency = "₱ ";
                         <a href="/admin/?p=orders&action=new" style="margin:0px 4px;" class="btn pull-right hidden-sm-down btn-success">Create Order</a>
                     </div>
                     <?php
+                    }else if($p == "brands"){?>
+                    <div class="col-md-6 col-4 align-self-center">
+                        <a href="/admin/?p=brands&action=register" style="margin:0px 4px;" class="btn pull-right hidden-sm-down btn-success">Register A Brand</a>
+                    </div>
+                    <?php
                     }
                     ?>
                 </div>
