@@ -90,6 +90,7 @@ $(document).ready(function(){
             method: "POST",
             data: $(this).serializeArray(),
             success:function(data){
+                alert(data);
                 if(data == "invalid"){
                     $("#sf-input").addClass("error");
                     $("#sf-input-error").show();

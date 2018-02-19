@@ -83,11 +83,12 @@
       </div>
       <form id="form-service-fee" method="POST">
         <div class="modal-body">
-          <p class="" style="margin-bottom:8px;">Set Service Fee ( <?php echo $currency;?>)</p>
+          <p class="" style="margin-bottom:8px;font-weight:500;">Service Fee ( <?php echo $currency;?>)</p>
           <div id="sf-input" class="form-group" style="margin-bottom:8px;">
-            <input type="number" name="amount" value="<?php echo $fee->get_service_fee();?>" placeholder="Amount" class="form-control input-sm" required autocomplete="off">
+            <input type="text" name="amount" value="<?php echo $fee->get_service_fee();?>" placeholder="Amount" class="form-control input-sm" required autocomplete="off">
           </div>
-          <label id="sf-input-error" style="display:none;color:red;">Invalid Number</label>
+          <label id="sf-input-error" style="display:none;color:red;">Invalid Amount</label>
+          <p class="" style="margin-bottom:8px;font-size:11px;font-weight:300;">NOTE: This will take effect on upcoming orders only</p>
         </div>
 
         <div class="modal-footer">

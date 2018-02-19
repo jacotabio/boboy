@@ -44,14 +44,15 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
                                                 <li class="list-group-item item" value="<?php echo $i['item_id'];?>"><span style="font-weight:600;color:rgba(0,0,0,0.65);"><?php echo $i['brand_name'];?></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="name"><?php echo $i['item_name'];?></span><span class="float-right"><?php echo $currency.$i['item_price'];?></span></li>
                                             <?php
                                             }
-                                        }else{
-                                            echo "No Items";
+                                        }else{?>
+                                            <span style="width:100%;text-align: center;padding-top:175px;">There are no items available</span>
+                                        <?php
                                         }
                                         ?>
                                     </ul>
                                 </div>
                                 <div class="col-lg-6 col-md-6" style="">
-                                    <label class="control-label">Items</label>
+                                    <label class="control-label">Cart</label>
                                         <div id="cart-items">
                                             <ul class="list-group" style="overflow-y: scroll;min-height:262px;height:262px;max-height:262px;border:1px solid #ddd;">
                                                 <?php
@@ -80,7 +81,7 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
 
                                                 <?php
                                                 }else{?>
-                                                    <p style="width:100%;text-align:center;margin-top:30%;">No items added</p>
+                                                    <p style="width:100%;text-align:center;margin-top:25%;">Cart Empty</p>
                                                 <?php
                                                 }
                                                 ?>
