@@ -58,31 +58,48 @@ class Users{
       }
     }
     public function account_update($name,$email,$phone,$address,$id){
-      
-      $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
-      $sth->bindParam("name",$name);
-      $sth->bindParam("email",$email);
-      $sth->bindParam("phone",$phone);
-      $sth->bindParam("address",$address);
-      $sth->bindParam("id",$id);
-      $_SESSION['usr_name'] = $name;
-      return $sth->execute();
+      $chk = $this->db->prepare("SELECT COUNT(usr_id) AS total FROM users WHERE usr_email = ?");
+      $chk->bindParam(1,$email);
+      $chk->execute();
+
+      $row = $chk->fetch(PDO::FETCH_ASSOC);
+      if($row['total'] == 0){
+        $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
+        $sth->bindParam("name",$name);
+        $sth->bindParam("email",$email);
+        $sth->bindParam("phone",$phone);
+        $sth->bindParam("address",$address);
+        $sth->bindParam("id",$id);
+        $_SESSION['usr_name'] = $name;
+        return $sth->execute();
+      }else{
+        return false;
+      }
     }
 
     public function brand_update($name,$email,$phone,$address,$id,$bid){
-      $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
-      $sth->bindParam("name",$name);
-      $sth->bindParam("email",$email);
-      $sth->bindParam("phone",$phone);
-      $sth->bindParam("address",$address);
-      $sth->bindParam("id",$id);
-      $sth->execute();
+      $chk = $this->db->prepare("SELECT COUNT(brands.brand_id) AS total FROM brands,users WHERE usr_email = ? AND brands.brand_id = users.brand_id");
+      $chk->bindParam(1,$email);
+      $chk->execute();
 
-      $sth3 = $this->db->prepare("UPDATE brands SET brand_name = ? WHERE brand_id = ?");
-      $sth3->bindParam(1,$name);
-      $sth3->bindParam(2,$bid);
-      $_SESSION['usr_name'] = $name;
-      return $sth3->execute();
+      $row = $chk->fetch(PDO::FETCH_ASSOC);
+      if($row['total'] == 0){
+        $sth = $this->db->prepare("UPDATE users SET usr_name = :name, usr_email = :email, usr_contact = :phone, usr_address = :address WHERE usr_id = :id");
+        $sth->bindParam("name",$name);
+        $sth->bindParam("email",$email);
+        $sth->bindParam("phone",$phone);
+        $sth->bindParam("address",$address);
+        $sth->bindParam("id",$id);
+        $sth->execute();
+
+        $sth3 = $this->db->prepare("UPDATE brands SET brand_name = ? WHERE brand_id = ?");
+        $sth3->bindParam(1,$name);
+        $sth3->bindParam(2,$bid);
+        $_SESSION['usr_name'] = $name;
+        return $sth3->execute();
+      }else{
+        return false;
+      }
     }
 
     public function get_session(){

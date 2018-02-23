@@ -142,7 +142,7 @@ $currency = "₱ ";
                             <a href="/admin/?p=brands" class="waves-effect"><i class="fa fa-building m-r-10" aria-hidden="true"></i>Brands</a>
                         </li>
                         <li id="btn-show-sf">
-                            <a href="#"><i class="fa fa-money m-r-10"></i>Service Fee<span class="float-right"><?php echo $currency.$fee->get_service_fee();?></span></a>
+                            <a href="#"><i class="fa fa-money m-r-10"></i>Service Fee<span class="float-right"><?php echo $currency.number_format($fee->get_service_fee(),2);?></span></a>
                         </li>
                     </ul>
                 </nav>
@@ -177,6 +177,12 @@ $currency = "₱ ";
                             <?php
                             }else if(isset($_GET['p']) && $_GET['p'] == "brands" && isset($_GET['bid'])){?>
                             <li class="breadcrumb-item active"><a href="/admin/?p=brands&bid=<?php echo $_GET['bid'];?>"><?php echo $brand->get_brand_name($_GET['bid']);?></a></li>
+                            <?php
+                            }else if(isset($_GET['p']) && $_GET['p'] == "brands" && isset($_GET['action'])){?>
+                                <li class="breadcrumb-item active"><a href="/admin/?p=brands&action=<?php echo $_GET['action'];?>"><?php echo ucfirst($_GET['action']);?></a></li>
+                            <?php
+                            }else if(isset($_GET['p']) && $_GET['p'] == "orders" && isset($_GET['action'])){?>
+                                <li class="breadcrumb-item active"><a href="/admin/?p=orders&action=<?php echo $_GET['action'];?>"><?php echo ucfirst($_GET['action']);?></a></li>
                             <?php
                             }
                             ?>

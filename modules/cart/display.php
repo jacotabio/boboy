@@ -26,7 +26,7 @@ if(isset($_POST['display_cart'])){
     <td class="text-right tbl-left" style="width:10%;"><span class="cart-remove-btn glyphicon glyphicon-remove"></span></td>
     <td class="cart-name text-left"><?php echo $item->get_item_name($c['item_id']);?></td>
     <td class="cart-qty text-right"><?php echo $c['item_qty'];?></td>
-    <td class="text-right cart-price tbl-right"><?php echo $currency.$c['subtotal'];?></td>
+    <td class="text-right cart-price tbl-right"><?php echo $currency.number_format($c['subtotal'],2);?></td>
   </tr>
   <?php
     }
@@ -35,7 +35,7 @@ if(isset($_POST['display_cart'])){
     <td class="cart-qty text-right"></td>
     <td style="padding-top:16px;padding-bottom:16px;" class="cart-subtotal text-left">Service Fee</td>
     <td class="text-right"></td>
-    <td style="padding-top:16px;padding-bottom: 16px;" class="text-right cart-total tbl-right"><?php $sf = $fee->get_service_fee(); echo $currency.$sf?></td>
+    <td style="padding-top:16px;padding-bottom: 16px;" class="text-right cart-total tbl-right"><?php $sf = $fee->get_service_fee(); echo $currency.number_format($sf,2)?></td>
   </tr>
   <tr style="border-bottom:1px solid red;">
     <td class="cart-qty text-right"></td>

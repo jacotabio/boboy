@@ -274,6 +274,7 @@ function orderInfo(){
     }
   }
 }
+
 function updateCartCounter(){ 
   $("#nav-id").load(window.location.href + " #nav-id" );
 }
@@ -725,6 +726,8 @@ $(document).ready(function(){
       });
     }
   });
+
+
   // AJAX UPDATE ACCOUNT DETAILS
   $("#form-account-details").on("submit",function(e){
     $("#btn-update-account").prop("disabled",true);
@@ -757,6 +760,13 @@ $(document).ready(function(){
                 $("#"+key+"-error").hide();
               }
             }
+          }
+          if(d['code'] == "email_exists"){
+            $("#email-input-exists").show();
+            $("#email-input").addClass("has-error");
+          }else{
+            $("#email-input-exists").hide();
+            $("#email-input").removeClass("has-error");
           }
           $(".material-load-details").hide();
           $("#btn-update-account").prop("disabled",false);

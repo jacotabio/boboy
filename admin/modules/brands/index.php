@@ -10,22 +10,39 @@ if(isset($_GET['action']) && $_GET['action'] == "register"){?>
                 <div class="">
                     <form id="form-create-brand" method="POST">
                         <div style="margin-bottom:24px;margin-top:24px;">
-                            <div id="name-input" class="form-group col-lg-4" style="display:inline-block;margin:0;padding:0;">
+                            <div id="brandname-input" class="form-group">
                                 <label class="col-md-12 control-label">Brand Name</label>
                                 <div class="col-lg-12 col-md-12">
-                                    <input name="fullname" type="text" value="" placeholder="Brand Name" class="form-control input-sm" autocomplete="off" autofocus="on" required>
+                                    <input name="brandname" type="text" placeholder="Brand Name" class="form-control input-sm" autocomplete="off" autofocus="on" required>
+                                    <label id="brandname-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
                                 </div>
                             </div>
-                            <div id="address-input" class="form-group col-lg-4" style="display:inline-block;margin:0;padding:0;">
-                                <label class="col-md-12 control-label">Address/Location</label>
+                            <div id="email-input" class="form-group">
+                                <label class="col-md-12 control-label">Email Address</label>
                                 <div class="col-lg-12 col-md-12">
-                                    <input name="address" type="text" value="" placeholder="Address/Location" class="form-control input-sm" required autocomplete="off">
+                                    <input name="email" type="email" placeholder="Email Address" class="form-control input-sm" required autocomplete="off">
+                                    <label id="email-input-error" style="display:none;" class="control-label text-error">Email Invalid</label>
                                 </div>
                             </div>
-                            <div id="phone-input" class="form-group" style="display:inline-block;margin:0;padding:0;width:32.7%;">
+                            <div id="phone-input" class="form-group">
                                 <label class="col-md-12 control-label">Contact #</label>
                                 <div class="col-lg-12 col-md-12">
                                     <input name="phone" type="text" value="" placeholder="Contact #" class="form-control input-sm" required autocomplete="off">
+                                    <label id="phone-input-error" style="display:none;" class="control-label text-error">Invalid Number</label>
+                                </div>
+                            </div>
+                            <div id="address-input" class="form-group">
+                                <label class="col-md-12 control-label">Location</label>
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="address" type="text" value="" placeholder="Location" class="form-control input-sm" required autocomplete="off">
+                                    <label id="address-input-error" style="display:none;" class="control-label text-error">No special characters allowed</label>
+                                </div>
+                            </div>
+                            <div id="password-input" class="form-group">
+                                <label class="col-md-12 control-label">Password</label>
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="password" type="password" placeholder="Password" class="form-control input-sm" required autocomplete="off">
+                                    <label id="password-input-error" style="display:none;" class="control-label text-error">Must contain alphanumeric only and atleast 6-characters</label>
                                 </div>
                             </div>
                         </div>

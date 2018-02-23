@@ -22,7 +22,7 @@ if($acc){
                         <div id="name-input" class="form-group">
                             <label class="col-md-4 control-label">Full Name</label>
                             <div class="col-md-8">
-                                <input name="fullname" type="text" value="<?php echo $_a['usr_name'];?>" placeholder="Full Name" class="form-control input-md" required>
+                                <input name="fullname" type="text" value="<?php echo $_a['usr_name'];?>" placeholder="Full Name" class="form-control input-md" required autocomplete="off">
                                 <label id="name-input-error" style="display:none;" class="control-label">No special characters allowed</label>
                             </div>
                         </div>
@@ -30,21 +30,22 @@ if($acc){
                         <div id="email-input" class="form-group">
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-8">
-                                <input name="email" type="email" value="<?php echo $_a['usr_email'];?>" placeholder="example@email.com" class="form-control input-md" required>
+                                <input name="email" type="email" value="<?php echo $_a['usr_email'];?>" placeholder="example@email.com" class="form-control input-md" required autocomplete="off">
                                 <label id="email-input-error" style="display:none;" class="control-label">Email invalid</label>
+                                <label id="email-input-exists" style="display:none;" class="control-label">Email already exists</label>
                             </div>
                         </div>
                         <div id="phone-input" class="form-group">
                             <label class="col-md-4 control-label">Phone #</label>
                             <div class="col-md-8">
-                                <input name="phone" type="number" value="<?php echo $_a['usr_contact'];?>" placeholder="e.g (0915-XXX-XXXX)" class="form-control input-md" required>
+                                <input name="phone" type="number" value="<?php echo $_a['usr_contact'];?>" placeholder="e.g (0915-XXX-XXXX)" class="form-control input-md" required autocomplete="off">
                                 <label id="phone-input-error" style="display:none;" class="control-label">Enter 11-digit phone number only</label>
                             </div>
                         </div>
                         <div id="address-input" class="form-group">
                             <label class="col-md-4 control-label">Default Address</label>
                             <div class="col-md-8">
-                                <textarea style="resize:none;" rows="5" name="address" type="text" placeholder="Default Address" class="form-control input-md" required=""><?php echo $_a['usr_address'];?></textarea>
+                                <textarea style="resize:none;" rows="5" name="address" type="text" placeholder="Default Address" class="form-control input-md" required="" autocomplete="off"><?php echo $_a['usr_address'];?></textarea>
                                 <label id="address-input-error" style="display:none;" class="control-label">Address consists of invalid characters</label>
                             </div>
                         </div>

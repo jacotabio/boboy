@@ -23,6 +23,38 @@ class Brands{
   	}
   }
 
+  public function register_brand($brandname,$email,$password,$address,$phone){
+    $chk = $this->db->prepare("SELECT COUNT(brands.brand_id) AS total FROM brands,users WHERE brand_name = ? AND usr_name = ? AND brands.brand_id = users.brand_id AND usr_email = ?");
+    $chk->bindParam(1,$brandname);
+    $chk->bindParam(2,$brandname);
+    $chk->bindParam(3,$email);
+    $chk->execute();
+
+    $row = $chk->fetch(PDO::FETCH_ASSOC);
+    if($row['total'] == 0){
+      $sth = $this->db->prepare("INSERT INTO users(usr_name,usr_email,usr_password,usr_address,usr_contact,usr_auth,usr_status) VALUES(?,?,?,?,?,2,1)");
+      $sth->bindParam(1,$brandname);
+      $sth->bindParam(2,$email);
+      $sth->bindParam(3,$password);
+      $sth->bindParam(4,$address);
+      $sth->bindParam(5,$phone);
+      $sth->execute();
+      $usr_id = $this->db->lastInsertId();
+
+      $br = $this->db->prepare("INSERT INTO brands(brand_name,brand_status) VALUES(?,0)");
+      $br->bindParam(1,$brandname);
+      $br->execute();
+      $brand_id = $this->db->lastInsertId();
+
+      $place = $this->db->prepare("UPDATE users SET brand_id = ? WHERE usr_id = ?");
+      $place->bindParam(1,$brand_id);
+      $place->bindParam(2,$usr_id);
+      return $place->execute();
+    }else{
+      return false;
+    }
+  }
+
   public function ban_account($id){
     $sth = $this->db->prepare("UPDATE users SET usr_status = 0 WHERE usr_status = 1 AND brand_id = ?");
     $sth->bindParam(1,$id);

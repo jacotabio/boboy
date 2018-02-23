@@ -30,11 +30,6 @@ function substrwords($text, $maxchar, $end='...') {
   return $output;
 }
 
-
-if(isset($_POST['realtime_shop_popup'])){
-  echo "2";
-}
-
 if(isset($_POST['display_active_shops'])){?>
   <div class="hidden-xs hidden-sm roboto">
   <span style="font-weight: 500;font-size:13px;color:rgba(0,0,0,0.65);">Active Shops</span>

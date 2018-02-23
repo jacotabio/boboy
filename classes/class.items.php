@@ -50,7 +50,7 @@ class Items{
     }
 
     public function get_item_name($id){
-      $query = $this->db->prepare("SELECT item_name FROM items,brands,users WHERE item_id = ? AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
+      $query = $this->db->prepare("SELECT item_name FROM items,brands,users WHERE item_id = ? AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1 AND is_hidden = 0 AND brand_status = 1");
       $query->bindParam(1,$id);
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);

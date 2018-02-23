@@ -60,7 +60,7 @@ $currency = "₱";
             <?php
             if(isset($_SESSION['usr_auth']) && $_SESSION['usr_auth'] == 1 || !isset($_SESSION['usr_auth'])){
             ?>
-            <a class="navbar-brand example6" href="/"></a>
+            <a class="navbar-brand" href="/" style="margin-top:0;padding-top:12px;"><img src="img/logo.png" height="25px"></a>
             <?php
             }else{?>
             <a class="navbar-brand example6" href="/?mod=cpanel"></a>
@@ -247,44 +247,12 @@ $currency = "₱";
     <!-- Footer Content Goes Here -->
     <footer id="myFooter">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h5>Get started</h5>
-                    
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/?mod=register">Register</a></li>
-                        <li><a href="#">Downloads</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>About us</h5>
-                    <ul>
-                        <li><a href="#">Company Information</a></li>
-                        <li><a href="#">Contact us</a></li>
-                        <li><a href="#">Reviews</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Support</h5>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Help desk</a></li>
-                        <li><a href="#">Forums</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3 info">
-                    <h5>Information</h5>
-                    <p>The Palms, 18th Street Lacson, Bacolod City</br>
-                    @iamsleepnot</br>
-                    Call 4741654</p>
-                </div>
-            </div>
+
         </div>
         <div class="second-bar">
            <div class="container">
-                <h2 class="logo"><a class="navbar-brand example6" style="width: 50px;" href="/"></a></h2><span style="width: 10px;" >Copyright 2017</span>
-                <div class="social-icons">
+                <span style="width: 10px;">Copyright 2017</span>
+                <div class="" style="margin:0;padding:0;">
                     <a href="#" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                     <a href="https://www.facebook.com/iamsleepnot/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
                     <a href="https://www.instagram.com/iamsleepnot/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>

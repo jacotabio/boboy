@@ -38,21 +38,25 @@ body{
   display:inline-block;
 }
 .header-text-big{
+  width:50%;
   font-weight: 700; 
   font-size: 3.5em; 
-  letter-spacing: 4px;
-  margin-bottom:24px;
-  font-family: 'Century Gothic';
+  color: rgba(255,255,255,0.95);
+  letter-spacing: 1px;
+  font-family: 'Source Sans Pro';
+  margin:0;
+  padding:0;
+  line-height:1.1;
 }
 .header-text-small{
-  font-size: 14px;
-  text-align: center;
-  width: 100%;
+  margin-top:16px;
+  padding:0;
+  font-size: 20px;
+  width: 40%;
   display: block;
-  margin-bottom: 40px;
   font-weight: 300;
-  letter-spacing: 0.5px;
-  font-family: 'Roboto';
+  font-family: 'Source Sans Pro';
+  line-height: 1.5;
 }
 .bold{
   font-weight: bold;
@@ -70,19 +74,19 @@ body{
   font-size: 14px;
 }
 .bg-header{
-  padding-top: 150px;
+  padding-top: 200px;
   background: 
   /* top, transparent red, faked with gradient */ 
   linear-gradient(
-    rgba(49, 126, 204, 1), 
-    rgba(49, 126, 204, 1)
+    rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)
   ),
   /* bottom, image */
-  url('img/header.jpg');
+  url('img/coffee-header.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-bottom:150px;
+  padding-bottom:200px;
 }
 .product-anchor:hover,.product-anchor:visited,.product-anchor:focus,.product-anchor:active{
   color: inherit;
@@ -526,18 +530,20 @@ footer{
   
 }
 #myFooter {
-  background-color: #3a3f46;
-  color: white;
+  background-color: #fff;
+  color: rgba(0,0,0,0.4);
   margin-top: 16px;
+  font-size: 12px;
+  border-top:1px solid;
+  border-color: rgba(0,0,0,0.1);
 }
 
 #myFooter .row {
   margin-bottom: 60px;
 }
 
-#myFooter .info{
-  text-align: justify; 
-  color: #afb0b1;
+#myFooter .info{ 
+  color: #fff;
 }
 
 #myFooter ul {
@@ -548,23 +554,13 @@ footer{
 
 #myFooter h5 {
   font-size: 18px;
-  color: white;
+  color: #ddd;
   font-weight: bold;
   margin-top: 30px;
 }
 
 #myFooter .logo{
   margin-top: 10px;
-}
-
-#myFooter .second-bar .logo a{
-  color:white;
-  font-size: 28px;
-  float: left;
-  font-weight: bold;
-  line-height: 68px;
-  margin: 0;
-  padding: 0;
 }
 
 #myFooter a {
@@ -580,14 +576,18 @@ footer{
 
 #myFooter .second-bar {
   text-align: center;
-  background-color: #33373e;
-  text-align: center;
+  background-color: #eee;
+  padding-top:24px;
+  padding-bottom:24px;
 }
 
 #myFooter .second-bar a {
   font-size: 22px;
   color: #9fa3a9;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top:0;
+  margin:0;
   transition: 0.2s;
   line-height: 68px;
 }
@@ -598,6 +598,8 @@ footer{
 
 #myFooter .social-icons {
   float:right;
+  padding:0;
+  margin:0;
 }
 
 

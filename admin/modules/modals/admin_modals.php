@@ -62,7 +62,7 @@
         <div class="modal-body">
           <p class="" style="margin-bottom:8px;">Enter Quantity</p>
           <input type="hidden" id="atc-id" name="id">
-          <input type="text" id="atc-qty" name="qty" class="form-control" required autofocus="on" autocomplete="off">
+          <input type="number" id="atc-qty" name="qty" class="form-control" required autofocus="on" autocomplete="off">
           <label id="atc-qty-error" style="display:none;color:red;">Invalid Number</label>
         </div>
 
@@ -151,6 +151,42 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal" id="modal-brand-exists" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+
+      <div class="modal-body">
+        <p class="">This brand already exists.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-colortheme" data-dismiss="modal">OK</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal" id="modal-brand-registered" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>
+      </div>
+
+      <div class="modal-body">
+        <p class="">Brand was registered successfully.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-colortheme" data-dismiss="modal">OK</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->

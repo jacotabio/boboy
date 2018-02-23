@@ -12,7 +12,7 @@ class Brands{
   }
 
   public function get_brands(){
-    $query = $this->db->prepare("SELECT * FROM brands,users WHERE brands.brand_id = users.brand_id AND usr_status = 1");
+    $query = $this->db->prepare("SELECT * FROM brands,users WHERE brands.brand_id = users.brand_id AND usr_status = 1 AND is_hidden = 0");
     $query->execute();
     while($row = $query->fetch(PDO::FETCH_ASSOC)){
       $list[] = $row;
@@ -50,7 +50,7 @@ class Brands{
   }
   
   public function realtime_brand_checker(){
-    $query = $this->db->prepare("SELECT * FROM brands WHERE update_checker = 1");
+    $query = $this->db->prepare("SELECT * FROM brands WHERE update_checker = 1 AND is_hidden = 0");
     $query->execute();
 
     while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -64,7 +64,7 @@ class Brands{
 
 
   public function get_all_brand_status(){
-    $query = $this->db->prepare("SELECT * FROM brands,users WHERE brands.brand_id = users.brand_id AND usr_status = 1");
+    $query = $this->db->prepare("SELECT * FROM brands,users WHERE brands.brand_id = users.brand_id AND usr_status = 1 AND is_hidden = 0");
     $query->execute();
 
     while($row = $query->fetch(PDO::FETCH_ASSOC)){

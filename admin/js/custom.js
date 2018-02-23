@@ -34,6 +34,11 @@ $("body").on("hide.bs.modal","#modal-atc-item", function () {
     $("#atc-qty").val("");
     $("#atc-qty-error").hide();
 });
+
+$("body").on("hide.bs.modal","#modal-brand-registered", function () {
+    window.location = "/admin/?p=brands";
+});
+
 $(document).ready(function(){
     order_id = getUrlParameter('o');
 
@@ -85,12 +90,14 @@ $(document).ready(function(){
 
     $("#form-service-fee").on("submit",function(e){
         e.preventDefault();
+        $(".preloader").show();
         $.ajax({
             url: "modules/fees/update.php",
             method: "POST",
             data: $(this).serializeArray(),
             success:function(data){
-                alert(data);
+                $(".preloader").fadeOut();
+                //alert(data);
                 if(data == "invalid"){
                     $("#sf-input").addClass("error");
                     $("#sf-input-error").show();
@@ -101,9 +108,45 @@ $(document).ready(function(){
             }
         });
     });
+
+    $("#form-create-brand").on("submit",function(e){
+        e.preventDefault();
+        $(".preloader").show();
+        $.ajax({
+            url: "modules/brands/create.php",
+            method: "POST",
+            data: $(this).serializeArray(),
+            dataType: "json",
+            success:function(data){
+                $(".preloader").fadeOut();
+                //alert(data);
+                if(data['code'] == "validation_failed"){
+                    
+                }
+                if(data['code'] == "register_success"){
+                    $("#modal-brand-registered").modal();
+                }
+                if(data['code'] == "brand_exists"){
+                    $("#modal-brand-exists").modal();
+                }
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                      if(data[key] == 0){
+                        $("#"+key).addClass("error");
+                        $("#"+key+"-error").show();
+                      }else{
+                        $("#"+key).removeClass("error");
+                        $("#"+key+"-error").hide();
+                      }
+                    }
+                }
+            }
+        });
+    });
+
     $("#form-create-order").on("submit",function(e){
         e.preventDefault();
-        //$(".preloader").show();
+        $(".preloader").show();
         var data = $(this).serializeArray();
         data.push({name: "create_order", value: 1});
         $.ajax({
@@ -129,7 +172,7 @@ $(document).ready(function(){
                       }
                     }
                 }
-                //$(".preloader").fadeOut();
+                $(".preloader").fadeOut();
             }
         });
     });
@@ -369,9 +412,6 @@ $(document).ready(function(){
                 }
                 if(data['code'] == "update_success"){
                     $("#customer-password-success").show();
-                    setTimeout(function(){
-                        $("#customer-password-success").fadeOut();
-                    },5000);
                     $("#password-input-error").hide();
                 }
                 $(".preloader").fadeOut();
@@ -401,9 +441,6 @@ $(document).ready(function(){
                 }
                 if(data['code'] == "update_success"){
                     $("#customer-password-success").show();
-                    setTimeout(function(){
-                        $("#customer-password-success").fadeOut();
-                    },5000);
                     $("#password-input-error").hide();
                 }
                 $(".preloader").fadeOut();
@@ -428,9 +465,6 @@ $(document).ready(function(){
                 if(data['code'] == "update_success"){
                     $("#customer-update-success").show();
                     $(".page-wrapper").scrollTop(20);
-                    setTimeout(function(){
-                        $("#customer-update-success").fadeOut();
-                    },5000)
                 }
                 if(data['code'] == "update_failed"){
                     $("#modal-error").modal();
@@ -468,9 +502,6 @@ $(document).ready(function(){
             success:function(data){
                 if(data['code'] == "update_success"){
                     $("#brand-update-success").show();
-                    setTimeout(function(){
-                        $("#brand-update-success").fadeOut();
-                    },5000)
                 }
                 if(data['code'] == "update_failed"){
                     $("#modal-error").modal();
@@ -678,12 +709,6 @@ $(document).ready(function(){
     }());
 });
 
-/*
-Template Name: Monster Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: js
-*/
 $(function() {
     "use strict";
     $(function() {

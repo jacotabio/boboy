@@ -93,7 +93,7 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
                                                         <span style="font-weight:600;">Service Fee</span>
                                                     </div>
                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                        <span class="float-right"><?php $sf = $fee->get_service_fee(); echo $currency.$sf;?></span>
+                                                        <span class="float-right"><?php $sf = $fee->get_service_fee(); echo $currency.number_format($sf,2);?></span>
                                                     </div>
                                                 </div>
                                             </li>
