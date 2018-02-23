@@ -15,7 +15,6 @@ $item = new Items();
 $auth = new Auth();
 $brand = new Brands();
 $order = new Orders();
-
 // Global variables
 $brandname = "Boboy";
 $currency = "₱";

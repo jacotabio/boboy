@@ -194,7 +194,7 @@ INSERT INTO `users` (`usr_id`, `usr_name`, `usr_email`, `usr_password`, `usr_aut
 	(2, 'John Carlo H. Octabio', 'jacotabio@gmail.com', '924c7653b61c3f43be726a0300a6f819', 1, 1, '', 0, '#22 Clayton Street, St. Francis Village, Brgy. Taculing, Bacolod City', '09437095891', 0, 0),
 	(26, 'SleepNot', 'sleepnot@gmail.com', 'e049a162fbb91145da951b0c438c7b2f', 2, 1, 'img/logo.png', 14, 'The Palms, 18th Street Lacson, Bacolod City', '09123456789', 0, 0),
 	(27, 'Starbucks', 'coffee@starbucks.com', 'f116acfe9147494063e58da666d1d57e', 2, 1, '', 15, '18th St. Lacson, Bacolod, 6100 Negros Occidental', '09437095893', 0, 0),
-	(1, 'admin', '', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0, '', 'N/A', 1, 0),
+	(1, 'admin', '', 'e0ee52e667d352491a2b8baea5336e08', 0, 0, '', 0, '', 'N/A', 1, 0),
 	(35, 'BLK6 LT14', 'blk6lt14@gmail.com', 'a3dcb4d229de6fde0db5686dee47145d', 2, 1, '', 17, 'Unit 1D Nolan Building, San Agustin Drive, Barangay 5, Bacolod City, Bacolod, 6100 Negros Occidental', '4331234', 0, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
