@@ -62,7 +62,18 @@ class Chats{
     return $stat;
   }
 
+  public function admin_chat_counter($bid){
+    $sth = $this->db->prepare("SELECT COUNT(msg_id) AS total FROM messages,conversations WHERE usr_id = 1 AND brand_id = ? AND sender_id = 1 AND msg_open = 1");
+    $sth->bindParam(1,$bid);
+    $sth->execute();
+    $row = $sth->fetch(PDO::FETCH_ASSOC);
+    return $row['total'];
+  }
   public function retrieve_messages($cid){
+    $upd = $this->db->prepare("UPDATE messages SET msg_open = 0 WHERE convo_id = ? AND msg_open = 1");
+    $upd->bindParam(1,$cid);
+    $upd->execute();
+
     $query = $this->db->prepare("SELECT * FROM messages WHERE convo_id = ? ORDER BY created_at ASC");
     $query->bindParam(1,$cid);
     $query->execute();
@@ -141,4 +152,35 @@ class Chats{
     }
   }
   
+
+  public function send_to_admin($bid,$msg){
+    $chk = $this->db->prepare("SELECT convo_id FROM conversations WHERE usr_id = 1 AND brand_id = ?");
+    $chk->bindParam(1,$bid);
+    $chk->execute();
+    $row = $chk->fetch(PDO::FETCH_ASSOC);
+    $cid = $row['convo_id'];
+    
+    $count = $chk->rowCount();
+
+    if($count == 0){
+      //create convo
+      $c = $this->db->prepare("INSERT INTO conversations(usr_id,brand_id,created_at) VALUES(1,?,NOW())");
+      $c->bindParam(1,$bid);
+      $c->execute();
+      $convo_id = $this->db->lastInsertId();
+
+      $send = $this->db->prepare("INSERT INTO messages(convo_id,msg,sender_id,created_at,show_notif) VALUES(?,?,?,NOW(),1)");
+      $send->bindParam(1,$convo_id);
+      $send->bindParam(2,$msg);
+      $send->bindParam(3,$bid);
+      return $send->execute();
+    }else{
+      //send message
+      $send = $this->db->prepare("INSERT INTO messages(convo_id,msg,sender_id,created_at,show_notif) VALUES(?,?,?,NOW(),1)");
+      $send->bindParam(1,$cid);
+      $send->bindParam(2,$msg);
+      $send->bindParam(3,$bid);
+      return $send->execute();
+    }
+  }
 }

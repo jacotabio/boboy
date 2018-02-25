@@ -704,6 +704,7 @@ $(document).ready(function(){
     
     // Realtime Dynamic Refresh
     (function realtimeCheck() {
+        loadChat(b_chatid);
         loadOrderItems(order_id);
        setTimeout(realtimeCheck, 5000);
     }());

@@ -63,8 +63,8 @@ foreach($load as $_l);
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div id="dashboard-msgs" class="huge"><?php echo $_l['admin_msg'];?></div>
-                                    <div>Boboy Messages</div>
+                                    <div id="dashboard-msgs" class="huge"><?php echo $_l['total_orders'];?></div>
+                                    <div>Total Orders</div>
                                 </div>
                             </div>
                         </div>

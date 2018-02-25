@@ -62,7 +62,7 @@ $currency = "₱";
             <a class="navbar-brand" href="/" style="margin-top:0;padding-top:12px;"><img src="img/logo.png" height="25px"></a>
             <?php
             }else{?>
-            <a class="navbar-brand example6" href="/?mod=cpanel"></a>
+            <a class="navbar-brand" href="/?mod=cpanel" style="margin-top:0;padding-top:12px;"><img src="img/logo.png" height="25px"></a>
             <?php
             }
             ?>

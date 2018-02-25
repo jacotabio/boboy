@@ -35,7 +35,7 @@ function time_elapsed_string($datetime, $full = false) {
     return $string ? implode(', ', $string) . ' ago' : 'Just now';
   }
 
-if(isset($_POST['chat_content'])){ 
+if(isset($_POST['chat_content'])){
     $g = $chat->get_convo($_POST['user_id'],$_SESSION['brand_id']);
     if($g){
         $m = $chat->retrieve_messages($g);?>

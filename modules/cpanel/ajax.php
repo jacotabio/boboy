@@ -5,10 +5,12 @@ include '../../classes/class.users.php';
 include '../../classes/class.auth.php';
 include '../../classes/class.brands.php';
 include '../../classes/class.orders.php';
+include '../../classes/class.chats.php';
 
 $item = new Items();
 $brand = new Brands();
 $user = new Users();
+$chat = new Chats();
 $order = new Orders();
 
 function time_elapsed_string($datetime, $full = false) {
@@ -58,6 +60,69 @@ if(isset($_POST['change_status'])){
   }
 }
 
+if(isset($_POST['chat-admin'])){
+    if($chat->send_to_admin($_SESSION['brand_id'],$_POST['message'])){
+      echo "message_sent";
+    }else{
+      echo "message_failed";
+    }
+}
+
+if(isset($_POST['admin_chat_counter'])){
+  echo $chat->admin_chat_counter($_SESSION['brand_id']);
+}
+
+if(isset($_POST['cpanel_admin_chat'])){
+                $g = $chat->get_convo(1,$_SESSION['brand_id']);
+                if($g){
+                    $m = $chat->retrieve_messages($g);?>
+              <div class="wadafak" style="background:rgba(0,0,0,0.02);border:1px solid #ededed;">
+                <ul class="chat" style="margin:0;padding:8px 16px;min-height:300px;max-height: 300px;overflow-y: auto;">
+                <?php 
+                foreach($m as $_m){
+                    if($_m['sender_id'] == $_SESSION['brand_id']){
+                ?>
+                    <li class="right no-gap">
+                        <span class="chat-img pull-right">
+                        <img src="http://placehold.it/40/eaeaea/666&text=ME" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div style="margin-top:5px;">
+                                <div style="display:inline-block;width:100%;">
+                                    <p class="pull-right"><?php echo $_m['msg'];?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <?php
+                    }else{?>
+                    <li class="left no-gap">
+                        <span class="chat-img pull-left">
+                        <img src="http://placehold.it/40/317ecc/fff&text=<?php echo $firstCharacter = ucfirst(substr($user->get_name($_m['sender_id']), 0, 1));?>" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('m/d/y g:i A');?>" data-placement="left" class="img-circle" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div style="margin-top:5px">
+                                <div style="display:inline-block; width:100%;">
+                                    <p class="pull-left"><?php echo $_m['msg']?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <?php
+                    }
+                }
+                ?>
+                </ul>
+              </div>
+              <?php
+                }else{?>
+                    <div style="text-align: center;border:1px solid #ddd;padding-top:150px;padding-bottom: 150px;">
+                        <span style="font-size:11px;text-align: center;">No message yet</span>
+                    </div>
+                <?php
+                }
+}
+
 if(isset($_POST['oi_remove'])){
   if($sesh == true){
     echo $order->remove_oi($_POST['oi_id'],$_POST['order_id'],$_SESSION['brand_id']);
@@ -81,7 +146,6 @@ if(isset($_POST['order_dash'])){
   $array['pending'] = $a['t_pending'];
   $array['ongoing'] = $a['t_ongoing'];
   $array['total'] = $a['t_total'];
-  $array['msgs'] = $a['admin_msg'];
   echo json_encode($array);
 }
 

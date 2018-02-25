@@ -15,7 +15,7 @@ class Dashboard{
 		$sth = $this->db->prepare("SELECT 
   (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 0) AS t_pending,
   (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ? AND oi_status = 1 AND oi_delivery != 2) AS t_ongoing,
-  (SELECT COUNT(msg_id) FROM conversations,messages WHERE brand_id = ? AND usr_id = 1 AND conversations.convo_id = messages.convo_id AND sender_id = 1 AND msg_open = 0) AS admin_msg");
+  (SELECT COUNT(DISTINCT orders.order_id) FROM orders,oitem,items WHERE orders.order_id = oitem.order_id AND items.item_id = oitem.item_id AND items.brand_id = ?) AS total_orders");
 		$sth->bindParam(1,$id);
 		$sth->bindParam(2,$id);
 		$sth->bindParam(3,$id);

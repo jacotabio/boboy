@@ -152,7 +152,7 @@ function orderDashboard(){
       // dashboard badges
       $("#dashboard-pending").html(d['pending']);
       $("#dashboard-ongoing").html(d['ongoing']);
-      $("#dashboard-msgs").html(d['msgs']);
+      $("#dashboard-msgs").html(d['total']);
     }
   });
 }
@@ -226,6 +226,41 @@ function showActiveShops(){
       $("#active-shops-container").html(data);
       //alert("asd");
       //setTimeout(showActiveShops,2000);
+    }
+  });
+}
+function adminChatCounter(){
+  $.ajax({
+    url: "modules/cpanel/ajax.php",
+    method: "POST",
+    data:{
+      "admin_chat_counter":1
+    },
+    success:function(data){
+      if(data != 0){
+        $("#admin-counter").html(data);
+      }
+    }
+  });
+}
+function adminChat(){
+  $.ajax({
+    url: "modules/cpanel/ajax.php",
+    method: "POST",
+    data: {
+      "cpanel_admin_chat":1,
+    },
+    success:function(data){
+      if(current != data){
+        current = data;
+        $("#chat-admin-wrapper").html(current);
+        setTimeout(function(){
+          $(".chat").animate({ scrollTop: $('.chat').prop("scrollHeight")}, 0);
+        },0);
+      }
+      
+      
+      //$("#chat-admin-wrapper").html(data);
     }
   });
 }
@@ -348,14 +383,38 @@ if(order_id==null){
 }
 showShopStatus();
  // DOCUMENT READY //
+if(getUrlParameter('mod') == "cpanel" & getUrlParameter('t') == "messages"){
+    adminChat();
+}
 
 $(document).ready(function(){
   checkSession();
+
+  
 
   // CPanel Order ID  
   if(order_id && getUrlParameter('t') != "orders"){
     window.location = "/?mod="+getUrlParameter('mod');;
   }
+  $("#form-chat-admin").on("submit",function(e){
+    e.preventDefault();
+    var data = $(this).serializeArray();
+    data.push({name: "chat-admin", value: 1});
+    if ( $.trim( data[0]['value'] ) == '' ){
+      alert('input is blank');
+    }else{
+      $.ajax({
+        url: "modules/cpanel/ajax.php",
+        method: "POST",
+        data: data,
+        success:function(data){
+          if(data == "message_sent"){
+            adminChat();
+          }
+        }
+      });
+    }
+  });
   $("#form-brand-chat").on("submit",function(e){
     e.preventDefault();
     var msg = $("#chat-input-message").val();
@@ -381,9 +440,14 @@ $(document).ready(function(){
     }
   });
 
+  $("body").on("click", "#admin-chat", function(e){
+    alert("asd");
+  });
+
   $("body").on("click",".cart-row",function(e){
     remove_cart_show($(this).attr("id"));
   });
+
   $("#form-user-chat").on("submit",function(e){
     e.preventDefault();
     var msg = $("#chat-input-message").val();
@@ -1236,14 +1300,17 @@ $(document).ready(function(){
   // Realtime Chat Refresh
   (function chatRealtime() {
     checknotif();
+    adminChatCounter();
     if(getUrlParameter('mod') && getUrlParameter('t')=="orders" && getUrlParameter('o_id')){
       if(user_id != null && brand_id == null){
-        
         loadChat(user_id);
       }
       if(user_id == null & brand_id != null){
         loadUserChat(brand_id);
       }
+    }
+    if(getUrlParameter('mod') == "cpanel" && getUrlParameter('t') == "messages"){
+      adminChat();
     }
      setTimeout(chatRealtime, 3000);
   }());
