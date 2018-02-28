@@ -18,8 +18,8 @@ if(!$user->get_session()){
           <div class="sidebar hidden-xs" style="margin-bottom: 16px;">
             
             <ul class="nav nav-stacked" style="background-color:#f9f9f9; ">
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=profile&t=orders'>Orders<span class="badge pull-right"></span><?php if($t == "orders"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
-              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=profile&t=account'>Account<?php if($t == "account"){?><span class="pull-right glyphicon glyphicon-menu-right"></span><?php }?></a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=profile&t=orders'>Orders<span class="badge pull-right"></span></a></li>
+              <li class="bordered-s no-gap"><a class="thick washed roboto" href='/?mod=profile&t=account'>Account</a></li>
             </ul>
           </div>
           <!-- End of Sidenav -->

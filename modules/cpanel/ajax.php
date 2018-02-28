@@ -76,8 +76,8 @@ if(isset($_POST['cpanel_admin_chat'])){
                 $g = $chat->get_convo(1,$_SESSION['brand_id']);
                 if($g){
                     $m = $chat->retrieve_messages($g);?>
-              <div class="wadafak" style="background:rgba(0,0,0,0.02);border:1px solid #ededed;">
-                <ul class="chat" style="margin:0;padding:8px 16px;min-height:300px;max-height: 300px;overflow-y: auto;">
+              <div>
+                <ul id="chat-scroll" class="chat">
                 <?php 
                 foreach($m as $_m){
                     if($_m['sender_id'] == $_SESSION['brand_id']){

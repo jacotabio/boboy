@@ -68,6 +68,13 @@
     overflow-y: scroll;
     height: 300px;
 }
+.chat-panel-body-admin
+{
+    overflow-y: scroll;
+    height: 300px;
+
+}
+
 .img-circle{
     width:40px;
     background-color:#fff;

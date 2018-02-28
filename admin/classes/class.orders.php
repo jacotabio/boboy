@@ -11,6 +11,17 @@ class Orders{
     }
   }
 
+  public function dashboard_data(){
+    $sth = $this->db->prepare("SELECT (SELECT SUM(order_total+custom_fee) FROM orders WHERE DATE(`created_at`) = CURDATE()) AS sales_today, (SELECT SUM(order_total+custom_fee) FROM orders) AS total_sales, (SELECT COUNT(order_id) FROM orders WHERE DATE(`created_at`) = CURDATE()) AS orders_today, (SELECT COUNT(order_id) FROM orders) AS total_orders");
+    $sth->execute();
+
+    while($row = $sth->fetch(PDO::FETCH_ASSOC)){
+      $list[] = $row;
+    }
+    if(!empty($list)){
+      return $list;
+    }
+  }
   public function create_order($name,$address,$phone,$fee){
     $sth = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_name,custom_fee) VALUES(NOW(),'1',?,?,?,?)");
     $uid = 1;

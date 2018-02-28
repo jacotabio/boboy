@@ -250,7 +250,7 @@ $currency = "₱";
         </div>
         <div class="second-bar">
            <div class="container">
-                <span style="width: 10px;">Copyright 2017</span>
+                <span style="width: 10px;">Boboy © 2017</span>
                 <div class="" style="margin:0;padding:0;">
                     <a href="#" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
                     <a href="https://www.facebook.com/iamsleepnot/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>

@@ -244,6 +244,7 @@ function adminChatCounter(){
   });
 }
 function adminChat(){
+  var cac = $("#chat-admin-content");
   $.ajax({
     url: "modules/cpanel/ajax.php",
     method: "POST",
@@ -251,16 +252,18 @@ function adminChat(){
       "cpanel_admin_chat":1,
     },
     success:function(data){
-      if(current != data){
-        current = data;
-        $("#chat-admin-wrapper").html(current);
-        setTimeout(function(){
-          $(".chat").animate({ scrollTop: $('.chat').prop("scrollHeight")}, 0);
-        },0);
+      if(current == null || current == ""){
+        setTimeout(function() {
+          $(".chat-panel-body-admin").animate({ scrollTop: $('.chat-panel-body-admin').prop("scrollHeight")}, 250);
+        }, 500);
       }
-      
-      
-      //$("#chat-admin-wrapper").html(data);
+      if(current != data) {
+        current = data;
+        cac.html(data);
+        setTimeout(function(){
+          $(".chat-panel-body-admin").animate({ scrollTop: $('.chat-panel-body-admin').prop("scrollHeight")}, 250);
+        },100);
+      }
     }
   });
 }
@@ -409,6 +412,7 @@ $(document).ready(function(){
         data: data,
         success:function(data){
           if(data == "message_sent"){
+            $("#chat-input-admin").val("");
             adminChat();
           }
         }
@@ -423,7 +427,6 @@ $(document).ready(function(){
     }else{
       var data = $(this).serializeArray();
       data.push({name: 'user_id', value: user_id});
-      $("#chat-input-message").val("");
       $.ajax({
         url:"modules/chat/send_message.php",
         method:"POST",
@@ -431,6 +434,7 @@ $(document).ready(function(){
         success:function(data){
           if(data == "message_sent"){
             loadChat(user_id);
+            $("#chat-input-message").val("");
           }
           if(data == "message_failed"){
             alert("An error has occured. Please try again.");
@@ -555,7 +559,6 @@ $(document).ready(function(){
   });
   function loadChat(user_id){
     var cac = $("#chat-ajax-content");
-    current_content = cac.html();
     $.ajax({
       url: "modules/chat/ajax.php",
       method: "POST",
@@ -581,7 +584,6 @@ $(document).ready(function(){
   }
   function loadUserChat(brand_id){
     var cac = $("#chat-ajax-content");
-    current_content = cac.html();
     $.ajax({
       url: "modules/chat/ajax.php",
       method: "POST",
