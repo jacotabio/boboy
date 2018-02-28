@@ -1,6 +1,6 @@
 # Prevent Apache from serving .ht* files:
 Options -Indexes
-ErrorDocument 404 http://localhost/
-ErrorDocument 403 http://localhost/
+ErrorDocument 404 http://localhost/error.php
+ErrorDocument 403 http://localhost/error.php
 
 
