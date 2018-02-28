@@ -195,10 +195,6 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
 					</div>
 				</div>
 				<div class="content-footer">
-					<p>
-						Page © - 2016 <br>
-						Powered By <a href="https://www.facebook.com/tavo.qiqe.lucero" target="_blank">TavoQiqe</a>
-					</p>
 				</div>
 			</div>
 		</section>

@@ -22,6 +22,7 @@ class Chats{
     if(!empty($row['cid'])){
       return $row['cid'];
     }
+    $this->db = null;
   }
   
   public function updateNotif($id){
@@ -40,6 +41,7 @@ class Chats{
 			$stat[1] = $ex->getMessage();
 			return $stat;
 		}
+    $this->db = null;
   }
   
   public function user_all_convo($uid){
@@ -50,6 +52,7 @@ class Chats{
     $stat[1] = $query->fetchAll(PDO::FETCH_ASSOC);
     $stat[2] = $query->rowCount();
     return $stat;
+    $this->db = null;
   }
 
   public function brand_all_convo($bid){
@@ -60,6 +63,7 @@ class Chats{
     $stat[1] = $query->fetchAll(PDO::FETCH_ASSOC);
     $stat[2] = $query->rowCount();
     return $stat;
+    $this->db = null;
   }
 
   public function admin_chat_counter($bid){
@@ -68,6 +72,7 @@ class Chats{
     $sth->execute();
     $row = $sth->fetch(PDO::FETCH_ASSOC);
     return $row['total'];
+    $this->db = null;
   }
   public function retrieve_messages($cid){
     $upd = $this->db->prepare("UPDATE messages SET msg_open = 0 WHERE convo_id = ? AND msg_open = 1");
@@ -84,6 +89,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function all_messages($cid,$id){
@@ -98,6 +104,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function shops_for_chat($oid){
@@ -111,6 +118,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function send_message($uid,$bid,$msg,$utype){
@@ -150,6 +158,7 @@ class Chats{
       $send->execute();
       return true;
     }
+    $this->db = null;
   }
   
 
@@ -182,5 +191,6 @@ class Chats{
       $send->bindParam(3,$bid);
       return $send->execute();
     }
+    $this->db = null;
   }
 }

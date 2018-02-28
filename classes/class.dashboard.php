@@ -27,5 +27,6 @@ class Dashboard{
 		if(!empty($list)){
 			return $list;
 		}
+		$this->db = null;
 	}
 }

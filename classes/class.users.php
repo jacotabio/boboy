@@ -24,6 +24,7 @@ class Users{
       }else{
         return false;
       }
+      $this->db = null;
       
     }
 
@@ -38,6 +39,7 @@ class Users{
       }else if($row['usr_status'] == 0){
         return "disabled";
       }
+      $this->db = null;
     }
 
     public function update_password($val,$uid){
@@ -45,6 +47,7 @@ class Users{
       $sth->bindParam(1,$val);
       $sth->bindParam(2,$uid);
       return $sth->execute();
+      $this->db = null;
     }
     public function check_password($val,$uid){
       $sth = $this->db->prepare("SELECT usr_password FROM users WHERE usr_id = ?");
@@ -56,6 +59,7 @@ class Users{
       }else{
         return false;
       }
+      $this->db = null;
     }
     public function account_update($name,$email,$phone,$address,$id){
       $chk = $this->db->prepare("SELECT COUNT(usr_id) AS total FROM users WHERE usr_email = ?");
@@ -74,7 +78,9 @@ class Users{
         return $sth->execute();
       }else{
         return false;
+
       }
+      $this->db = null;
     }
 
     public function brand_update($name,$email,$phone,$address,$id,$bid){
@@ -100,6 +106,7 @@ class Users{
       }else{
         return false;
       }
+      $this->db = null;
     }
 
     public function get_session(){
@@ -109,6 +116,7 @@ class Users{
       else{
         return false;
       }
+      $this->db = null;
     }
 
     public function chk_email_exists($str){
@@ -116,12 +124,14 @@ class Users{
       $query->bindParam(1,$str);
       $query->execute();
       return $query->rowCount();
+      $this->db = null;
     }
 
     public function remove_cart_unavailable($bid){
       $query = $this->db->prepare("DELETE cart FROM cart INNER JOIN items ON cart.item_id = items.item_id WHERE brand_id = ?");
       $query->bindParam(1,$bid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function get_name($id){
@@ -130,6 +140,7 @@ class Users{
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
       return $row['usr_name'];
+      $this->db = null;
       
     }
     public function get_brand_name($id){
@@ -138,6 +149,7 @@ class Users{
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
       return $row['usr_name'];
+      $this->db = null;
       
     }
 
@@ -147,6 +159,7 @@ class Users{
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
       return $row;
+      $this->db = null;
     }
 
     public function register_credentials($name,$email,$pwd,$address,$phone){
@@ -162,6 +175,7 @@ class Users{
       $query->bindParam(7,$phone);
       $query->execute();
       return $this->db->lastInsertId();
+      $this->db = null;
     }
 
     public function place_brand_id($bid,$uid){
@@ -169,6 +183,7 @@ class Users{
       $query->bindParam(1,$bid);
       $query->bindParam(2,$uid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function check_login($email,$password){
@@ -196,6 +211,7 @@ class Users{
       }else{
         return $userdata['usr_banned'];
       }
+      $this->db = null;
     }
 
 }

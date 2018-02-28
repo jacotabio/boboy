@@ -20,6 +20,7 @@ class Brands{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function change_brand_status($bid,$status,$checker){
@@ -28,12 +29,14 @@ class Brands{
     $query->bindParam(2,$checker);
     $query->bindParam(3,$bid);
     $query->execute();
+    $this->db = null;
   }
 
   public function offline_status($bid){
     $sth = $this->db->prepare("UPDATE brands SET brand_status = 0 WHERE brand_id = ?");
     $sth->bindParam(1,$bid);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function check_account($id){
@@ -47,6 +50,7 @@ class Brands{
       }else if($row['usr_status'] == 0){
         return "disabled";
       }
+      $this->db = null;
   }
   
   public function realtime_brand_checker(){
@@ -59,7 +63,7 @@ class Brands{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
 
@@ -73,7 +77,7 @@ class Brands{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   
@@ -92,5 +96,6 @@ class Brands{
     $query->bindParam(1,$value);
     $query->execute();
     return $this->db->lastInsertId();
+    $this->db = null;
   }
 }

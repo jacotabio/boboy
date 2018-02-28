@@ -22,6 +22,7 @@ class Chats{
     if(!empty($row['cid'])){
       return $row['cid'];
     }
+    $this->db = null;
   }
 
   public function get_name($id){
@@ -34,6 +35,7 @@ class Chats{
     if(!empty($row['usr_name'])){
       return $row['usr_name'];
     }
+    $this->db = null;
   }
   
   public function updateNotif($id){
@@ -52,6 +54,7 @@ class Chats{
 			$stat[1] = $ex->getMessage();
 			return $stat;
 		}
+    $this->db = null;
   }
   
   public function user_all_convo($uid){
@@ -62,6 +65,7 @@ class Chats{
     $stat[1] = $query->fetchAll(PDO::FETCH_ASSOC);
     $stat[2] = $query->rowCount();
     return $stat;
+    $this->db = null;
   }
 
   public function brand_all_convo($bid){
@@ -72,6 +76,7 @@ class Chats{
     $stat[1] = $query->fetchAll(PDO::FETCH_ASSOC);
     $stat[2] = $query->rowCount();
     return $stat;
+    $this->db = null;
   }
 
   public function retrieve_messages($cid){
@@ -85,6 +90,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function all_messages($cid,$id){
@@ -99,6 +105,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function shops_for_chat($oid){
@@ -112,6 +119,7 @@ class Chats{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function send_message($uid,$bid,$msg){
@@ -146,6 +154,7 @@ class Chats{
       $send->execute();
       return true;
     }
+    $this->db = null;
   }
 
 }

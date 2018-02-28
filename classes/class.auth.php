@@ -20,5 +20,6 @@ class Auth{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 }

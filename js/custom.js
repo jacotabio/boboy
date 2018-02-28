@@ -1298,11 +1298,20 @@ $(document).ready(function(){
   
     }
   };
-  checknotif();
+  // Realtime Chat Refresh
+  (function notifInterval() {
+    if(getUrlParameter('mod') && getUrlParameter('t') != 'messages'){
+      //alert("wasup");
+      adminChatCounter();
+      checknotif();
+    }
+     setTimeout(notifInterval, 6000);
+  }());
+
+
   // Realtime Chat Refresh
   (function chatRealtime() {
-    checknotif();
-    adminChatCounter();
+    
     if(getUrlParameter('mod') && getUrlParameter('t')=="orders" && getUrlParameter('o_id')){
       if(user_id != null && brand_id == null){
         loadChat(user_id);
@@ -1313,15 +1322,16 @@ $(document).ready(function(){
     }
     if(getUrlParameter('mod') == "cpanel" && getUrlParameter('t') == "messages"){
       adminChat();
+      //alert("load admin chat");
     }
-     setTimeout(chatRealtime, 3000);
+     setTimeout(chatRealtime, 5000);
   }());
 });
 
 // Realtime Dynamic Refresh
 (function realtimeCheck() {
   checkSession();
-  orderDashboard();
+  //orderDashboard();
   if(getUrlParameter('mod') == "shop"){
     showActiveShops();
     displayShopItems(getUrlParameter('brand'),getUrlParameter('search'));
@@ -1334,6 +1344,7 @@ $(document).ready(function(){
   if(getUrlParameter('mod') == "profile" && getUrlParameter('t') == "orders"){
     if(getUrlParameter('o_id') != null){
       orderInfo();
+      alert("load order info");
     }
   }
    setTimeout(realtimeCheck, 10000);

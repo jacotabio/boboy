@@ -21,7 +21,7 @@ class Items{
         $list[] = $row;
       }
       return $list;
-      $db = null;
+      $this->db = null;
     }
 
     public function get_unavailable_items(){
@@ -35,7 +35,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
-      $db = null;
+      $this->db = null;
     }
 
     
@@ -47,6 +47,7 @@ class Items{
       $row = $query->fetch(PDO::FETCH_ASSOC);
       $value = $row['brand_name'];
       return $value;
+      $this->db = null;
     }
 
     public function get_item_name($id){
@@ -56,6 +57,7 @@ class Items{
       $row = $query->fetch(PDO::FETCH_ASSOC);
       $value = $row['item_name'];
       return $value;
+      $this->db = null;
     }
 
     public function check_item_status($id){
@@ -65,6 +67,7 @@ class Items{
       $row = $query->fetch(PDO::FETCH_ASSOC);
       $value = $row['item_status'];
       return $value;
+      $this->db = null;
     }
 
     public function get_shop_items(){
@@ -76,6 +79,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function get_shop_items_search($search){
@@ -91,7 +95,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
-      $db = null;
+      $this->db = null;
     }
 
     public function get_shop_items_search_and_brand($search,$bid){
@@ -108,7 +112,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
-      $db = null;
+      $this->db = null;
     }
 
     public function get_shop_items_by_brand($id){
@@ -121,6 +125,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function check_availability($id){
@@ -130,6 +135,7 @@ class Items{
       $row = $query->fetch(PDO::FETCH_ASSOC);
       $value = $row['item_name'];
       return $value;
+      $this->db = null;
     }
 
     public function get_home_items(){
@@ -141,6 +147,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function get_item_and_brand($id,$bid){
@@ -154,6 +161,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function create_order($usr_id,$address,$contact,$fee){
@@ -164,6 +172,7 @@ class Items{
       $query->bindParam(4,$fee);
       $query->execute();
       return $this->db->lastInsertId();
+      $this->db = null;
     }
 
     public function insert_order($oid,$item,$qty,$subtotal,$usr){
@@ -174,6 +183,7 @@ class Items{
       $query->bindParam(4,$subtotal);
       $query->bindParam(5,$usr);
       return $query->execute();
+      $this->db = null;
     }
 
     public function get_item($id){
@@ -186,6 +196,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function get_itemview($id,$bid){
@@ -199,6 +210,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function change_img($image,$iid){
@@ -206,6 +218,7 @@ class Items{
       $query->bindParam(1,$image);
       $query->bindParam(2,$iid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function my_items($bid){
@@ -218,6 +231,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function insert_order_total($oid,$value){
@@ -225,12 +239,14 @@ class Items{
       $query->bindParam(1,$value);
       $query->bindParam(2,$oid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function empty_cart($usr){
       $query = $this->db->prepare("DELETE FROM cart WHERE usr_id = ?");
       $query->bindParam(1,$usr);
       return $query->execute();
+      $this->db = null;
     }
 
     public function check_before_remove($id){
@@ -239,12 +255,14 @@ class Items{
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
       return $row;
+      $this->db = null;
     }
 
     public function remove_from_cart($id){
       $query = $this->db->prepare("DELETE FROM cart WHERE cart_id = ?");
       $query->bindParam(1,$id);
       return $query->execute();
+      $this->db = null;
     }
 
     public function cart_sum_total($id){
@@ -253,6 +271,7 @@ class Items{
       $query->execute();
       $row = $query->fetch(PDO::FETCH_ASSOC);
       return $row['total'];
+      $this->db = null;
     }
     public function get_cart($id){
       $query = $this->db->prepare("SELECT *,cart.usr_id AS cart_user FROM cart,items,brands,users WHERE cart.usr_id = ? AND cart.item_id = items.item_id AND item_status = '1' AND items.brand_id = brands.brand_id AND brands.brand_id = users.brand_id AND usr_status = 1");
@@ -264,6 +283,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
+      $this->db = null;
     }
 
     public function check_user_cart($uid,$iid){
@@ -275,6 +295,7 @@ class Items{
         $list[] = $row;
       }
       return $list;
+      $this->db = null;
     }
 
     public function insert_to_cart($uid,$iid,$qty,$subtotal){
@@ -294,6 +315,7 @@ class Items{
       }else{
         return false;
       }
+      $this->db = null;
     }
 
     public function update_to_cart($uid,$iid,$qty,$subtotal){
@@ -303,6 +325,7 @@ class Items{
       $query->bindParam(3,$uid);
       $query->bindParam(4,$iid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function count_cart($id){
@@ -312,6 +335,7 @@ class Items{
       $row = $query->fetch(PDO::FETCH_ASSOC);
       $value = $row['total'];
       return $value;
+      $this->db = null;
     }
   
     public function update_item($name,$desc,$price,$status,$iid,$bid){
@@ -323,6 +347,7 @@ class Items{
       $query->bindParam(5,$iid);
       $query->bindParam(6,$bid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function delete_item($id,$bid){
@@ -330,6 +355,7 @@ class Items{
       $query->bindParam(1,$id);
       $query->bindParam(2,$bid);
       return $query->execute();
+      $this->db = null;
     }
 
     public function insert_item($name,$desc,$price,$status,$bid){
@@ -341,6 +367,7 @@ class Items{
       $query->bindParam(5,$status);
       $query->execute();
       return $this->db->lastInsertId();
+      $this->db = null;
     }
 
     public function search_items($search){
@@ -356,7 +383,7 @@ class Items{
       if(!empty($list)){
         return $list;
       }
-      $db = null;
+      $this->db = null;
     }
     
     public function shop_search_and_brand($search,$bid){
@@ -371,6 +398,6 @@ class Items{
       if(!empty($list)){
         return $list;
       }
-      $db = null;
+      $this->db = null;
     }
 }

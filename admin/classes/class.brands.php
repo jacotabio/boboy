@@ -21,6 +21,7 @@ class Brands{
   	if(!empty($list)){
   		return $list;
   	}
+    $this->db = null;
   }
 
   public function register_brand($brandname,$email,$password,$address,$phone){
@@ -53,6 +54,7 @@ class Brands{
     }else{
       return false;
     }
+    $this->db = null;
   }
 
   public function ban_account($id){
@@ -63,12 +65,14 @@ class Brands{
     $query = $this->db->prepare("DELETE cart FROM cart INNER JOIN items ON cart.item_id = items.item_id WHERE brand_id = ?");
     $query->bindParam(1,$id);
     return $query->execute();
+    $this->db = null;
   }
 
   public function unban_account($id){
     $sth = $this->db->prepare("UPDATE users SET usr_status = 1 WHERE usr_status = 0 AND brand_id = ?");
     $sth->bindParam(1,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function update_password($id,$password){
@@ -76,6 +80,7 @@ class Brands{
     $sth->bindParam(1,$password);
     $sth->bindParam(2,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function update_brand($id,$name,$email,$phone,$address){
@@ -91,6 +96,7 @@ class Brands{
     $sth2->bindParam(1,$name);
     $sth2->bindParam(2,$id);
     return $sth2->execute();
+    $this->db = null;
   }
 
   public function get_brand_name($id){
@@ -99,12 +105,14 @@ class Brands{
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['brand_name'];
+    $this->db = null;
   }
 
   public function delete_brand($id){
   	$sth = $this->db->prepare("UPDATE users SET is_hidden = 1 WHERE is_hidden = 0 AND brand_id = ?");
   	$sth->bindParam(1,$id);
   	return $sth->execute();
+    $this->db = null;
   }
 
   public function get_brand_details($id){
@@ -114,5 +122,6 @@ class Brands{
 
     $row = $sth->fetch(PDO::FETCH_ASSOC);
     return $row;
+    $this->db = null;
   }
 }

@@ -18,6 +18,7 @@ class Users{
       else{
         return false;
       }
+      $this->db = null;
   }
 
   public function update_customer($id,$name,$email,$phone,$address,$status){
@@ -29,6 +30,7 @@ class Users{
     $sth->bindParam(5,$status);
     $sth->bindParam(6,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function update_password($id,$password){
@@ -36,6 +38,7 @@ class Users{
     $sth->bindParam(1,$password);
     $sth->bindParam(2,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function get_user_details($id){
@@ -45,6 +48,7 @@ class Users{
 
     $row = $sth->fetch(PDO::FETCH_ASSOC);
     return $row;
+    $this->db = null;
   }
 
   public function get_customers(){
@@ -56,6 +60,7 @@ class Users{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function get_customer_name($id){
@@ -64,12 +69,14 @@ class Users{
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['usr_name'];
+    $this->db = null;
   }
 
   public function delete_customer($id){
     $sth = $this->db->prepare("UPDATE users SET is_hidden = 1 WHERE usr_id = ? AND is_hidden = 0");
     $sth->bindParam(1,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function get_brandname($id){
@@ -78,6 +85,7 @@ class Users{
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['brand_name'];
+    $this->db = null;
   }
 
   public function check_login($username,$password){
@@ -100,6 +108,7 @@ class Users{
     else{
       return false;
     }
+    $this->db = null;
   }
 
 }

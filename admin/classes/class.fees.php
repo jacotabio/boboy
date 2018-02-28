@@ -17,12 +17,14 @@ class Fees{
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['fee_price'];
+    $this->db = null;
   }
 
   public function update_fee($amount){
   	$sth = $this->db->prepare("UPDATE fees SET fee_price = ? WHERE fee_id = 1");
   	$sth->bindParam(1,$amount);
   	return $sth->execute();
+    $this->db = null;
   }
   
 }

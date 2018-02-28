@@ -21,6 +21,7 @@ class Items{
     if(!empty($list)){
       return $list;  
     }
+    $this->db = null;
   }
 
   public function insert_oitem($oid,$iid,$qty,$subtotal,$uid){
@@ -31,11 +32,13 @@ class Items{
     $sth->bindParam(4,$subtotal);
     $sth->bindParam(5,$uid);
     $sth->execute();
+    $this->db = null;
   }
 
   public function empty_cart(){
     $sth = $this->db->prepare("DELETE FROM cart WHERE usr_id = 1");
     return $sth->execute();
+    $this->db = null;
   }
 
   public function get_cart(){
@@ -51,12 +54,14 @@ class Items{
     if(!empty($list) && $row['subtotal'] == null){
       return $list;
     }
+    $this->db = null;
   }
 
   public function remove_cart($id){
     $sth = $this->db->prepare("DELETE FROM cart WHERE cart_id = ?");
     $sth->bindParam(1,$id);
     return $sth->execute();
+    $this->db = null;
   }
 
   public function cart_total(){
@@ -64,5 +69,6 @@ class Items{
     $sth->execute();
     $row = $sth->fetch(PDO::FETCH_ASSOC);
     return $row['total'];
+    $this->db = null;
   }
 }

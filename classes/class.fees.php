@@ -17,6 +17,7 @@ class Fees{
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['fee_price'];
+    $this->db = null;
   }
   
 }

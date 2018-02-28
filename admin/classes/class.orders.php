@@ -21,6 +21,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
   public function create_order($name,$address,$phone,$fee){
     $sth = $this->db->prepare("INSERT INTO orders(created_at,usr_id,delivery_address,contact_number,custom_name,custom_fee) VALUES(NOW(),'1',?,?,?,?)");
@@ -31,6 +32,8 @@ class Orders{
     $sth->bindParam(4,$fee);
     $sth->execute();
     return $this->db->lastInsertId();
+    $this->db = null;
+
   }
 
   public function set_order_total($oid,$total){
@@ -38,6 +41,8 @@ class Orders{
     $sth->bindParam(1,$total);
     $sth->bindParam(2,$oid);
     return $sth->execute();
+    $this->db = null;
+
   }
 
   public function delete_order($id){
@@ -48,12 +53,16 @@ class Orders{
     $sth2 = $this->db->prepare("DELETE FROM oitem WHERE order_id = ?");
     $sth2->bindParam(1,$id);
     return $sth2->execute();
+    $this->db = null;
+
   }
 
   public function close_order($id){
     $sth = $this->db->prepare("UPDATE orders SET order_status = 4 WHERE order_id = ? AND order_status = 3");
     $sth->bindParam(1,$id);
     return $sth->execute();
+    $this->db = null;
+
   }
 
   public function add_cart($id,$qty){
@@ -92,6 +101,8 @@ class Orders{
     if($row1['check_item'] == "unavailable"){
       return $row1['check_item'];
     }
+    $this->db = null;
+
   }
   
   public function pending_orders(){
@@ -114,6 +125,8 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
+
   }
 
   public function order_details($id){
@@ -127,6 +140,8 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
+
   }
 
   public function get_oitems($id){
@@ -140,6 +155,8 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
+
   }
 
   public function get_oitems_brands($id){
@@ -153,5 +170,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
+    
   }
 }

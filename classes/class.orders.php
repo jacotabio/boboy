@@ -27,6 +27,7 @@ class Orders{
       $list[] = $row;
     }
     return $list;
+    $this->db = null;
     //return $pending = $row['t_pending'];
   }
   public function pending_brand_orders($bid){
@@ -40,7 +41,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   public function pending_user_orders($id){
@@ -54,24 +55,27 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
   public function accept_cpanel_order($id){
     $query = $this->db->prepare("UPDATE oitem SET oi_status = 1 WHERE oi_id = ? AND oi_status != 2");
     $query->bindParam(1,$id);
     return $query->execute();
+    $this->db = null;
   }
 
   public function ready_cpanel_order($id){
     $query = $this->db->prepare("UPDATE oitem SET oi_delivery = 1 WHERE oi_id = ?");
     $query->bindParam(1,$id);
     return $query->execute();
+    $this->db = null;
   }
 
   public function claim_cpanel_order($id){
     $query = $this->db->prepare("UPDATE oitem SET oi_delivery = 2 WHERE oi_id = ?");
     $query->bindParam(1,$id);
     return $query->execute();
+    $this->db = null;
   }
 
   public function decline_cpanel_order($id,$oid){
@@ -88,6 +92,7 @@ class Orders{
     $deduct->bindParam(1,$value);
     $deduct->bindParam(2,$oid);
     return $deduct->execute();
+    $this->db = null;
   }
 
   public function remove_oi($id,$oid,$bid){
@@ -127,7 +132,7 @@ class Orders{
       return "order_removed";
     }
     
-    
+    $this->db = null;
   }
 
   public function get_order_subtotal($oid,$bid){
@@ -139,6 +144,7 @@ class Orders{
     $row = $query->fetch(PDO::FETCH_ASSOC);
     $subtotal = $row['subtotal'];
     return $subtotal;
+    $this->db = null;
   }
 
   public function get_order_details($oid,$bid){
@@ -153,7 +159,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   public function shop_oitems_id($oid,$bid){
@@ -170,7 +176,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   public function get_order_datetime($oid){
@@ -181,6 +187,7 @@ class Orders{
     $row = $query->fetch(PDO::FETCH_ASSOC);
     $value = $row['created_at'];
     return $value;
+    $this->db = null;
   }
 
   public function count_total_items($oid){
@@ -191,6 +198,7 @@ class Orders{
     $row = $query->fetch(PDO::FETCH_ASSOC);
     $value = $row['total_items'];
     return $value;
+    $this->db = null;
   }
 
   public function get_order_items($oid,$uid){
@@ -205,6 +213,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function get_approved_items($oid,$uid){
@@ -219,6 +228,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
+    $this->db = null;
   }
 
   public function count_pending_items($oid){
@@ -228,6 +238,7 @@ class Orders{
 
     $row = $q1->fetch(PDO::FETCH_ASSOC);
     return $row['total_pending'];
+    $this->db = null;
   }
 
   public function cancel_order($oid,$total){
@@ -249,6 +260,7 @@ class Orders{
       $q3->execute();
       return "order_cancelled";
     }
+    $this->db = null;
   }
 
   public function count_total_declined($oid){
@@ -259,36 +271,42 @@ class Orders{
     $row = $query->fetch(PDO::FETCH_ASSOC);
     $value = $row['total_declined'];
     return $value;
+    $this->db = null;
   }
 
   public function approve_order_status($oid){
     $query = $this->db->prepare("UPDATE orders SET order_status = 1 WHERE order_id = ?");
     $query->bindParam(1,$oid);
     return $query->execute();
+    $this->db = null;
   }
 
   public function order_pending_complete($oid){
     $query = $this->db->prepare("UPDATE orders SET order_status = 1 WHERE order_id = ?");
     $query->bindParam(1,$oid);
     return $query->execute();
+    $this->db = null;
   }
 
   public function ready_order_status($oid){
     $query = $this->db->prepare("UPDATE orders SET order_status = 2 WHERE order_id = ?");
     $query->bindParam(1,$oid);
     return $query->execute();
+    $this->db = null;
   }
 
   public function claim_order_status($oid){
     $query = $this->db->prepare("UPDATE orders SET order_status = 3 WHERE order_status = 2 AND order_id = ?");
     $query->bindParam(1,$oid);
     return $query->execute();
+    $this->db = null;
   }
 
   public function decline_order_status($oid){
     $query = $this->db->prepare("UPDATE orders SET order_status = 5 WHERE order_id = ?");
     $query->bindParam(1,$oid);
     return $query->execute();
+    $this->db = null;
   }
 
   public function approval_status($oid,$bid){
@@ -327,6 +345,7 @@ class Orders{
     }else{
       return "Pending";
     }
+    $this->db = null;
   }
 
   public function order_status($oid,$bid){
@@ -354,6 +373,7 @@ class Orders{
     }else{
       return "Pending";
     } 
+    $this->db = null;
   }
 
   public function check_order_votes($oid,$bid){
@@ -363,6 +383,7 @@ class Orders{
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['votes'];
+    $this->db = null;
   }
 
   public function check_ready_votes($oid,$bid){
@@ -372,6 +393,7 @@ class Orders{
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['votes'];
+    $this->db = null;
   }
 
   public function check_claim_votes($oid,$bid){
@@ -381,6 +403,7 @@ class Orders{
 
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $row['votes'];
+    $this->db = null;
   }
 
   public function get_order_customer_info($oid,$bid){
@@ -395,7 +418,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   public function user_order_status($oid,$uid){
@@ -405,6 +428,7 @@ class Orders{
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
     return $status = $row['order_status'];
+    $this->db = null;
   }
 
   public function user_order_info($oid,$uid){
@@ -419,7 +443,7 @@ class Orders{
     if(!empty($list)){
       return $list;
     }
-    $db = null;
+    $this->db = null;
   }
 
   public function get_delivery_status($oid,$bid){
@@ -457,8 +481,6 @@ class Orders{
     }else{
       return "Pending";
     }
-    
-
-    
+    $this->db = null;
   }
 }
