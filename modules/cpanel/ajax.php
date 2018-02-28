@@ -84,7 +84,7 @@ if(isset($_POST['cpanel_admin_chat'])){
                 ?>
                     <li class="right no-gap">
                         <span class="chat-img pull-right">
-                        <img src="http://placehold.it/40/eaeaea/666&text=ME" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" />
+                        <img src="<?php echo $_m['usr_img'];?>" data-placement="right" class="img-circle img-responsive chat-img" />
                         </span>
                         <div class="chat-body clearfix">
                             <div style="margin-top:5px;">
@@ -98,7 +98,7 @@ if(isset($_POST['cpanel_admin_chat'])){
                     }else{?>
                     <li class="left no-gap">
                         <span class="chat-img pull-left">
-                        <img src="http://placehold.it/40/317ecc/fff&text=<?php echo $firstCharacter = ucfirst(substr($user->get_name($_m['sender_id']), 0, 1));?>" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('m/d/y g:i A');?>" data-placement="left" class="img-circle" />
+                        <img src="img/logo - icon.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('m/d/y g:i A');?>" data-placement="left" class="img-circle" />
                         </span>
                         <div class="chat-body clearfix">
                             <div style="margin-top:5px">

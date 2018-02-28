@@ -6,6 +6,15 @@ body{
   font-family: 'Roboto';
   letter-spacing: 0.01em;
 }
+.bg-header{
+  padding-top: 200px;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+  url('../img/coffee-header.jpg'); /* W3C */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom:200px;
+}
 .main{
   margin-top: 50px;
 }
@@ -73,21 +82,7 @@ body{
   font-family: 'Roboto';
   font-size: 14px;
 }
-.bg-header{
-  padding-top: 200px;
-  background: 
-  /* top, transparent red, faked with gradient */ 
-  linear-gradient(
-    rgba(0, 0, 0, 0.4), 
-    rgba(0, 0, 0, 0.4)
-  ),
-  /* bottom, image */
-  url('img/coffee-header.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-bottom:200px;
-}
+
 .product-anchor:hover,.product-anchor:visited,.product-anchor:focus,.product-anchor:active{
   color: inherit;
   text-decoration: none;
@@ -383,7 +378,7 @@ tr.cart-header th{
 
 // PRODUCT PAGE CSS OVERRIDE //
 /*********************************************
-    			Call Bootstrap
+          Call Bootstrap
 *********************************************/
 
 @import url("bootstrap/bootstrap.min.css");
@@ -391,29 +386,29 @@ tr.cart-header th{
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 
 /*********************************************
-        		Theme Elements
+            Theme Elements
 *********************************************/
 
 .gold{
-	color: #FFBF00;
+  color: #FFBF00;
 }
 
 /*********************************************
-					PRODUCTS
+          PRODUCTS
 *********************************************/
 
 .product{
-	border: 1px solid #dddddd;
-	height: 321px;
+  border: 1px solid #dddddd;
+  height: 321px;
 }
 
 .product>img{
-	max-width: 230px;
+  max-width: 230px;
 }
 
 .product-rating{
-	font-size: 20px;
-	margin-bottom: 25px;
+  font-size: 20px;
+  margin-bottom: 25px;
 }
 
 .product-brand{
@@ -428,15 +423,15 @@ tr.cart-header th{
 }
 
 .product-desc{
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .product-price{
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .product-stock{
-	color: rgb(44, 202, 0);
+  color: rgb(44, 202, 0);
   font-size:16px;
   font-weight: 700;
   margin-top: 10px;
@@ -446,11 +441,11 @@ tr.cart-header th{
 }
 
 .product-info{
-		margin-top: 50px;
+    margin-top: 50px;
 }
 
 /*********************************************
-					VIEW
+          VIEW
 *********************************************/
 
 .main-wrapper{
@@ -458,14 +453,14 @@ tr.cart-header th{
   padding: 24px;
 }
 .content-wrapper {
-	max-width: 1140px;
-	background: #fff;
-	margin: 0 auto;
-	margin-top: 25px;
+  max-width: 1140px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 25px;
   padding-bottom: 25px;
   border: 1px solid;
   border-color: rgba(0,0,0,0.1);
-	border-radius: 4px;
+  border-radius: 4px;
 }
 .thick{
   font-weight: 500;
@@ -474,7 +469,7 @@ tr.cart-header th{
 .bordered{
   border: 1px solid;
   border-color: rgba(0,0,0,0.1);
-	border-radius: 4px;
+  border-radius: 4px;
 }
 .bordered-s{
   border: 1px solid;
@@ -485,14 +480,14 @@ tr.cart-header th{
   color:#317ecc;
 }
 .container-fluid{
-	max-width: 1140px;
-	margin: 0 auto;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .view-wrapper {
-	float: right;
-	max-width: 70%;
-	margin-top: 25px;
+  float: right;
+  max-width: 70%;
+  margin-top: 25px;
 }
 
 .b-radius{
@@ -628,11 +623,11 @@ footer{
 
 // OVERRIDE CSS //
 /*    --------------------------------------------------
-	:: General
-	-------------------------------------------------- */
+  :: General
+  -------------------------------------------------- */
 
   
-  /*	--------------------------------------------------
+  /*  --------------------------------------------------
     :: Table Filter
     -------------------------------------------------- */
 
@@ -1020,83 +1015,83 @@ li.borderless {
 
 
 /* DIALOG CONTENT */
-	.modal-content {
-		border: none;
-		border-radius: px;
-		-webkit-box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
-		   -moz-box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
-				box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
-	}
+  .modal-content {
+    border: none;
+    border-radius: px;
+    -webkit-box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+       -moz-box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 40px 77px rgba(0, 0, 0, 0.22), 0 27px 24px rgba(0, 0, 0, 0.2);
+  }
 
 /* DIALOG HEADER */
-	.modal-header {
-		min-height: 16px;
-		padding: 24px;
-		border-bottom: none;
-	}
+  .modal-header {
+    min-height: 16px;
+    padding: 24px;
+    border-bottom: none;
+  }
 
-	.modal-title {
-		font-weight: 500;
-		font-size: 21px;
-	}
+  .modal-title {
+    font-weight: 500;
+    font-size: 21px;
+  }
 
-	/* DIALOG BODY */
-	.modal-body {
-		padding: 0 24px;
-	}
+  /* DIALOG BODY */
+  .modal-body {
+    padding: 0 24px;
+  }
 
-	.modal-body p {
-		font-weight: 400;
-		font-size: 14px;
-		color: #212121;
-	}
+  .modal-body p {
+    font-weight: 400;
+    font-size: 14px;
+    color: #212121;
+  }
 
-	.modal-body .lead {
-		font-weight: 300;
-		font-size: 14px;
-		color: #757575;
-	}
+  .modal-body .lead {
+    font-weight: 300;
+    font-size: 14px;
+    color: #757575;
+  }
 
-	.modal-body p:last-child,
-	.modal-body .lead:last-child {
-		margin-bottom: 0;
-	}
+  .modal-body p:last-child,
+  .modal-body .lead:last-child {
+    margin-bottom: 0;
+  }
 
 /* DIALOG FOOTER */
-	.modal-footer {
-		margin-top: 24px;
-		padding: 8px 0;
-		border-top: none;
-	}
+  .modal-footer {
+    margin-top: 24px;
+    padding: 8px 0;
+    border-top: none;
+  }
 
-	.modal-footer .btn {
-		height: 36px;
-		margin-right: 8px;
-		padding: 8px 10px;
-		border: none;
-		border-radius: 0;
-		text-transform: uppercase;
-		font-weight: 500;
-		color: #009688;
-		background-color: #fff;
-	}
+  .modal-footer .btn {
+    height: 36px;
+    margin-right: 8px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #009688;
+    background-color: #fff;
+  }
 
-	.modal-footer .btn:focus {
-		outline: none;
-		box-shadow: none;
-	}
+  .modal-footer .btn:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
-	.modal-footer .btn:focus,
-	.modal-footer .btn:hover {
-		color: #00796B;
-	}
+  .modal-footer .btn:focus,
+  .modal-footer .btn:hover {
+    color: #00796B;
+  }
 
-	.modal-footer .btn + .btn {
-		margin-left: 0;
-	}
+  .modal-footer .btn + .btn {
+    margin-left: 0;
+  }
 
-	.modal-footer .btn + .btn:last-child {
-		margin-left: -4px;
+  .modal-footer .btn + .btn:last-child {
+    margin-left: -4px;
   }
   
 .orange{
@@ -1283,24 +1278,24 @@ li.borderless {
   font-size: 14px;
 }
 .alert-minimalist {
-	background-color: rgb(241, 242, 240);
-	border-color: rgba(149, 149, 149, 0.3);
-	border-radius: 3px;
-	color: rgb(149, 149, 149);
-	padding: 10px;
+  background-color: rgb(241, 242, 240);
+  border-color: rgba(149, 149, 149, 0.3);
+  border-radius: 3px;
+  color: rgb(149, 149, 149);
+  padding: 10px;
 }
 .alert-minimalist > [data-notify="icon"] {
-	height: 50px;
-	margin-right: 12px;
+  height: 50px;
+  margin-right: 12px;
 }
 .alert-minimalist > [data-notify="title"] {
-	color: rgb(51, 51, 51);
-	display: block;
-	font-weight: bold;
-	margin-bottom: 5px;
+  color: rgb(51, 51, 51);
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 .alert-minimalist > [data-notify="message"] {
-	font-size: 80%;
+  font-size: 80%;
 }
 .boxsizingBorder {
   -webkit-box-sizing: border-box;

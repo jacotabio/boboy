@@ -699,7 +699,6 @@ $(document).ready(function(){
         window.location = "/admin/?p=brands&bid="+id;
         //alert( 'Clicked row id '+id );
     });
-
     
     
     // Realtime Dynamic Refresh

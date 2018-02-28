@@ -6,7 +6,7 @@
             <div class="col-md-12 no-gap" style="padding:0;">
                 <div class="panel panel-primary" style="">
                     <div class="panel-heading">
-                        <span id="chat-modal-title">Chat</span>
+                        <span id="chat-modal-title" style="color:#fff;">Chat</span>
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-primary btn-xs" style="background:none;border:none;outline:none;box-shadow:none;margin-left:4px;" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>Close</button>
                         </div>

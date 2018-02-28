@@ -80,7 +80,7 @@ class Chats{
   }
 
   public function retrieve_messages($cid){
-    $query = $this->db->prepare("SELECT * FROM messages WHERE convo_id = ? ORDER BY created_at ASC");
+    $query = $this->db->prepare("SELECT * FROM messages,conversations,users WHERE conversations.brand_id = users.brand_id AND conversations.convo_id = ? AND conversations.convo_id = messages.convo_id ORDER BY messages.created_at ASC");
     $query->bindParam(1,$cid);
     $query->execute();
 

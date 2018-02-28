@@ -53,7 +53,7 @@ if(isset($_POST['chat_content'])){
             if($_m['sender_id'] == $_SESSION['admin_id']){?>
                 <li class="right">
                     <span class="chat-img pull-right">
-                    <img src="../img/logo.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" data-animation="false"/>
+                    <img src="../img/logo - icon.png" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('g:i A m/d/y');?>" data-placement="right" class="img-circle img-responsive chat-img" data-animation="false"/>
                     </span>
                     <div class="chat-body clearfix">
                         <div style="margin-top:5px;">
@@ -67,7 +67,7 @@ if(isset($_POST['chat_content'])){
             }else{?>
                 <li class="left">
                     <span class="chat-img pull-left">
-                    <img src="http://placehold.it/40/FA6F57/fff&text=<?php echo $firstCharacter = substr($chat->get_name($_m['sender_id']), 0, 1);?>" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('m/d/y g:i A');?>" data-placement="left" class="img-circle" />
+                    <img src="../<?php echo $_m['usr_img'];?>" alt="User Avatar" data-toggle="tooltip" title="<?php $date = new DateTime($_m['created_at']);echo $date->format('m/d/y g:i A');?>" data-placement="left" class="img-circle" />
                     </span>
                     <div class="chat-body clearfix">
                         <div style="margin-top:5px">
