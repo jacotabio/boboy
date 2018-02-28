@@ -8,9 +8,12 @@ $chat = new Chats();
         <div class="row">
             <h4 class="" style="margin:0;padding-left:0px;padding-top:8px;padding-bottom:0px;">Admin</h4>
             <p class="" style="font-size:12px;font-weight:500;color:rgba(0,0,0,0.54); margin-bottom:8px;">Send a message to Boboy's admin team</p>
-            <div class="chat-panel-body-admin">
-                <div id="chat-admin-content" class="" style="background:rgba(0,0,0,0.02);border:1px solid #ededed;">
 
+            <div class="chat-panel-body-admin" style="background:rgba(0,0,0,0.02);border:1px solid #ededed;">
+                <div id="chat-admin-content" class="" style="">
+                    <div class="loading-div">
+                      <svg class="spinner" stroke="#5677fc" width="50px" height="50px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>
+                    </div>
                 </div>
             </div>
             <form id="form-chat-admin" method="POST">
