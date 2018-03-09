@@ -96,7 +96,7 @@ class Orders{
   }
 
   public function remove_oi($id,$oid,$bid){
-    $q1 = $this->db->prepare("SELECT SUM(oi_qty*oi_subtotal) AS total_deduct FROM oitem WHERE oi_id = ?");
+    $q1 = $this->db->prepare("SELECT oi_subtotal AS total_deduct FROM oitem WHERE oi_id = ?");
     $q1->bindParam(1,$id);
     $q1->execute();
     $row1 = $q1->fetch(PDO::FETCH_ASSOC);
@@ -131,7 +131,6 @@ class Orders{
 
       return "order_removed";
     }
-    
     $this->db = null;
   }
 

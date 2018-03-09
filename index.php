@@ -274,6 +274,6 @@ $currency = "₱";
     <script src="js/datatables.min.js"></script>
     <script src="js/dataTables.material.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.min.js"></script>
+    <script src="js/custom.js"></script>
   </body>
 </html>

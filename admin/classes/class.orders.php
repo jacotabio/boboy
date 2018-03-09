@@ -130,7 +130,7 @@ class Orders{
   }
 
   public function order_details($id){
-    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,order_total+custom_fee AS total,orders.order_id,order_total AS subtotal,created_at,order_status,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id");
+    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,order_total+custom_fee AS total,orders.order_id,order_total AS subtotal,created_at,order_status,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id AND oi_status != 2");
     $query->bindParam(1,$id);
     $query->execute();
 
@@ -160,7 +160,7 @@ class Orders{
   }
 
   public function get_oitems_brands($id){
-    $query = $this->db->prepare("SELECT DISTINCT(items.brand_id),brand_name,SUM(oi_subtotal) AS per_total,brand_status FROM oitem,items,brands WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = brands.brand_id GROUP BY brand_id");
+    $query = $this->db->prepare("SELECT DISTINCT(items.brand_id),brand_name,SUM(oi_subtotal) AS per_total,brand_status FROM oitem,items,brands WHERE order_id = ? AND items.item_id = oitem.item_id AND items.brand_id = brands.brand_id AND oi_status != 2 GROUP BY brand_id");
     $query->bindParam(1,$id);
     $query->execute();
 

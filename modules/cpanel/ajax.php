@@ -126,7 +126,7 @@ if(isset($_POST['cpanel_admin_chat'])){
 if(isset($_POST['oi_remove'])){
   if($sesh == true){
     echo $order->remove_oi($_POST['oi_id'],$_POST['order_id'],$_SESSION['brand_id']);
-
+    /*
     $total_items = $order->count_total_items($_POST['order_id']);
     $total_declined = $order->count_total_declined($_POST['order_id']);
     $total_pending = $order->count_pending_items($_POST['order_id']);
@@ -134,7 +134,7 @@ if(isset($_POST['oi_remove'])){
 
     if($total_pending == 0 && $foo > 0){
       $order->order_pending_complete($_POST['order_id']);
-    }
+    }*/
   }
 }
 
