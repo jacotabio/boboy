@@ -30,7 +30,7 @@ $currency = "₱ ";
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <title><?php echo $brandname;?> | Admin</title>
     <!-- Bootstrap Core CSS -->
@@ -76,14 +76,14 @@ $currency = "₱ ";
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="img/logo - icon.png" height="16px" alt="homepage" class="dark-logo" />
                             
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                             <!-- dark Logo text -->
-                            <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="img/logo.png" height="16px" alt="homepage" class="dark-logo" />
                         </span>
                     </a>
                 </div>

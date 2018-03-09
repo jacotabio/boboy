@@ -211,7 +211,7 @@ if(isset($_POST['order_view'])){
 	                          }
 	                        }
 	                        ?>
-	                        	<li class="list-group-item" style="font-weight:500;">Total<span class="float-right"><?php echo $currency.$oib['per_total'];?></span></li>
+	                        	<li class="list-group-item" style="font-weight:500;">Total<span class="float-right"><?php if($oib['per_total'] != null){ echo $currency.$oib['per_total'];}else{ echo "0.00";}?></span></li>
 	                          </ul>
 	                        </div>
 	                        <?php
@@ -223,8 +223,8 @@ if(isset($_POST['order_view'])){
 	                  <div class="col-lg-5">
 	                    <label class="label-title">Order Summary</label>
 	                    <ul class="list-group" style="display:inline-block;width:100%;">
-	                      <li class="list-group-item">Number of Items<span id="od-noi" class="float-right"><?php echo $g['noi'];?></span></li>
-	                      <li class="list-group-item list-borderless">Subtotal<span id="od-st" class="float-right"><?php echo $currency.$g['subtotal'];?></span></li>
+	                      <li class="list-group-item">Number of Items<span id="od-noi" class="float-right"><?php if($g['noi'] != null){echo $g['noi'];}else{ echo "0";}?></span></li>
+	                      <li class="list-group-item list-borderless">Subtotal<span id="od-st" class="float-right"><?php if($g['subtotal']){echo $currency.$g['subtotal'];}else{ echo $currency."0.00";}?></span></li>
 	                      <li class="list-group-item list-borderless">Service Fee<span id="od-sf" class="float-right"><?php echo $currency.$g['service_fee'];?></span></li>
 	                      <li class="list-group-item" style="font-weight:500;">Total<span id="od-tt" class="float-right"><?php echo $currency.$g['total'];?></span></li>
 	                    </ul>
