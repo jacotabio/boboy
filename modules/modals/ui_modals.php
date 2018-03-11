@@ -35,7 +35,7 @@
 </div><!-- modal -->
 
 <div class="modal" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel"><?php echo $brandname?></h4>

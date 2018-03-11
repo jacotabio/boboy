@@ -112,6 +112,7 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
                           </div>	
                           <?php 
                           }else{?>
+
                           <div class="media-photo pull-left" style="background-image: url('img/no-image.png');">
                           </div>
                           <?php
@@ -150,14 +151,12 @@ if(isset($_GET['action']) && $_GET['action'] == "new"){?>
                       <td>
                         <div class="media">
                           <?php
-                          if($mia['item_img'] != null){
-                          ?>
+                          if($mia['item_img'] != null || $mia['item_img'] != ""){?>
                           <div class="media-photo pull-left" style="background-image: url('<?php echo "img/upload/".$mia['item_img'];?>');">
                           </div>	
                           <?php 
                           }else{?>
                           <div class="media-photo pull-left" style="background-image: url('img/no-image.png');">
-
                           </div>
                           <?php
                           }

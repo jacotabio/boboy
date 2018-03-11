@@ -163,7 +163,7 @@ if(isset($_POST['order_view'])){
 	                            </div>
 	                            <div class="stepwizard-step">
 	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 2)?'btn-success':'';?>"><?php if($os >= 2){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>
-	                                <p>Collecting</p>
+	                                <p>Collect</p>
 	                            </div>
 	                            <div class="stepwizard-step">
 	                              <button type="button" class="btn btn-circle step-circle <?php echo ($os >= 3)?'btn-success':'';?>"><?php if($os >= 3){?><span class=""><i class="fa fa-check" aria-hidden="true"></i></span><?php }?></button>

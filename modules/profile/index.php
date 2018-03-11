@@ -11,7 +11,7 @@ if(!$user->get_session()){
       <div class="col-lg-3 col-md-3">
         <div class="" style="display:inline-block;width:100%;">
           <div class="" style="display:inline-block;">
-            <label class="roboto" style="padding: 16px 16px 16px 16px;margin:0;" value=""><?php echo $_SESSION['usr_name'];?><label>
+            <label class="roboto" style="padding: 16px 16px 16px 16px;margin:0;" value="">Hello, <?php echo $_SESSION['usr_name'];?>!<label>
           </div>
         </div>
         <!-- Sidenav Filter Left -->

@@ -12,7 +12,7 @@ class Orders{
   }
 
   public function dashboard_data(){
-    $sth = $this->db->prepare("SELECT (SELECT SUM(order_total+custom_fee) FROM orders WHERE DATE(`created_at`) = CURDATE()) AS sales_today, (SELECT SUM(order_total+custom_fee) FROM orders) AS total_sales, (SELECT COUNT(order_id) FROM orders WHERE DATE(`created_at`) = CURDATE()) AS orders_today, (SELECT COUNT(order_id) FROM orders) AS total_orders");
+    $sth = $this->db->prepare("SELECT (SELECT COUNT(order_id) FROM orders WHERE order_status = 3) AS on_delivery, (SELECT COUNT(brands.brand_id) FROM brands,users WHERE brand_status = 1 AND brands.brand_id = users.brand_id AND usr_status = 1 AND is_hidden = 0) AS active_brands,(SELECT COUNT(order_id) FROM orders WHERE order_status = 0) AS pending_orders, (SELECT COUNT(order_id) FROM orders WHERE order_status = 1) AS ongoing_orders, (SELECT COUNT(order_id) FROM orders WHERE order_status = 2) AS pickup_orders,(SELECT SUM(order_total+custom_fee) FROM orders WHERE DATE(`created_at`) = CURDATE() AND order_status = 4) AS sales_today, (SELECT SUM(order_total+custom_fee) FROM orders WHERE order_status = 4) AS total_sales, (SELECT COUNT(order_id) FROM orders WHERE DATE(`created_at`) = CURDATE()) AS orders_today, (SELECT COUNT(order_id) FROM orders) AS total_orders");
     $sth->execute();
 
     while($row = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -110,7 +110,7 @@ class Orders{
                                   CASE
                                     WHEN order_status = 0 THEN 'Processing'
                                     WHEN order_status = 1 THEN 'Approved'
-                                    WHEN order_status = 2 THEN 'Collecting'
+                                    WHEN order_status = 2 THEN 'Collect Now'
                                     WHEN order_status = 3 THEN 'On Delivery'
                                     WHEN order_status = 4 THEN 'Closed'
                                     WHEN order_status = 5 THEN 'Declined'
@@ -130,7 +130,7 @@ class Orders{
   }
 
   public function order_details($id){
-    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,order_total+custom_fee AS total,orders.order_id,SUM(oi_subtotal) AS subtotal,created_at,order_status,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id AND oi_status != 2");
+    $query = $this->db->prepare("SELECT SUM(oi_qty) AS noi,SUM(oi_subtotal)+custom_fee AS total,orders.order_id,SUM(oi_subtotal) AS subtotal,created_at,order_status,CASE WHEN orders.usr_id = 1 THEN custom_name ELSE usr_name END AS usr_name,delivery_address,contact_number,custom_fee AS service_fee FROM orders,users,oitem WHERE oitem.order_id = orders.order_id AND orders.order_id = ? AND orders.usr_id = users.usr_id AND oi_status != 2");
     $query->bindParam(1,$id);
     $query->execute();
 

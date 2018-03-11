@@ -576,31 +576,38 @@ $(document).ready(function(){
         });
     }
 
-    var tblpen = $('#table-pending-orders').DataTable( {
-        aaSorting: [[1, 'desc']],
-        columnDefs: [
+    tblpen = $('#table-pending-orders').DataTable( {
+        "pagingType": "full_numbers",
+        "pageLength": 10,
+        "aaSorting": [[1, 'desc']],
+        "columnDefs": [
         {   
             "className": ["dt-right"],
             "targets": [3,4]
         }],
-        bDeferRender:true,
-        responsive:true,
-        ajax: {
-            url: "modules/orders/pending.php",
-            type: "POST"
+        "deferRender":true,
+        "responsive":true,
+        "ajax": {
+            "url": "modules/orders/pending.php",
+            "type": "POST"
         },
-        rowId: 'order_id',
-        columns:[
+        "rowId": "order_id",
+        "columns":[
             { "data": "order_id"},
             { "data": "datetime"},
             { "data": "customer"},
             { "data": "price"},
             { "data": "status" }
         ],
-        oLanguage:{
-            sProcessing: "Loading orders",
-            sZeroRecords: "No orders"
-        }
+        "oLanguage":{
+            "sProcessing": "Loading orders",
+            "sZeroRecords": "No orders"
+        },
+        "initComplete": function() {
+            setInterval(function() {
+                tblpen.ajax.reload(null, false);
+            }, 5000);
+        },
     });
 
     var tblcust = $('#table-customers').DataTable( {
@@ -655,9 +662,9 @@ $(document).ready(function(){
     });
 
     setInterval( function () {
-        tblpen.ajax.reload();
-        tblcust.ajax.reload();
-        tblbrands.ajax.reload();
+        
+        tblcust.ajax.reload(null, false);
+        tblbrands.ajax.reload(null, false);
     }, 5000 );
     
     function scrollBottomChat(){

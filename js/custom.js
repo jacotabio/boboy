@@ -176,11 +176,11 @@ function checkSession(){
     method: "POST",
     success:function(data){
       if(data == "deleted"){
-        alert("account was deleted by the admin");
+        alert("Your account was deleted. Please visit our office for more inquiries.");
         window.location = "/";
       }
       if(data == "disabled"){
-        alert("Your account was disabled by the admin");
+        alert("Your account was disabled, please contact us for more inquiries.");
         window.location = "/";
       }
     }
@@ -404,7 +404,7 @@ $(document).ready(function(){
     var data = $(this).serializeArray();
     data.push({name: "chat-admin", value: 1});
     if ( $.trim( data[0]['value'] ) == '' ){
-      alert('input is blank');
+      alert('Field empty');
     }else{
       $.ajax({
         url: "modules/cpanel/ajax.php",
@@ -445,7 +445,7 @@ $(document).ready(function(){
   });
 
   $("body").on("click", "#admin-chat", function(e){
-    alert("asd");
+
   });
 
   $("body").on("click",".cart-row",function(e){
@@ -773,7 +773,7 @@ $(document).ready(function(){
               },5000);
             }
             if(d == "update_failed"){
-              alert("Failed to update");
+              $("#modal-error").modal();
             }
             if(d == "new_invalid"){
               $("#new-password-invalid").show();
@@ -914,7 +914,7 @@ $(document).ready(function(){
         },0);
       },
       error: function(asd){
-        alert("ajax failed");
+        $("#modal-error").modal();
       }
     });
   });
@@ -1344,7 +1344,6 @@ $(document).ready(function(){
   if(getUrlParameter('mod') == "profile" && getUrlParameter('t') == "orders"){
     if(getUrlParameter('o_id') != null){
       orderInfo();
-      alert("load order info");
     }
   }
    setTimeout(realtimeCheck, 10000);

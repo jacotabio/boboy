@@ -65,25 +65,25 @@ $currency = "₱ ";
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar">
+        <header class="topbar" style="">
             <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header">
+                <div class="navbar-header" style="background-color: #317ecc;">
                     <a class="navbar-brand" href="/admin/">
                         <!-- Logo icon -->
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="img/logo - icon.png" height="16px" alt="homepage" class="dark-logo" />
+                            <img class="dark-logo" />
                             
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                             <!-- dark Logo text -->
-                            <img src="img/logo.png" height="16px" alt="homepage" class="dark-logo" />
+                            <img src="img/logo.png" height="40px" alt="homepage" class="dark-logo" />
                         </span>
                     </a>
                 </div>
